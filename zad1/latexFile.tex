@@ -1,0 +1,74 @@
+
+\documentclass[12pt]{article}
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\usepackage[a4paper,bindingoffset=0.2in,%
+            left=1in,right=1in,top=0.4in,bottom=0.4in,%
+            footskip=.2in]{geometry}
+            
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\selectlanguage{polish}
+\usepackage{blindtext}
+\usepackage{pgfplots}
+\usepackage{graphicx}
+
+\title{Algorytmy numeryczne}
+\author{Zadanie 1 \\ Aleksander Kosma}
+\date{11 Październik 2017}
+
+\begin{document}
+\maketitle 
+
+\section{Sumowanie szeregów potęgowych}
+
+
+
+Niniejsze opracowanie prezentuje badania i wnioski z prób wyliczenia wartości funkcji arctan.
+Odnośnikiem w postaci wyniku były wartości funkcji obliczane przez wbudowaną bibliotekę Math.
+Wykorzystałem dwa znane mi sposoby na obliczenie tej wartości. Są to:\\
+-zsumowanie elementów wyliczonych z szeregu potęgowego:\\
+$$arctg(x) = \sum_{n=0}^{\infty}\frac{(-1)^n}{2n + 1} x^{2n + 1}$$
+-zsumowanie elementów wyliczonych na podstawie poprzednika:\\
+$$a_{n+1}= a *-\frac{x^2 * (2n + 1)}{2n + 3}$$
+
+Ze względu na charakter obliczeń podzieliłem owe zsumowania na kolejne dwa:\\
+-zsumowanie elementów licząc od tyłu\\
+-zsumowanie elementów licząc od przodu\\
+
+Pracując na zmiennej typu Double ograniczyłem swoje obliczenia do 15-17 miejsca po przecinku.
+Pomimo dość niskiej precyzji obliczeń da się zauważyć pewne zachowania w wynikach. Okazuje się że wyniki
+zsumowanych elementów od przodu i od tyłu daje różne rezultaty. Również ze względu na zbieżność szeregu w $[-1,1]$ 
+liczyłem tylko dla tego zakresu.
+
+Pierwszy wykres prezentuje procentowe szanse na precyzyjniejszy wynik dla sumowań.
+Można zauważyć że bardzo dużą przewagę ma sumowanie od tyłu. Szczególnie w okolicach $[-0.5,0.5]$
+
+\begin{center}
+ \makebox[\textwidth]{\includegraphics[width=0.7\paperwidth]{rozklad_procentowy.png}}
+\end{center}
+
+Drugi wykres prezentuje bezwzględną różnice miedzy wynikiem biblioteki a sumowaniami. 
+Środkowa część wykresu ukazuje wyższość sumowania od tyłu.Jest ono precyzyjniejsze nawet o 2 rzędy wielkości.
+
+
+\begin{center}
+ \makebox[\textwidth]{\includegraphics[width=0.7\paperwidth]{rozklad.png}}
+\end{center}
+
+Takie rezultaty wynikają z natury działania zmiennej double. W przypadku sumowania liczby większej
+o parę rzędów wielkości do liczby mniejszej, zmienna odrzuca końcowe cyfry mniejszej liczby by pomieścić 
+najistotniejsze wartości. Stąd utrata precyzji. W momencie kiedy dwie liczby mają podobną wartość, ich suma potrzebować będzie podobnej precyzji do zapisania wyniku. W konsekwencji nie odrzuci danych.
+Podsumowując kwestie precyzji wyniku opierając się o zmienną double, można stwierdzić, że precyzja wyniku wacha się do średnio 14-15 miejsca po przecinku.
+
+By rozwiązać problem który zaistniał w przypadku doubla, trzeba mieć kontrolę nad precyzją wyniku i jego 
+ewentualnym zaokrąglaniu. Rozwiązaniem okazuje się klasa BigDecimal.Klasa ta może przechować nieograniczoną 
+wartość, ogranicza ją jedynie skala która osiąga wartość 32-bitowego integera, czyli trochę 
+ponad dwa miliardy miejsc.
+
+
+
+\end{document}
