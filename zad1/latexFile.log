@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.11)  13 OCT 2017 17:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.11)  13 OCT 2017 22:58
 entering extended mode
 **./latexFile.tex
 (latexFile.tex
@@ -6,8 +6,8 @@ LaTeX2e <2017-04-15>
 Babel <3.10> and hyphenation patterns for 75 language(s) loaded.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\article.cls"
 Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\size12.clo"
-File: size12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\size10.clo"
+File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
 \c@section=\count80
@@ -952,22 +952,22 @@ File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 * bindingoffset: 14.45377pt
 * modes: 
 * h-part:(L,W,R)=(72.26999pt, 438.51413pt, 72.26999pt)
-* v-part:(T,H,B)=(28.90755pt, 787.23175pt, 28.90755pt)
+* v-part:(T,H,B)=(14.45377pt, 808.91187pt, 21.68121pt)
 * \paperwidth=597.50787pt
 * \paperheight=845.04684pt
 * \textwidth=438.51413pt
-* \textheight=787.23175pt
+* \textheight=808.91187pt
 * \oddsidemargin=14.45377pt
 * \evensidemargin=0.0pt
-* \topmargin=-80.36244pt
+* \topmargin=-94.81622pt
 * \headheight=12.0pt
 * \headsep=25.0pt
-* \topskip=12.0pt
-* \footskip=14.45377pt
-* \marginparwidth=44.0pt
-* \marginparsep=10.0pt
+* \topskip=10.0pt
+* \footskip=10.84006pt
+* \marginparwidth=65.0pt
+* \marginparsep=11.0pt
 * \columnsep=10.0pt
-* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
@@ -1061,22 +1061,22 @@ LaTeX Font Info:    Try loading font information for OMX+lmex on input line 24.
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 24.
+(Font)              <12> on input line 24.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 24.
+(Font)              <8> on input line 24.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 24.
+(Font)              <6> on input line 24.
 
 Underfull \hbox (badness 10000) in paragraph at lines 30--34
 
  []
 
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 34.
+(Font)              <10> on input line 34.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 34.
+(Font)              <7> on input line 34.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 34.
+(Font)              <5> on input line 34.
 
 Underfull \hbox (badness 10000) in paragraph at lines 34--36
 
@@ -1092,39 +1092,58 @@ File: rozklad_procentowy.png Graphic file (type png)
 
 <use rozklad_procentowy.png>
 Package pdftex.def Info: rozklad_procentowy.png used on input line 51.
-(pdftex.def)             Requested size: 418.25368pt x 243.9202pt.
+(pdftex.def)             Requested size: 328.63115pt x 191.65012pt.
+ <rozklad.png, id=6, 1403.2425pt x 684.5575pt>
+File: rozklad.png Graphic file (type png)
+
+<use rozklad.png>
+Package pdftex.def Info: rozklad.png used on input line 59.
+(pdftex.def)             Requested size: 388.37646pt x 189.46034pt.
  [1
 
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}] <rozklad.png, id=20, 1403
-.2425pt x 684.5575pt>
-File: rozklad.png Graphic file (type png)
- <use rozklad.png>
-Package pdftex.def Info: rozklad.png used on input line 59.
-(pdftex.def)             Requested size: 418.25368pt x 204.04225pt.
- [2 <./rozklad_procentowy.png> <./rozklad.png>] (latexFile.aux) ) 
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <./rozklad_procentowy.png>
+] <przyklad.png, id=23, 1204.5pt x 602.25pt>
+File: przyklad.png Graphic file (type png)
+
+<use przyklad.png>
+Package pdftex.def Info: przyklad.png used on input line 68.
+(pdftex.def)             Requested size: 328.63115pt x 164.31892pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 70--74
+
+ []
+
+<bigDecimal.png, id=24, 1636.1125pt x 231.86626pt>
+File: bigDecimal.png Graphic file (type png)
+ <use bigDecimal.png>
+Package pdftex.def Info: bigDecimal.png used on input line 78.
+(pdftex.def)             Requested size: 448.1309pt x 63.5069pt.
+
+[2 <./rozklad.png> <./przyklad.png> <./bigDecimal.png>] (latexFile.aux) ) 
 Here is how much of TeX's memory you used:
- 22901 strings out of 493323
- 587103 string characters out of 3139062
- 793904 words of memory out of 3000000
- 26020 multiletter control sequences out of 15000+200000
- 41567 words of font info for 40 fonts, out of 3000000 for 9000
+ 22913 strings out of 493323
+ 587261 string characters out of 3139062
+ 794883 words of memory out of 3000000
+ 26027 multiletter control sequences out of 15000+200000
+ 41215 words of font info for 39 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,6n,96p,729b,609s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Fi
-les/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Program Files/MiKTeX 2.9/fo
-nts/enc/dvips/lm/lm-rm.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-m
-athit.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathex.enc}{C:/Pro
-gram Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}<C:/Program Files/MiKTeX 2.9
-/fonts/type1/public/lm/lmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
-ic/lm/lmex10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmmi12.pfb>
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmmi8.pfb><C:/Program Files/
-MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
-ype1/public/lm/lmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr
-8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Program
- Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy8.pfb>
-Output written on latexFile.pdf (2 pages, 178743 bytes).
+{C:/Pr
+ogram Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Program Files/MiKTe
+X 2.9/fonts/enc/dvips/lm/lm-rm.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips
+/lm/lm-mathit.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathex.enc
+}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}<C:/Program Files/Mi
+KTeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
+pe1/public/lm/lmex10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmm
+i10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmmi7.pfb><C:/Progra
+m Files/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Program Files/MiKTeX 2.9
+/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publi
+c/lm/lmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr7.pfb><C:/
+Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files/MiK
+TeX 2.9/fonts/type1/public/lm/lmsy7.pfb>
+Output written on latexFile.pdf (2 pages, 269176 bytes).
 PDF statistics:
- 59 PDF objects out of 1000 (max. 8388607)
+ 65 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 23 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 33 words of extra memory for PDF output out of 10000 (max. 10000000)
 
