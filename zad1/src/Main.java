@@ -9,8 +9,8 @@ public class Main {
     public static void main(String[] args){
 
         ArrayList<BigDecimal> bigDecimalList = new ArrayList<>();
-        MathContext mc = new MathContext(32, RoundingMode.HALF_DOWN);
-        double valueDouble = 0.2137;
+        MathContext mc = new MathContext(320, RoundingMode.HALF_DOWN);
+        double valueDouble = 0.2222;
         System.out.print("Output of Math libary:            ");
         System.out.println(Math.atan(valueDouble));
         //System.out.print("Output of wolfram:                0.54041950027058415544357836460859\n");
@@ -25,7 +25,7 @@ public class Main {
         BigDecimal pattern;
         int n=0;
         do{
-            BigDecimal tmp = new BigDecimal(valueDouble);
+            BigDecimal tmp = new BigDecimal("0.2222");
             tmp = tmp.pow(2*n+1);
             tmp = tmp.divide(BigDecimal.valueOf((2*n+1)),mc);
             pattern = new BigDecimal(Math.pow((-1),n));
@@ -42,7 +42,7 @@ public class Main {
 
         }
         System.out.print("Output of suming values forward:  ");
-        System.out.println(sumForward.setScale(17, RoundingMode.HALF_EVEN).toPlainString());
+        System.out.println(sumForward.setScale(64, RoundingMode.HALF_EVEN).toPlainString());
 
         //od tyłu
 
@@ -54,7 +54,7 @@ public class Main {
 
         }
         System.out.print("Output of suming values backward: ");
-        System.out.println(sumBackward.setScale(17, RoundingMode.HALF_DOWN).toPlainString());
+        System.out.println(sumBackward.setScale(64, RoundingMode.HALF_DOWN).toPlainString());
 
             //double
         //od prozdu
@@ -66,7 +66,7 @@ public class Main {
             patternDouble = Math.pow((-1),n)*Math.pow(valueDouble,(2*n +1))/(2*n +1);
             doubleList.add(patternDouble);
             n++;
-        }while(n!=350);
+        }while(n!=1350);
 
         double sumForwardDouble = 0;
         for(Double doubleValue : doubleList){
@@ -92,8 +92,8 @@ public class Main {
         //Od przodu
         //((-(value*value))*(2*n+1))/(2*n+3);
 
-        value = new BigDecimal(valueDouble);
-        sum = new BigDecimal(valueDouble);
+        value = new BigDecimal("0.2222");
+        sum = new BigDecimal("0.2222");
         n=0;
         BigDecimal  nextElement = value;
 
@@ -109,7 +109,7 @@ public class Main {
         }while(n != 350);
 
         System.out.print("Output of suming next forward:    ");
-        System.out.println(sum.setScale(17, RoundingMode.HALF_DOWN).toPlainString());
+        System.out.println(sum.setScale(64, RoundingMode.HALF_DOWN).toPlainString());
 
         //od tyłu
 
@@ -139,7 +139,7 @@ public class Main {
         }
 
         System.out.print("Output of suming next backward:   ");
-        System.out.println(sum.setScale(17, RoundingMode.HALF_DOWN).toPlainString());
+        System.out.println(sum.setScale(64, RoundingMode.HALF_DOWN).toPlainString());
 
             //double
         //od prozdu
@@ -177,8 +177,8 @@ public class Main {
         sumBackwardDouble+=valueDouble;
         System.out.print("Output of double next backward:   ");
         System.out.println(sumBackwardDouble);
-        /*
 
+/*
 //                              LICZENIE KTÓRE SUMOWANIE JEST PRECYZYJNIEJSZE
 
         int repetition = 100000;
@@ -220,8 +220,8 @@ public class Main {
         System.out.printf("average diffrence: %.22f\n",backwardClosedAverage/repetition);
         System.out.println("forward is better in: "+forwardClosed/repetition* 100+" %");
         System.out.printf("average diffrence: %.22f\n",forwardClosedAverage/repetition);
-*/
 
+*/
     }
 
     public static  ArrayList<Double> atanArrayDouble(double value){
