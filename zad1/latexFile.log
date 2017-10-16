@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.11)  13 OCT 2017 23:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.11)  16 OCT 2017 16:39
 entering extended mode
 **./latexFile.tex
 (latexFile.tex
@@ -1067,63 +1067,73 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <6> on input line 24.
 
-Underfull \hbox (badness 10000) in paragraph at lines 30--34
+Underfull \hbox (badness 10000) in paragraph at lines 30--33
 
  []
 
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 34.
+(Font)              <10> on input line 33.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 34.
+(Font)              <7> on input line 33.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 34.
+(Font)              <5> on input line 33.
 
-Underfull \hbox (badness 10000) in paragraph at lines 34--36
+Underfull \hbox (badness 10000) in paragraph at lines 33--35
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 38--41
+Underfull \hbox (badness 10000) in paragraph at lines 37--40
 
  []
 
-<rozklad_procentowy.png, id=4, 1158.3275pt x 675.52374pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 41--43
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 44--46
+
+ []
+
+<rozklad_procentowy.png, id=4, 1007.765pt x 595.22375pt>
 File: rozklad_procentowy.png Graphic file (type png)
 
 <use rozklad_procentowy.png>
-Package pdftex.def Info: rozklad_procentowy.png used on input line 51.
-(pdftex.def)             Requested size: 328.63115pt x 191.65012pt.
- <rozklad.png, id=6, 1403.2425pt x 684.5575pt>
+Package pdftex.def Info: rozklad_procentowy.png used on input line 49.
+(pdftex.def)             Requested size: 418.25368pt x 247.03142pt.
+ <rozklad.png, id=5, 1019.81pt x 648.4225pt>
 File: rozklad.png Graphic file (type png)
 
 <use rozklad.png>
-Package pdftex.def Info: rozklad.png used on input line 59.
-(pdftex.def)             Requested size: 388.37646pt x 189.46034pt.
+Package pdftex.def Info: rozklad.png used on input line 58.
+(pdftex.def)             Requested size: 388.37646pt x 246.9374pt.
  [1
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <./rozklad_procentowy.png>
-] <przyklad.png, id=23, 1204.5pt x 602.25pt>
-File: przyklad.png Graphic file (type png)
-
-<use przyklad.png>
-Package pdftex.def Info: przyklad.png used on input line 68.
-(pdftex.def)             Requested size: 238.9995pt x 119.49214pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 70--74
+]
+Underfull \hbox (badness 10000) in paragraph at lines 61--63
 
  []
 
-<bigDecimal.png, id=24, 1636.1125pt x 231.86626pt>
+<przyklad.png, id=21, 1204.5pt x 602.25pt>
+File: przyklad.png Graphic file (type png)
+ <use przyklad.png>
+Package pdftex.def Info: przyklad.png used on input line 65.
+(pdftex.def)             Requested size: 238.9995pt x 119.49214pt.
+
+<bigDecimal.png, id=22, 1028.84375pt x 307.1475pt>
 File: bigDecimal.png Graphic file (type png)
  <use bigDecimal.png>
-Package pdftex.def Info: bigDecimal.png used on input line 78.
-(pdftex.def)             Requested size: 448.1309pt x 63.5069pt.
+Package pdftex.def Info: bigDecimal.png used on input line 74.
+(pdftex.def)             Requested size: 478.00812pt x 142.70494pt.
 
 [2 <./rozklad.png> <./przyklad.png> <./bigDecimal.png>] (latexFile.aux) ) 
 Here is how much of TeX's memory you used:
  22913 strings out of 493323
  587261 string characters out of 3139062
- 794883 words of memory out of 3000000
+ 793883 words of memory out of 3000000
  26027 multiletter control sequences out of 15000+200000
  41215 words of font info for 39 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1141,9 +1151,9 @@ m Files/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Program Files/MiKTeX 2.9
 c/lm/lmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr7.pfb><C:/
 Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files/MiK
 TeX 2.9/fonts/type1/public/lm/lmsy7.pfb>
-Output written on latexFile.pdf (2 pages, 270522 bytes).
+Output written on latexFile.pdf (2 pages, 251547 bytes).
 PDF statistics:
- 65 PDF objects out of 1000 (max. 8388607)
+ 63 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  33 words of extra memory for PDF output out of 10000 (max. 10000000)
 

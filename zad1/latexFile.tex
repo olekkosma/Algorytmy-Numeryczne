@@ -18,7 +18,7 @@
 
 \title{Algorytmy numeryczne}
 \author{Zadanie 1 \\ Aleksander Kosma\\grupa 1 tester-programista}
-\date{13 Październik 2017}
+\date{16 Październik 2017}
 
 \begin{document}
 \maketitle 
@@ -27,9 +27,8 @@
 
 
 
-Niniejsze opracowanie prezentuje badania i wnioski z prób wyliczenia wartości funkcji arctan.
-Odnośnikiem w postaci wyniku były wartości funkcji obliczane przez wbudowaną bibliotekę Math.
-Wykorzystałem dwa znane mi sposoby na obliczenie tej wartości. Są to:\\
+Opracowanie prezentuje próby obliczenia funkcji arctan, przy pomocy języka java.
+Wykorzystano w tym celu dwa sposoby na obliczenie tej wartości. Są to:\\
 -zsumowanie elementów wyliczonych z szeregu potęgowego:\\
 $$arctg(x) = \sum_{n=0}^{\infty}\frac{(-1)^n}{2n + 1} x^{2n + 1}$$
 -zsumowanie elementów wyliczonych na podstawie poprzednika:\\
@@ -39,43 +38,39 @@ Ze względu na charakter obliczeń podzieliłem owe zsumowania na kolejne dwa:\\
 -zsumowanie elementów licząc od tyłu\\
 -zsumowanie elementów licząc od przodu\\
 
-Pracując na zmiennej typu Double zmuszony zostałem do ograniczenia swoich obliczeń do 15-17 miejsc po przecinku.
-Pomimo dość niskiej precyzji obliczeń da się zauważyć pewne zachowania w wynikach. Okazuje się, że wyniki
-zsumowanych elementów od przodu i od tyłu dają różne rezultaty. Również ze względu na zbieżność szeregu w $[-1,1]$ 
-liczyłem tylko dla tego zakresu.
+Wnioski zostały obliczone na zmiennej typu double. Również ze względu na zbieżność szeregu w $[-1,1]$ 
+liczyłem tylko dla tego zakresu.\\
 
-Pierwszy wykres prezentuje procentowe szanse na precyzyjniejszy wynik dla sumowań.
-Można zauważyć że bardzo dużą przewagę ma sumowanie od tyłu. Szczególnie w okolicach $[-0.5,0.5]$
+Wykres przedstawia który rodzaj sumowania ma większą szanse na precyzyjniejszy wynik względem drugiego.
+Każda kolumna wartości została wyliczona dla 100 tysięcy liczb między podanymi przedziałami. Razem 2 miliony próbek.\\
+
 
 \begin{center}
- \makebox[\textwidth]{\includegraphics[width=0.55\paperwidth]{rozklad_procentowy.png}}
+ \makebox[\textwidth]{\includegraphics[width=0.7\paperwidth]{rozklad_procentowy.png}}
 \end{center}
 
-Drugi wykres prezentuje bezwzględną różnice miedzy wynikiem biblioteki a sumowaniami. 
-Środkowa część wykresu ukazuje wyższość sumowania od tyłu. Jest ono precyzyjniejsze nawet o 2 rzędy wielkości.
+
+Drugi wykres prezentuje bezwzględną różnice między wynikiem biblioteki a sumowaniami. Można zauważyć, że przez większą część spektrum wartości, sumowanie tylne jest precyzyjniejsze nawet o 2 rzędy wielkości.
 
 
 \begin{center}
  \makebox[\textwidth]{\includegraphics[width=0.65\paperwidth]{rozklad.png}}
 \end{center}
 
-Takie rezultaty wynikają z natury działania zmiennej double. W przypadku sumowania liczby większej do liczby mniejszej(gdzie różnica wynosi parę rzędów wielkości), zmienna odrzuca końcowe cyfry mniejszej liczby by pomieścić 
-najistotniejsze wartości. Stąd utrata precyzji. W momencie kiedy dwie liczby mają podobną wartość, ich suma potrzebować będzie podobnej precyzji do zapisania wyniku. W konsekwencji nie odrzuci danych. Podsumowując kwestie precyzji wyniku. Opierając się o zmienną double, można stwierdzić, że precyzja wyniku waha się między  14 ,a 16 miejscem po przecinku.\\
-Na obrazku poniżej znajduje przy praktyczny przykład. Dla uproszczenia zagadnienia jest on prezentowany na zmiennej float(32 bity) która zazwyczaj mieści w sobie 8 cyfr dziesiętnych.
-
+Takie rezultaty wynikają z natury działania zmiennej double. W przypadku sumowania liczby większej do liczby mniejszej(gdzie różnica wynosi parę rzędów wielkości), zmienna odrzuca końcowe cyfry mniejszej liczby by pomieścić najistotniejsze wartości. Stąd utrata precyzji. W momencie kiedy dwie liczby mają podobną wartość, ich suma potrzebować będzie podobnej precyzji do zapisania wyniku. W konsekwencji nie odrzuci danych. Podsumowując kwestie precyzji wyniku. Opierając się o zmienną double, można stwierdzić, że precyzja wyniku waha się między 14, a 16 miejscem po przecinku.\\
+Na obrazku poniżej znajduje się praktyczny przykład. Dla uproszczenia zagadnienia jest on prezentowany na zmiennej float(32 bity) która zazwyczaj mieści w sobie 8 cyfr dziesiętnych.\\
 
 \begin{center}
  \makebox[\textwidth]{\includegraphics[width=0.4\paperwidth]{przyklad.png}}
 \end{center}
+
 By rozwiązać problem niskiej precyzji, który zaistniał w przypadku doubla, trzeba mieć kontrolę nad precyzją obliczeń. Rozwiązaniem może okazać się klasa BigDecimal. Klasa ta może przechować nieograniczoną 
 wartość liczbową, ogranicza ją jedynie skala która osiąga wartość 32-bitowego integera, czyli trochę 
 ponad dwa miliardy miejsc. \\
-Niestety nie udało mi się osiagnąć zamierzonej precyzji. W okolicach 17-19 miejsca wynik na BigDeciamalu zaczyna różnić się na tle wyniku z Wolfram(computational knowledge engine). Wzór wydaje się jak najbardziej dobry, więc obwiniam obliczenia lub konwersje które dzieją się może na doublach do których nie mam dostępu lub o nich nie wiem.\\
-
-Zdarzały się sytuacje, w których przybliżenie wyniku biblioteki różniło się od wyniku z Woflram. Za to wynik na BigDecimalach był precyzyjniejszy. Niestety ze względu na brak szybkiego dostępu do wyników z wolfram z poziomu kodu ciężko stworzyć realne statystyki. Oto tylko parę przykładów z moich obliczeń, lecz one nic nie dowodzą:
+Udało mi się osiągnąć praktycznie nieograniczoną precyzję. Wyniki oparte o BigDecimal porównywałem z kalkulatorem online Wolfram(computational knowledge engine). Przykładowy wypis programu wraz ze wszystkimi rodzajami obliczeń i ich wynikami. W tym przypadku podana precyzja BigDecimal i Wolfram to 64 miejsca po przecinku.
 
 \begin{center}
- \makebox[\textwidth]{\includegraphics[width=0.75\paperwidth]{bigDecimal.png}}
+ \makebox[\textwidth]{\includegraphics[width=0.8\paperwidth]{bigDecimal.png}}
 \end{center}
 
 
@@ -85,6 +80,5 @@ Zdarzały się sytuacje, w których przybliżenie wyniku biblioteki różniło s
 
 
 
-Dane do wykresów o doublach obliczone zostały na 2 milionach próbek.
 
 \end{document}
