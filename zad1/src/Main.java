@@ -7,7 +7,7 @@ import java.util.Collections;
 
 public class Main {
 
-    static int iterations = 300;
+    static int iterations = 150;
 
     public static ArrayList<BigDecimal> ValuesOfMcLourinList(String value) {
 
@@ -257,9 +257,9 @@ public class Main {
 
     public static void main(String[] args){
 
-        countOwnArctanValues("0.23456");
+        countOwnArctanValues("0.9");
 
-        //CountStatisticsOfArc(0.9,1.0,100000);
+       // CountStatisticsOfArc(0.9,1.0,100000);
 
     }
 }
