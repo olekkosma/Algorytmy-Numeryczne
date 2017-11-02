@@ -1,26 +1,24 @@
 public class GenericValue<T extends Number> {
-    String value;
-    final Class<T> classType;
+    T value;
 
-
-    public GenericValue(Class<T> classType,String value){
-        this.classType = classType;
+    public GenericValue(T value){
         this.value = value;
     }
 
-    public <T extends Number> T convertion(){
+    public static Number convertion(Number value1){
 
-        if(classType.equals(Double.class)){
-            return (T) Double.valueOf(value);
+        if(value1.getClass().equals(Double.class)){
+            return  value1.doubleValue();
         }
-        if(classType.equals(Float.class)){
-            return (T) Float.valueOf(value);
+        if(value1.getClass().equals(Float.class)){
+            return  value1.floatValue();
         }
         return null;
     }
 
 
+
     public void printValue(){
-        System.out.println(convertion());
+        System.out.println(convertion(value));
     }
 }

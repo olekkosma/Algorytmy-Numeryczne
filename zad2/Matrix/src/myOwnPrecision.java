@@ -3,15 +3,56 @@ import java.math.BigInteger;
 import java.math.MathContext;
 import java.math.RoundingMode;
 
-public class myOwnPrecision {
+public class MyOwnPrecision extends Number {
     BigInteger numerator;
     BigInteger denominator;
     String numberString;
     MathContext mc = new MathContext(512, RoundingMode.HALF_DOWN);
 
-    public myOwnPrecision(String numberString){
+    public MyOwnPrecision(String numberString){
         this.numberString=numberString;
         convertion();
+    }
+    public MyOwnPrecision(BigInteger numerator, BigInteger denominator, String numberString){
+        this.numerator=numerator;
+        this.denominator = denominator;
+        this.numberString = numberString;
+    }
+    public static MyOwnPrecision flip(MyOwnPrecision first){
+        MyOwnPrecision toReturn = first.newInstance();
+
+        BigInteger tmp = toReturn.getNumerator();
+        toReturn.setNumerator(toReturn.getDenominator());
+        toReturn.setDenominator(tmp);
+
+        return toReturn;
+    }
+
+    public BigInteger getNumerator() {
+        return numerator;
+    }
+
+    public BigInteger getDenominator() {
+        return denominator;
+    }
+
+    public String getNumberString() {
+        return numberString;
+    }
+
+    public static MyOwnPrecision negate(MyOwnPrecision first){
+        MyOwnPrecision toReturn1 = new MyOwnPrecision(first.getNumerator(),first.getDenominator(),first.getNumberString());
+        if(toReturn1.numerator.doubleValue() < 0 && toReturn1.denominator.doubleValue()<0
+        ||toReturn1.numerator.doubleValue() > 0 && toReturn1.denominator.doubleValue()>0 ){
+            toReturn1.setDenominator(toReturn1.getDenominator().negate());
+        }else{
+            if(toReturn1.numerator.doubleValue()<0){
+                toReturn1.setNumerator(toReturn1.getNumerator().negate());
+            }else{
+                toReturn1.setDenominator(toReturn1.getDenominator().negate());
+            }
+        }
+        return toReturn1;
     }
 
     public void convertion(){
@@ -32,16 +73,46 @@ public class myOwnPrecision {
         fractureBigInteger();
     }
 
+    public void setNumerator(BigInteger numerator) {
+        this.numerator = numerator;
+    }
 
-    public void add(myOwnPrecision second){
+    public void setDenominator(BigInteger denominator) {
+        this.denominator = denominator;
+    }
+
+    public void setNumberString(String numberString) {
+        this.numberString = numberString;
+    }
+
+    public void add(MyOwnPrecision second){
         this.numerator = this.numerator.multiply(second.denominator).add(this.denominator.multiply(second.numerator));
         this.denominator = this.denominator.multiply(second.denominator);
     }
 
-    public void multiply(myOwnPrecision second){
+    public static MyOwnPrecision add(MyOwnPrecision first, MyOwnPrecision second){
+        MyOwnPrecision toReturn1 = new MyOwnPrecision(first.getNumerator(),first.getDenominator(),first.getNumberString());
+        MyOwnPrecision toReturn2 = new MyOwnPrecision(second.getNumerator(),second.getDenominator(),second.getNumberString());
+
+        toReturn1.numerator = toReturn1.numerator.multiply(toReturn2.denominator).add(toReturn1.denominator.multiply(toReturn2.numerator));
+        toReturn1.denominator = toReturn1.denominator.multiply(toReturn2.denominator);
+        return toReturn1;
+    }
+
+    public void multiply(MyOwnPrecision second){
         this.numerator = this.numerator.multiply(second.numerator);
         this.denominator = this.denominator.multiply(second.denominator);
         fractureBigInteger();
+    }
+    public static MyOwnPrecision multiply(MyOwnPrecision first, MyOwnPrecision second){
+        MyOwnPrecision toReturn1 = new MyOwnPrecision(first.getNumerator(),first.getDenominator(),first.getNumberString());
+
+        MyOwnPrecision toReturn2 = new MyOwnPrecision(second.getNumerator(),second.getDenominator(),second.getNumberString());
+
+        toReturn1.numerator = toReturn1.numerator.multiply(toReturn2.numerator);
+        toReturn1.denominator = toReturn1.denominator.multiply(toReturn2.denominator);
+        toReturn1.fractureBigInteger();
+        return toReturn1;
     }
 
     public void printAsFraction(){
@@ -51,11 +122,19 @@ public class myOwnPrecision {
     public void printAsDecimal(){
         BigDecimal result = new BigDecimal(this.numerator.toString());
         result = result.divide(new BigDecimal(String.valueOf(denominator)),mc);
-        System.out.println(result);
+        System.out.print(result);
+    }
+    public MyOwnPrecision newInstance(){
+        return new MyOwnPrecision(this.numerator,this.denominator,this.numberString);
+    }
+    public Double returnDoubleFormat(){
+        BigDecimal result = new BigDecimal(this.numerator.toString());
+        result = result.divide(new BigDecimal(String.valueOf(denominator)),mc);
+        return result.doubleValue();
     }
 
     public void fractureBigInteger(){
-        BigInteger commonFactor = commonFactor(numerator,denominator);
+        BigInteger commonFactor = commonFactor(numerator.abs(),denominator.abs());
         this.numerator = numerator.divide(commonFactor);
         this.denominator = denominator.divide(commonFactor);
 
@@ -65,5 +144,25 @@ public class myOwnPrecision {
             return numerator;
         }
         return  commonFactor(denominator,numerator.mod(denominator));
+    }
+
+    @Override
+    public int intValue() {
+        return 0;
+    }
+
+    @Override
+    public long longValue() {
+        return 0;
+    }
+
+    @Override
+    public float floatValue() {
+        return 0;
+    }
+
+    @Override
+    public double doubleValue() {
+        return 0;
     }
 }
