@@ -119,10 +119,11 @@ public class MyOwnPrecision extends Number {
         System.out.println(this.numerator + " / " + this.denominator);
     }
 
-    public void printAsDecimal(){
+    public String printAsDecimal(){
         BigDecimal result = new BigDecimal(this.numerator.toString());
         result = result.divide(new BigDecimal(String.valueOf(denominator)),mc);
         System.out.print(result);
+        return result.toString();
     }
     public MyOwnPrecision newInstance(){
         return new MyOwnPrecision(this.numerator,this.denominator,this.numberString);
@@ -144,6 +145,11 @@ public class MyOwnPrecision extends Number {
             return numerator;
         }
         return  commonFactor(denominator,numerator.mod(denominator));
+    }
+
+    @Override
+    public String toString() {
+        return  this.printAsDecimal();
     }
 
     @Override

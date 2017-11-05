@@ -9,4 +9,15 @@ public class Utils {
         }
         return null;
     }
+
+    public static FloatMatrix copyMatrix(FloatMatrix firstMatrix, FloatMatrix secondMatrix) {
+
+        for (int ii = 0; ii < firstMatrix.getRows(); ii++) {
+            for (int jj = 0; jj < firstMatrix.getColumns(); jj++) {
+
+                firstMatrix.getMatrix()[ii][jj] = secondMatrix.getMatrix()[ii][jj];
+            }
+        }
+        return firstMatrix;
+    }
 }

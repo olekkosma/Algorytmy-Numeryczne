@@ -60,7 +60,7 @@ public class Main {
         fstream.close();
     }
     public static void main(String[] args) throws IOException {
-        int size =3;
+        int size =4;
        writeToFileInteger(size,size,"1");
        writeToFileInteger(size,size,"2");
        writeToFile(size,size,"3");
