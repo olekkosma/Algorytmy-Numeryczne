@@ -101,33 +101,9 @@ public class FloatMatrix {
         return tmpMatrix;
     }
 
-    public int absValueInColumn(FloatMatrix finalMatrix, int column) {
-        int index = column;
-        Float max = finalMatrix.matrix[column][column];
-        for (int i = column + 1; i < finalMatrix.rows; i++) {
-            //System.out.println("\n"+matrixAbs.matrix[i][column]+ "comapre to " + max+ "\n");
-            if (Math.abs(finalMatrix.matrix[i][column]) > max) {
-                max = Math.abs(finalMatrix.matrix[i][column]);
-                index = i;
-            }
-        }
-        return index;
-    }
-
-    public FloatMatrix flipRows(FloatMatrix finalMatrix, int row1, int row2) {
-        if (row1 == row2) {
-            return finalMatrix;
-        }
-        for (int i = 0; i < finalMatrix.columns; i++) {
-            Float tmp = finalMatrix.matrix[row1][i];
-            finalMatrix.matrix[row1][i] = finalMatrix.matrix[row2][i];
-            finalMatrix.matrix[row2][i] = tmp;
-        }
-        return finalMatrix;
-    }
+    //search biggest value in column( search only in sub-matrix of course) column- can be also understood as iteration
 
     public FloatMatrix partialChoiseGauss(FloatMatrix vector) {
-        //TODO trzeba sprawdzic czy odpowiednie rozmiary są
 
         FloatMatrix finalMatrix = new FloatMatrix(this.rows, this.columns + 1);
         FloatMatrix tmpMatrix = new FloatMatrix(this.rows, this.columns + 1);
@@ -147,11 +123,10 @@ public class FloatMatrix {
 
         int n = this.columns + 1;
         for (int i = 0; i < n - 2; i++) {
-            //TODO Wyznaczaniek najwiekszego spolczynnika w kolumnie
-            finalMatrix.printMatrix();
+
             int index = absValueInColumn(finalMatrix, i);
             finalMatrix = flipRows(finalMatrix, i, index);
-            tmpMatrix = Utils.copyMatrix(tmpMatrix, finalMatrix);
+            Utils.copyMatrix(tmpMatrix, finalMatrix);
 
             for (int j = i + 1; j < n - 1; j++) {
                 for (int k = 0; k < n; k++) {
@@ -160,47 +135,9 @@ public class FloatMatrix {
                 }
             }
 
-            finalMatrix = Utils.copyMatrix(finalMatrix, tmpMatrix);
+           Utils.copyMatrix(finalMatrix, tmpMatrix);
         }
         return tmpMatrix;
-    }
-
-    public FloatMatrix findAndSetBiggestValueInMatrix(FloatMatrix finalMatrix, int iteration, ArrayList<Integer> queue) {
-
-        Float maxValue = finalMatrix.matrix[iteration][iteration];
-        int rowIndex = 0;
-        int columnIndex = 0;
-        for (int ii = iteration; ii < finalMatrix.rows; ii++) {
-            for (int jj = iteration; jj < finalMatrix.columns - 1; jj++) {
-
-                if (Math.abs(finalMatrix.matrix[ii][jj]) > maxValue) {
-                    maxValue = Math.abs(finalMatrix.matrix[ii][jj]);
-                    rowIndex = ii;
-                    columnIndex = jj;
-                }
-            }
-        }
-        finalMatrix = flipRows(finalMatrix, iteration, rowIndex);
-        finalMatrix = flipColumns(finalMatrix, iteration, columnIndex, queue);
-
-
-        return finalMatrix;
-    }
-
-    public FloatMatrix flipColumns(FloatMatrix finalMatrix, int column1, int column2, ArrayList<Integer> queue) {
-        if (column1 == column2) {
-            return finalMatrix;
-        }
-        int tmp = queue.get(column1);
-        queue.set(column1,queue.get(column2));
-        queue.set(column2,tmp);
-
-        for (int i = 0; i < finalMatrix.rows; i++) {
-            Float tmp2 = finalMatrix.matrix[i][column1];
-            finalMatrix.matrix[i][column1] = finalMatrix.matrix[i][column2];
-            finalMatrix.matrix[i][column2] = tmp2;
-        }
-        return finalMatrix;
     }
 
     //This case find biggest value in sub-matrix
@@ -215,7 +152,6 @@ public class FloatMatrix {
         }
 
         //create extended matrix with one more column.
-
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.columns + 1; j++) {
 
@@ -231,9 +167,9 @@ public class FloatMatrix {
 
         int n = this.columns + 1;
         for (int i = 0; i < n - 2; i++) {
-            //TODO Wyznaczaniek najwiekszego spolczynnika w kolumnie
+            //Everytime sub-matrix shrincks, final matrix is changed to find biggest value in it
             finalMatrix = findAndSetBiggestValueInMatrix(finalMatrix, i, queue);
-            tmpMatrix = Utils.copyMatrix(tmpMatrix, finalMatrix);
+            Utils.copyMatrix(tmpMatrix, finalMatrix);
 
             for (int j = i + 1; j < n - 1; j++) {
                 for (int k = 0; k < n; k++) {
@@ -241,10 +177,30 @@ public class FloatMatrix {
                             (finalMatrix.matrix[i][k] * (finalMatrix.matrix[j][i] / finalMatrix.matrix[i][i]));
                 }
             }
-
-            finalMatrix = Utils.copyMatrix(finalMatrix, tmpMatrix);
+            Utils.copyMatrix(finalMatrix, tmpMatrix);
         }
         return tmpMatrix;
+    }
+
+    public FloatMatrix findAndSetBiggestValueInMatrix(FloatMatrix finalMatrix, int iteration, ArrayList<Integer> queue) {
+
+        Float maxValue = finalMatrix.matrix[iteration][iteration];
+        int rowIndex = iteration;
+        int columnIndex = iteration;
+        for (int ii = iteration; ii < finalMatrix.rows; ii++) {
+            for (int jj = iteration; jj < finalMatrix.columns - 1; jj++) {
+
+                if (Math.abs(finalMatrix.matrix[ii][jj]) > maxValue) {
+                    maxValue = Math.abs(finalMatrix.matrix[ii][jj]);
+                    rowIndex = ii;
+                    columnIndex = jj;
+                }
+            }
+        }
+        finalMatrix = flipRows(finalMatrix, iteration, rowIndex);
+        finalMatrix = flipColumns(finalMatrix, iteration, columnIndex, queue);
+
+        return finalMatrix;
     }
 
     //receive cleaned Matrix. Ready to count searched values
@@ -278,12 +234,54 @@ public class FloatMatrix {
     public FloatMatrix sortResultsByQueue(FloatMatrix vectorMatrix, ArrayList<Integer> queue){
 
         FloatMatrix tmp = new FloatMatrix(vectorMatrix.rows,1);
-        tmp = Utils.copyMatrix(tmp,vectorMatrix);
+        Utils.copyMatrix(tmp,vectorMatrix);
 
         for(int i =0 ; i<vectorMatrix.rows;i++){
                 vectorMatrix.matrix[queue.get(i)][0] = tmp.matrix[i][0];
         }
         return vectorMatrix;
+    }
+
+    public int absValueInColumn(FloatMatrix finalMatrix, int column) {
+        int index = column;
+        Float max = finalMatrix.matrix[column][column];
+        for (int i = column + 1; i < finalMatrix.rows; i++) {
+
+            if (Math.abs(finalMatrix.matrix[i][column]) > max) {
+                max = Math.abs(finalMatrix.matrix[i][column]);
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    public FloatMatrix flipRows(FloatMatrix finalMatrix, int row1, int row2) {
+        if (row1 == row2) {
+            return finalMatrix;
+        }
+        for (int i = 0; i < finalMatrix.columns; i++) {
+            Float tmp = finalMatrix.matrix[row1][i];
+            finalMatrix.matrix[row1][i] = finalMatrix.matrix[row2][i];
+            finalMatrix.matrix[row2][i] = tmp;
+        }
+        return finalMatrix;
+    }
+
+    //When columns are flipped, results order does to. Need to save it in queue arrayList
+    public FloatMatrix flipColumns(FloatMatrix finalMatrix, int column1, int column2, ArrayList<Integer> queue) {
+        if (column1 == column2) {
+            return finalMatrix;
+        }
+        int tmp = queue.get(column1);
+        queue.set(column1,queue.get(column2));
+        queue.set(column2,tmp);
+
+        for (int i = 0; i < finalMatrix.rows; i++) {
+            Float tmp2 = finalMatrix.matrix[i][column1];
+            finalMatrix.matrix[i][column1] = finalMatrix.matrix[i][column2];
+            finalMatrix.matrix[i][column2] = tmp2;
+        }
+        return finalMatrix;
     }
 
     public void loadValues(String suffix) throws IOException {
