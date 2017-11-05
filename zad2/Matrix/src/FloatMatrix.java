@@ -29,112 +29,70 @@ public class FloatMatrix {
 
                 this.matrix[i][j] = this.matrix[i][j] + secondMatrix.matrix[i][j];
             }
-
         }
     }
 
+    //returned new matrix,thats how multiply works
     public FloatMatrix multiply(FloatMatrix secondMatrix) {
         if (!(this.columns == secondMatrix.rows)) {
             return null;
         }
-        FloatMatrix tmp = new FloatMatrix(this.rows, secondMatrix.columns);
-        tmp.fillWithZero();
+        FloatMatrix sumMatrix = new FloatMatrix(this.rows, secondMatrix.columns);
+        sumMatrix.fillWithZero();
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-
                 for (int k = 0; k < secondMatrix.columns; k++) {
 
-                    tmp.matrix[i][k] = tmp.matrix[i][k] + this.matrix[i][j] * secondMatrix.matrix[j][k];
-
+                    sumMatrix.matrix[i][k] = sumMatrix.matrix[i][k] + this.matrix[i][j] * secondMatrix.matrix[j][k];
                 }
             }
         }
-        return tmp;
-    }
-
-    public void fillWithZero() {
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                matrix[i][j] = 0f;
-            }
-
-        }
+        return sumMatrix;
     }
 
     public FloatMatrix gaussBase(FloatMatrix vector) {
-        //TODO trzeba sprawdzic czy odpowiednie rozmiary są
 
         FloatMatrix finalMatrix = new FloatMatrix(this.rows, this.columns + 1);
         FloatMatrix tmpMatrix = new FloatMatrix(this.rows, this.columns + 1);
 
-        for (int i = 0; i < this.rows; i++) {
-            for (int j = 0; j < this.columns + 1; j++) {
+        joinMatrixAndVector(vector, finalMatrix);
+        joinMatrixAndVector(vector, tmpMatrix);
 
-                if (j == this.columns) {
-                    finalMatrix.matrix[i][j] = vector.matrix[i][0];
-                    tmpMatrix.matrix[i][j] = vector.matrix[i][0];
-                } else {
-                    finalMatrix.matrix[i][j] = this.matrix[i][j];
-                    tmpMatrix.matrix[i][j] = this.matrix[i][j];
-                }
-            }
-        }
-
-        int n = this.columns + 1;
-        for (int i = 0; i < n - 2; i++) {
-            for (int j = i + 1; j < n - 1; j++) {
-                for (int k = 0; k < n; k++) {
+        for (int i = 0; i < this.columns - 1; i++) {
+            for (int j = i + 1; j < this.columns ; j++) {
+                for (int k = 0; k < this.columns + 1; k++) {
                     tmpMatrix.matrix[j][k] = finalMatrix.matrix[j][k] -
                             (finalMatrix.matrix[i][k] * (finalMatrix.matrix[j][i] / finalMatrix.matrix[i][i]));
                 }
             }
-
-            for (int ii = 0; ii < this.rows; ii++) {
-                for (int jj = 0; jj < this.columns + 1; jj++) {
-
-                    finalMatrix.matrix[ii][jj] = tmpMatrix.matrix[ii][jj];
-                }
-            }
-
+            Utils.copyMatrix(finalMatrix, tmpMatrix);
         }
         return tmpMatrix;
     }
 
     //search biggest value in column( search only in sub-matrix of course) column- can be also understood as iteration
-
     public FloatMatrix partialChoiseGauss(FloatMatrix vector) {
 
         FloatMatrix finalMatrix = new FloatMatrix(this.rows, this.columns + 1);
         FloatMatrix tmpMatrix = new FloatMatrix(this.rows, this.columns + 1);
 
-        for (int i = 0; i < this.rows; i++) {
-            for (int j = 0; j < this.columns + 1; j++) {
+        joinMatrixAndVector(vector, finalMatrix);
+        joinMatrixAndVector(vector, tmpMatrix);
 
-                if (j == this.columns) {
-                    finalMatrix.matrix[i][j] = vector.matrix[i][0];
-                    tmpMatrix.matrix[i][j] = vector.matrix[i][0];
-                } else {
-                    finalMatrix.matrix[i][j] = this.matrix[i][j];
-                    tmpMatrix.matrix[i][j] = this.matrix[i][j];
-                }
-            }
-        }
 
-        int n = this.columns + 1;
-        for (int i = 0; i < n - 2; i++) {
+        for (int i = 0; i < this.columns - 1; i++) {
 
             int index = absValueInColumn(finalMatrix, i);
             finalMatrix = flipRows(finalMatrix, i, index);
             Utils.copyMatrix(tmpMatrix, finalMatrix);
 
-            for (int j = i + 1; j < n - 1; j++) {
-                for (int k = 0; k < n; k++) {
+            for (int j = i + 1; j < this.columns; j++) {
+                for (int k = 0; k < this.columns + 1; k++) {
                     tmpMatrix.matrix[j][k] = finalMatrix.matrix[j][k] -
                             (finalMatrix.matrix[i][k] * (finalMatrix.matrix[j][i] / finalMatrix.matrix[i][i]));
                 }
             }
-
            Utils.copyMatrix(finalMatrix, tmpMatrix);
         }
         return tmpMatrix;
@@ -152,27 +110,17 @@ public class FloatMatrix {
         }
 
         //create extended matrix with one more column.
-        for (int i = 0; i < this.rows; i++) {
-            for (int j = 0; j < this.columns + 1; j++) {
+        joinMatrixAndVector(vector, finalMatrix);
+        joinMatrixAndVector(vector, tmpMatrix);
 
-                if (j == this.columns) {
-                    finalMatrix.matrix[i][j] = vector.matrix[i][0];
-                    tmpMatrix.matrix[i][j] = vector.matrix[i][0];
-                } else {
-                    finalMatrix.matrix[i][j] = this.matrix[i][j];
-                    tmpMatrix.matrix[i][j] = this.matrix[i][j];
-                }
-            }
-        }
+        for (int i = 0; i < this.columns - 1; i++) {
 
-        int n = this.columns + 1;
-        for (int i = 0; i < n - 2; i++) {
             //Everytime sub-matrix shrincks, final matrix is changed to find biggest value in it
             finalMatrix = findAndSetBiggestValueInMatrix(finalMatrix, i, queue);
             Utils.copyMatrix(tmpMatrix, finalMatrix);
 
-            for (int j = i + 1; j < n - 1; j++) {
-                for (int k = 0; k < n; k++) {
+            for (int j = i + 1; j < this.columns; j++) {
+                for (int k = 0; k < this.columns + 1; k++) {
                     tmpMatrix.matrix[j][k] = finalMatrix.matrix[j][k] -
                             (finalMatrix.matrix[i][k] * (finalMatrix.matrix[j][i] / finalMatrix.matrix[i][i]));
                 }
@@ -180,6 +128,20 @@ public class FloatMatrix {
             Utils.copyMatrix(finalMatrix, tmpMatrix);
         }
         return tmpMatrix;
+    }
+
+    private void joinMatrixAndVector(FloatMatrix vector, FloatMatrix matrixToJoin) {
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.columns + 1; j++) {
+
+                if (j == this.columns) {
+                    matrixToJoin.matrix[i][j] = vector.matrix[i][0];
+
+                } else {
+                    matrixToJoin.matrix[i][j] = this.matrix[i][j];
+                }
+            }
+        }
     }
 
     public FloatMatrix findAndSetBiggestValueInMatrix(FloatMatrix finalMatrix, int iteration, ArrayList<Integer> queue) {
@@ -311,6 +273,15 @@ public class FloatMatrix {
             System.out.println("");
         }
         System.out.println("-----------\n");
+    }
+
+    public void fillWithZero() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                matrix[i][j] = 0f;
+            }
+
+        }
     }
 
     public Float[][] getMatrix() {

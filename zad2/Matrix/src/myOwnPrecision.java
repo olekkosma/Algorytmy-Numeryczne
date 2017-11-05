@@ -122,7 +122,7 @@ public class MyOwnPrecision extends Number {
     public String printAsDecimal(){
         BigDecimal result = new BigDecimal(this.numerator.toString());
         result = result.divide(new BigDecimal(String.valueOf(denominator)),mc);
-        System.out.print(result);
+        //System.out.print(result);
         return result.toString();
     }
     public MyOwnPrecision newInstance(){
@@ -171,4 +171,5 @@ public class MyOwnPrecision extends Number {
     public double doubleValue() {
         return 0;
     }
+
 }
