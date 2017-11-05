@@ -159,6 +159,7 @@ public class FloatMatrix {
                 }
             }
         }
+
         finalMatrix = flipRows(finalMatrix, iteration, rowIndex);
         finalMatrix = flipColumns(finalMatrix, iteration, columnIndex, queue);
 
@@ -176,15 +177,24 @@ public class FloatMatrix {
             vectorMatrix.matrix[i][0] = this.matrix[i][this.columns - 1];
         }
 
+
         Float s;
         int n = this.rows;
         for (int i = n - 1; i >= 0; i--) {
             s = this.matrix[i][n];
             for (int j = n - 1; j >= i + 1; j--) {
-                s = s - this.matrix[i][j] * vectorMatrix.matrix[j][0];
+
+                Float tmp1 = this.matrix[i][j] * vectorMatrix.matrix[j][0];
+
+
+                s = s - tmp1;
+                System.out.println("s = "+s + " - " + tmp1);
+
                 vectorMatrix.matrix[i][0] = s / this.matrix[i][i];
+
             }
         }
+
 
         //queue is used only in fullChoiseGauss so it is good to check there is any queue
         if(queue.size()>0) vectorMatrix = sortResultsByQueue(vectorMatrix, queue);

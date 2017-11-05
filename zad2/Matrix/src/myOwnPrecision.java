@@ -73,6 +73,11 @@ public class MyOwnPrecision extends Number {
         fractureBigInteger();
     }
 
+    public void absConvert(){
+        numerator = numerator.abs();
+        denominator = denominator.abs();
+    }
+
     public void setNumerator(BigInteger numerator) {
         this.numerator = numerator;
     }

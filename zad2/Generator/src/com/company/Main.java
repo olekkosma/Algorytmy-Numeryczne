@@ -42,9 +42,9 @@ public class Main {
     public static void writeToFileInteger(int rows,int columns,String suffix) throws IOException  {
         FileOutputStream fstream = new FileOutputStream("C:\\Users\\Ukleja\\Desktop\\Algorytmy-Numeryczne\\zad2\\randomValues\\values"+suffix+".txt");
         BufferedWriter br = new BufferedWriter(new OutputStreamWriter(fstream, "utf-8"));
-        br.write(String.valueOf(rows)+".0");
+        br.write(String.valueOf(rows));
         br.newLine();
-        br.write(String.valueOf(columns)+".0");
+        br.write(String.valueOf(columns));
         br.newLine();
         Random random = new Random();
 
@@ -64,7 +64,7 @@ public class Main {
        writeToFile(size,size,"1");
        writeToFile(size,size,"2");
        writeToFile(size,size,"3");
-       writeToFileInteger(size,1,"Vector");
+       writeToFile(size,1,"Vector");
        //readFile("1");
 
 

@@ -5,20 +5,54 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
+
         MyMatrix<Float> floatMatrix = new MyMatrix<Float>(Float.class,4);
         floatMatrix.loadValues("1");
 
-        MyMatrix<Float> floatMatrix2 = new MyMatrix<Float>(Float.class,4);
-        floatMatrix2.loadValues("2");
+        MyMatrix<Float> floatVector = new MyMatrix<Float>(Float.class,4,1);
+        floatVector.loadValues("Vector");
 
-        MyMatrix<Double> doubleMatrix = new MyMatrix<Double>(Double.class,4);
-        doubleMatrix.loadValues("1");
+        //floatMatrix.printMatrix();
+        floatVector.printMatrix();
+        ArrayList<Integer> queue = new ArrayList<>();
+        MyMatrix<Float> resultFloat = floatMatrix.fullChoiseGauss(floatVector,queue);
+        resultFloat.printMatrix();
+        MyMatrix<Float> resultVector = resultFloat.countResultsFromGauss(queue);
+        System.out.println("aaaaaa");
+        resultVector.printMatrix();
 
-        MyMatrix<MyOwnPrecision> mPrecMatrix = new MyMatrix<MyOwnPrecision>(MyOwnPrecision.class,4);
-        mPrecMatrix.loadValues("1");
+        System.out.println("");
+        System.out.println("");
+        FloatMatrix floatMatrix2 = new FloatMatrix(4);
+        floatMatrix2.loadValues("1");
+        FloatMatrix vector = new FloatMatrix(4,1);
+        vector.loadValues("Vector");
+        FloatMatrix finalMatrix;
+        ArrayList<Integer> queue3 = new ArrayList<>();
 
-        MyMatrix<MyOwnPrecision> mPrecMatrix2 = new MyMatrix<MyOwnPrecision>(MyOwnPrecision.class,4);
-        mPrecMatrix2.loadValues("2");
+        finalMatrix = floatMatrix2.fullChoiseGauss(vector,queue3);
+        finalMatrix.printMatrix();
+        vector = finalMatrix.countResultsFromGauss(queue3);
+        System.out.println("aaaa");
+        vector.printMatrix();
+
+
+/*
+        MyMatrix<MyOwnPrecision> myOwnMatrix = new MyMatrix<MyOwnPrecision>(MyOwnPrecision.class,4);
+        myOwnMatrix.loadValues("1");
+
+        MyMatrix<MyOwnPrecision> myOwnVector = new MyMatrix<MyOwnPrecision>(MyOwnPrecision.class,4);
+        myOwnVector.loadValues("Vector");
+
+        myOwnMatrix.printMatrix();
+        myOwnVector.printMatrix();
+        ArrayList<Integer> queue2 = new ArrayList<>();
+        MyMatrix<MyOwnPrecision> resultMyOwn = myOwnMatrix.fullChoiseGauss(myOwnVector,queue2);
+        resultMyOwn.printMatrix();
+        MyMatrix<MyOwnPrecision> resultMyOwnVector = resultMyOwn.countResultsFromGauss(queue2);
+        resultMyOwnVector.printMatrix();
+        */
+        /////////
 
         //Suming Matrix
         /*
@@ -32,6 +66,8 @@ public class Main {
         mPrecMatrix.add(mPrecMatrix2);
         mPrecMatrix.printMatrix();
 */
+
+        /*
         System.out.println("----------------\n\n");
         //Multiplying matrix
         floatMatrix.printMatrix();
@@ -47,7 +83,7 @@ public class Main {
         multipliedMyOwn.printMatrix();
 
 
-
+*/
 
 
         //Testowanie precyzji dla roznych Gaussow 3 wersje
@@ -85,5 +121,42 @@ public class Main {
         vector3 = finalMatrix3.countResultsFromGauss(queue3);
         vector3.printMatrix();
 */
+
+/*
+        MyPrecisionMatrix floatMatrix = new MyPrecisionMatrix(4);
+        floatMatrix.loadValues("1");
+        MyPrecisionMatrix vector = new MyPrecisionMatrix(4,1);
+        vector.loadValues("Vector");
+        MyPrecisionMatrix finalMatrix;
+        ArrayList<Integer> queue = new ArrayList<>();
+
+        finalMatrix = floatMatrix.fullChoiseGauss(vector,queue);
+        vector = finalMatrix.countResultsFromGauss(queue);
+        vector.printMatrix();
+
+        MyPrecisionMatrix floatMatrix2 = new MyPrecisionMatrix(4);
+        floatMatrix2.loadValues("1");
+        floatMatrix2.printMatrix();
+        MyPrecisionMatrix vector2 = new MyPrecisionMatrix(4,1);
+        vector2.loadValues("Vector");
+        vector2.printMatrix();
+        MyPrecisionMatrix finalMatrix2;
+        ArrayList<Integer> queue2 = new ArrayList<>();
+
+        finalMatrix2 = floatMatrix2.partialChoiseGauss(vector2);
+        vector2 = finalMatrix2.countResultsFromGauss(queue2);
+        vector2.printMatrix();
+
+        MyPrecisionMatrix floatMatrix3 = new MyPrecisionMatrix(4);
+        floatMatrix3.loadValues("1");
+        MyPrecisionMatrix vector3 = new MyPrecisionMatrix(4,1);
+        vector3.loadValues("Vector");
+        MyPrecisionMatrix finalMatrix3;
+        ArrayList<Integer> queue3 = new ArrayList<>();
+
+        finalMatrix3 = floatMatrix3.gaussBase(vector3);
+        vector3 = finalMatrix3.countResultsFromGauss(queue3);
+        vector3.printMatrix();
+        */
     }
 }
