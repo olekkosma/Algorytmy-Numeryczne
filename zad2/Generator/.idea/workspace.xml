@@ -11,29 +11,20 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.51919866">
+    <splitter split-orientation="horizontal" split-proportion="0.48692265">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/../Matrix/src/Main.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-1584">
-                  <caret line="15" column="8" lean-forward="false" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
+                <state relative-caret-position="110">
+                  <caret line="11" column="56" lean-forward="false" selection-start-line="11" selection-start-column="56" selection-end-line="11" selection-end-column="56" />
                   <folding>
                     <element signature="imports" expanded="true" />
-                    <element signature="e#194#201#0" expanded="true" />
-                    <element signature="e#306#313#0" expanded="true" />
+                    <element signature="e#247#254#0" expanded="true" />
+                    <element signature="e#1436#1452#0" expanded="true" />
+                    <element signature="e#1574#1590#0" expanded="true" />
                   </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="MyMatrix.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/../Matrix/src/MyMatrix.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="302">
-                  <caret line="225" column="42" lean-forward="true" selection-start-line="225" selection-start-column="42" selection-end-line="225" selection-end-column="42" />
-                  <folding />
                 </state>
               </provider>
             </entry>
@@ -41,7 +32,7 @@
           <file leaf-file-name="MyOwnPrecision.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/../Matrix/src/MyOwnPrecision.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="829">
+                <state relative-caret-position="1496">
                   <caret line="77" column="33" lean-forward="false" selection-start-line="77" selection-start-column="33" selection-end-line="77" selection-end-column="33" />
                   <folding>
                     <element signature="e#4677#4678#0" expanded="true" />
@@ -55,11 +46,23 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="FloatMatrix.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="FloatMatrix.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/../Matrix/src/FloatMatrix.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="225">
-                  <caret line="189" column="16" lean-forward="false" selection-start-line="189" selection-start-column="16" selection-end-line="189" selection-end-column="16" />
+                <state relative-caret-position="-325">
+                  <caret line="53" column="29" lean-forward="false" selection-start-line="53" selection-start-column="29" selection-end-line="53" selection-end-column="29" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="MyMatrix.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/../Matrix/src/MyMatrix.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="669">
+                  <caret line="184" column="49" lean-forward="true" selection-start-line="184" selection-start-column="49" selection-end-line="184" selection-end-column="49" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -70,8 +73,8 @@
           <file leaf-file-name="MyPrecisionMatrix.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/../Matrix/src/MyPrecisionMatrix.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="368">
-                  <caret line="176" column="5" lean-forward="true" selection-start-line="136" selection-start-column="4" selection-end-line="176" selection-end-column="5" />
+                <state relative-caret-position="170">
+                  <caret line="71" column="12" lean-forward="true" selection-start-line="71" selection-start-column="12" selection-end-line="71" selection-end-column="12" />
                   <folding />
                 </state>
               </provider>
@@ -81,7 +84,7 @@
             <entry file="file://$PROJECT_DIR$/../Matrix/src/Utils.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="308">
-                  <caret line="14" column="8" lean-forward="true" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
+                  <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
                   <folding />
                 </state>
               </provider>
@@ -126,12 +129,12 @@
         <option value="$PROJECT_DIR$/src/com/company/Main.java" />
         <option value="$PROJECT_DIR$/../Matrix/src/MyPrecisionMatrix.java" />
         <option value="$PROJECT_DIR$/../Matrix/src/FloatMatrix.java" />
-        <option value="$PROJECT_DIR$/../Matrix/src/Main.java" />
         <option value="$PROJECT_DIR$/../Matrix/src/MyMatrix.java" />
+        <option value="$PROJECT_DIR$/../Matrix/src/Main.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-8" />
     <option name="y" value="32" />
     <option name="width" value="1936" />
@@ -152,9 +155,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="AndroidView" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -285,7 +288,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="32" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="32" width="1936" height="1056" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -295,7 +299,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20042418" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20466596" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -320,7 +324,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <option name="time" value="3" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -349,8 +353,9 @@
           <caret line="6" column="23" lean-forward="false" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#194#201#0" expanded="true" />
-            <element signature="e#306#313#0" expanded="true" />
+            <element signature="e#247#254#0" expanded="true" />
+            <element signature="e#1436#1452#0" expanded="true" />
+            <element signature="e#1574#1590#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -388,7 +393,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="20" column="31" lean-forward="true" selection-start-line="20" selection-start-column="31" selection-end-line="20" selection-end-column="31" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -398,8 +405,9 @@
           <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#194#201#0" expanded="true" />
-            <element signature="e#306#313#0" expanded="true" />
+            <element signature="e#247#254#0" expanded="true" />
+            <element signature="e#1436#1452#0" expanded="true" />
+            <element signature="e#1574#1590#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -439,8 +447,9 @@
           <caret line="25" column="30" lean-forward="false" selection-start-line="25" selection-start-column="30" selection-end-line="25" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#194#201#0" expanded="true" />
-            <element signature="e#306#313#0" expanded="true" />
+            <element signature="e#247#254#0" expanded="true" />
+            <element signature="e#1436#1452#0" expanded="true" />
+            <element signature="e#1574#1590#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -476,7 +485,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -496,8 +507,9 @@
           <caret line="23" column="30" lean-forward="false" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#194#201#0" expanded="true" />
-            <element signature="e#306#313#0" expanded="true" />
+            <element signature="e#247#254#0" expanded="true" />
+            <element signature="e#1436#1452#0" expanded="true" />
+            <element signature="e#1574#1590#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -533,7 +545,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
           <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -553,8 +567,9 @@
           <caret line="15" column="48" lean-forward="false" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#194#201#0" expanded="true" />
-            <element signature="e#306#313#0" expanded="true" />
+            <element signature="e#247#254#0" expanded="true" />
+            <element signature="e#1436#1452#0" expanded="true" />
+            <element signature="e#1574#1590#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -590,7 +605,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
           <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -610,8 +627,9 @@
           <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#194#201#0" expanded="true" />
-            <element signature="e#306#313#0" expanded="true" />
+            <element signature="e#247#254#0" expanded="true" />
+            <element signature="e#1436#1452#0" expanded="true" />
+            <element signature="e#1574#1590#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -729,7 +747,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../Matrix/src/MyOwnPrecision.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="829">
+        <state relative-caret-position="1496">
           <caret line="77" column="33" lean-forward="false" selection-start-line="77" selection-start-column="33" selection-end-line="77" selection-end-column="33" />
           <folding>
             <element signature="e#4677#4678#0" expanded="true" />
@@ -741,15 +759,7 @@
     <entry file="file://$PROJECT_DIR$/../Matrix/src/Utils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
-          <caret line="14" column="8" lean-forward="true" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Matrix/src/MyPrecisionMatrix.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="176" column="5" lean-forward="true" selection-start-line="136" selection-start-column="4" selection-end-line="176" selection-end-column="5" />
+          <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
           <folding />
         </state>
       </provider>
@@ -762,10 +772,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../Matrix/src/MyPrecisionMatrix.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="71" column="12" lean-forward="true" selection-start-line="71" selection-start-column="12" selection-end-line="71" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../Matrix/src/FloatMatrix.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="189" column="16" lean-forward="false" selection-start-line="189" selection-start-column="16" selection-end-line="189" selection-end-column="16" />
+        <state relative-caret-position="-325">
+          <caret line="53" column="29" lean-forward="false" selection-start-line="53" selection-start-column="29" selection-end-line="53" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -774,20 +792,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../Matrix/src/MyMatrix.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="225" column="42" lean-forward="true" selection-start-line="225" selection-start-column="42" selection-end-line="225" selection-end-column="42" />
-          <folding />
+        <state relative-caret-position="669">
+          <caret line="184" column="49" lean-forward="true" selection-start-line="184" selection-start-column="49" selection-end-line="184" selection-end-column="49" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../Matrix/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1584">
-          <caret line="15" column="8" lean-forward="false" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
+        <state relative-caret-position="110">
+          <caret line="11" column="56" lean-forward="false" selection-start-line="11" selection-start-column="56" selection-end-line="11" selection-end-column="56" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#194#201#0" expanded="true" />
-            <element signature="e#306#313#0" expanded="true" />
+            <element signature="e#247#254#0" expanded="true" />
+            <element signature="e#1436#1452#0" expanded="true" />
+            <element signature="e#1574#1590#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -5,53 +5,51 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
+        System.out.println("Float matrix, partial");
 
         MyMatrix<Float> floatMatrix = new MyMatrix<Float>(Float.class,4);
         floatMatrix.loadValues("1");
-
         MyMatrix<Float> floatVector = new MyMatrix<Float>(Float.class,4,1);
         floatVector.loadValues("Vector");
-
-        //floatMatrix.printMatrix();
+        floatMatrix.printMatrix();
         floatVector.printMatrix();
         ArrayList<Integer> queue = new ArrayList<>();
-        MyMatrix<Float> resultFloat = floatMatrix.fullChoiseGauss(floatVector,queue);
+        MyMatrix<Float> resultFloat = floatMatrix.partialChoiseGauss(floatVector);
+        System.out.println("Result after gauss");
         resultFloat.printMatrix();
         MyMatrix<Float> resultVector = resultFloat.countResultsFromGauss(queue);
-        System.out.println("aaaaaa");
         resultVector.printMatrix();
 
-        System.out.println("");
-        System.out.println("");
-        FloatMatrix floatMatrix2 = new FloatMatrix(4);
-        floatMatrix2.loadValues("1");
-        FloatMatrix vector = new FloatMatrix(4,1);
-        vector.loadValues("Vector");
-        FloatMatrix finalMatrix;
+        System.out.println("Float matrix, locale");
+        FloatMatrix float2 = new FloatMatrix(4);
+        float2.loadValues("1");
+        FloatMatrix vector2 = new FloatMatrix(4);
+        vector2.loadValues("Vector");
         ArrayList<Integer> queue3 = new ArrayList<>();
-
-        finalMatrix = floatMatrix2.fullChoiseGauss(vector,queue3);
-        finalMatrix.printMatrix();
-        vector = finalMatrix.countResultsFromGauss(queue3);
-        System.out.println("aaaa");
-        vector.printMatrix();
+        FloatMatrix result3 = float2.partialChoiseGauss(vector2);
+        result3.printMatrix();
+        FloatMatrix resulVector3 = result3.countResultsFromGauss(queue);
+        resulVector3.printMatrix();
 
 
-/*
+
+        System.out.println("My own matrix, partial");
+
+
         MyMatrix<MyOwnPrecision> myOwnMatrix = new MyMatrix<MyOwnPrecision>(MyOwnPrecision.class,4);
         myOwnMatrix.loadValues("1");
-
         MyMatrix<MyOwnPrecision> myOwnVector = new MyMatrix<MyOwnPrecision>(MyOwnPrecision.class,4);
         myOwnVector.loadValues("Vector");
-
         myOwnMatrix.printMatrix();
         myOwnVector.printMatrix();
         ArrayList<Integer> queue2 = new ArrayList<>();
-        MyMatrix<MyOwnPrecision> resultMyOwn = myOwnMatrix.fullChoiseGauss(myOwnVector,queue2);
+        MyMatrix<MyOwnPrecision> resultMyOwn = myOwnMatrix.partialChoiseGauss(myOwnVector);
+        System.out.println("Result after gauss");
+
         resultMyOwn.printMatrix();
         MyMatrix<MyOwnPrecision> resultMyOwnVector = resultMyOwn.countResultsFromGauss(queue2);
         resultMyOwnVector.printMatrix();
-        */
+
         /////////
 
         //Suming Matrix

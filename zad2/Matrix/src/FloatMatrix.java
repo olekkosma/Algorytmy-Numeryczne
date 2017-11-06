@@ -183,15 +183,9 @@ public class FloatMatrix {
         for (int i = n - 1; i >= 0; i--) {
             s = this.matrix[i][n];
             for (int j = n - 1; j >= i + 1; j--) {
-
                 Float tmp1 = this.matrix[i][j] * vectorMatrix.matrix[j][0];
-
-
                 s = s - tmp1;
-                System.out.println("s = "+s + " - " + tmp1);
-
                 vectorMatrix.matrix[i][0] = s / this.matrix[i][i];
-
             }
         }
 
