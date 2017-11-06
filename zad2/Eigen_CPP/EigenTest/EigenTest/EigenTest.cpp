@@ -48,11 +48,7 @@ int main()
 	printf("\nMatrix B : \n");
 	cout << matrix2 << endl;
 
-	MatrixXd multiplyThreeMatrix = matrix1 + matrix2;
 
-	printf("\nMatrix A + B : \n");
-	cout << multiplyThreeMatrix << endl;
-	/*
 
 	MatrixXd matrix3 = loadRandomValuesMatrix("values3.txt");
 	printf("\nMatrix C : \n");
@@ -108,7 +104,7 @@ int main()
 	cout << "Here is the vector b:\n" << vector << endl;
 	VectorXd x = matrix1.partialPivLu().solve(vector);
 	cout << "The solution is:\n" << x << endl;
-	*/
+	
 
 	int pause;
 	cin >> pause;

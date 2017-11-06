@@ -1,6 +1,3 @@
 ﻿  EigenTest.cpp
-c:\users\ukleja\desktop\algorytmy-numeryczne\zad2\eigen_cpp\eigentest\eigentest\eigentest.cpp(37): warning C4101: 'begin': unreferenced local variable
-c:\users\ukleja\desktop\algorytmy-numeryczne\zad2\eigen_cpp\eigentest\eigentest\eigentest.cpp(38): warning C4101: 'end': unreferenced local variable
-c:\users\ukleja\desktop\algorytmy-numeryczne\zad2\eigen_cpp\eigentest\eigentest\eigentest.cpp(39): warning C4101: 'elapsed_secs': unreferenced local variable
   EigenTest.vcxproj -> C:\Users\Ukleja\Desktop\Algorytmy-Numeryczne\zad2\Eigen_CPP\EigenTest\Debug\EigenTest.exe
   EigenTest.vcxproj -> C:\Users\Ukleja\Desktop\Algorytmy-Numeryczne\zad2\Eigen_CPP\EigenTest\Debug\EigenTest.pdb (Full PDB)

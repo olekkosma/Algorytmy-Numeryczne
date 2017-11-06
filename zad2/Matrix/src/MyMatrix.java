@@ -93,10 +93,40 @@ public class MyMatrix<T extends Number> {
         return sumMatrix;
     }
 
-    public MyMatrix<T> gaussBase(MyMatrix<T> vector) {
+    private void CountValueForPlace(MyMatrix<T> finalMatrix, MyMatrix<T> tmpMatrix, int i, int j, int k) {
+        if (classType.equals(Float.class)) {
+            Float tmp1 = finalMatrix.matrix[j][i].floatValue() / finalMatrix.matrix[i][i].floatValue();
+            Float tmp2 = finalMatrix.matrix[i][k].floatValue() * tmp1;
+            Float tmp3 = finalMatrix.matrix[j][k].floatValue() - tmp2;
+            tmpMatrix.matrix[j][k] = (T) tmp3;
 
-        MyMatrix<T> finalMatrix = new MyMatrix<T>(classType,this.rows, this.columns + 1);
-        MyMatrix<T> tmpMatrix = new MyMatrix<T>(classType,this.rows, this.columns + 1);
+        } else {
+            if (classType.equals(Double.class)) {
+                Double tmp1 = finalMatrix.matrix[j][i].doubleValue() / finalMatrix.matrix[i][i].doubleValue();
+                Double tmp2 = finalMatrix.matrix[i][k].doubleValue() * tmp1;
+                Double tmp3 = finalMatrix.matrix[j][k].doubleValue() - tmp2;
+                tmpMatrix.matrix[j][k] = (T) tmp3;
+            } else {
+
+                if (classType.equals(MyOwnPrecision.class)) {
+                    MyOwnPrecision tmp1 = (MyOwnPrecision) finalMatrix.matrix[i][i];
+                    MyOwnPrecision tmp2 = (MyOwnPrecision) finalMatrix.matrix[j][i];
+                    MyOwnPrecision tmp3 = (MyOwnPrecision) finalMatrix.matrix[i][k];
+                    MyOwnPrecision tmp4 = (MyOwnPrecision) finalMatrix.matrix[j][k];
+                    MyOwnPrecision tmp = MyOwnPrecision.flip(tmp1);
+                    tmp = MyOwnPrecision.multiply(tmp2, tmp);
+                    tmp = MyOwnPrecision.multiply(tmp3, tmp);
+                    tmp = MyOwnPrecision.negate(tmp);
+                    tmpMatrix.matrix[j][k] = (T) MyOwnPrecision.add(tmp4, tmp);
+                }
+            }
+        }
+    }
+
+    public MyMatrix<T> gaussBase(MyMatrix<T> vector, ArrayList<Integer> queue) {
+
+        MyMatrix<T> finalMatrix = new MyMatrix<T>(classType, this.rows, this.columns + 1);
+        MyMatrix<T> tmpMatrix = new MyMatrix<T>(classType, this.rows, this.columns + 1);
 
         joinMatrixAndVector(vector, finalMatrix);
         joinMatrixAndVector(vector, tmpMatrix);
@@ -105,33 +135,7 @@ public class MyMatrix<T extends Number> {
         for (int i = 0; i < this.columns - 1; i++) {
             for (int j = i + 1; j < this.columns; j++) {
                 for (int k = 0; k < this.columns + 1; k++) {
-                    if (classType.equals(Float.class)) {
-                        Float tmp1 = finalMatrix.matrix[j][i].floatValue() / finalMatrix.matrix[i][i].floatValue();
-                        Float tmp2 = finalMatrix.matrix[i][k].floatValue() * tmp1;
-                        Float tmp3 = finalMatrix.matrix[j][k].floatValue() - tmp2;
-                        tmpMatrix.matrix[j][k] = (T) tmp3;
-
-                    } else {
-                        if (classType.equals(Double.class)) {
-                            Double tmp1 = finalMatrix.matrix[j][i].doubleValue() / finalMatrix.matrix[i][i].doubleValue();
-                            Double tmp2 = finalMatrix.matrix[i][k].doubleValue() * tmp1;
-                            Double tmp3 = finalMatrix.matrix[j][k].doubleValue() - tmp2;
-                            tmpMatrix.matrix[j][k] = (T) tmp3;
-                        } else {
-
-                            if (classType.equals(MyOwnPrecision.class)) {
-                                MyOwnPrecision tmp1 = (MyOwnPrecision) finalMatrix.matrix[i][i];
-                                MyOwnPrecision tmp2 = (MyOwnPrecision) finalMatrix.matrix[j][i];
-                                MyOwnPrecision tmp3 = (MyOwnPrecision) finalMatrix.matrix[i][k];
-                                MyOwnPrecision tmp4 = (MyOwnPrecision) finalMatrix.matrix[j][k];
-                                MyOwnPrecision tmp = MyOwnPrecision.flip(tmp1);
-                                tmp = MyOwnPrecision.multiply(tmp2, tmp);
-                                tmp = MyOwnPrecision.multiply(tmp3, tmp);
-                                tmp = MyOwnPrecision.negate(tmp);
-                                tmpMatrix.matrix[j][k] = (T) MyOwnPrecision.add(tmp4, tmp);
-                            }
-                        }
-                    }
+                    CountValueForPlace(finalMatrix, tmpMatrix, i, j, k);
                 }
             }
             for (int ii = 0; ii < this.rows; ii++) {
@@ -144,7 +148,7 @@ public class MyMatrix<T extends Number> {
     }
 
     //search biggest value in column( search only in sub-matrix of course) column- can be also understood as iteration
-    public MyMatrix<T> partialChoiseGauss(MyMatrix<T> vector) {
+    public MyMatrix<T> partialChoiseGauss(MyMatrix<T> vector, ArrayList<Integer> queue) {
 
         MyMatrix<T> finalMatrix = new MyMatrix<T>(classType, this.rows, this.columns + 1);
         MyMatrix<T> tmpMatrix = new MyMatrix<T>(classType, this.rows, this.columns + 1);
@@ -157,43 +161,17 @@ public class MyMatrix<T extends Number> {
             int index = absValueInColumn(finalMatrix, i);
             finalMatrix = flipRows(finalMatrix, i, index);
 
-            for (int ii = 0; ii < this.rows; ii++) {
+            for (int ii = 0; ii < this.columns; ii++) {
                 for (int jj = 0; jj < this.columns + 1; jj++) {
                     tmpMatrix.matrix[ii][jj] = finalMatrix.matrix[ii][jj];
                 }
             }
             for (int j = i + 1; j < this.columns; j++) {
                 for (int k = 0; k < this.columns + 1; k++) {
-                    if (classType.equals(Float.class)) {
-                        Float tmp1 = finalMatrix.matrix[j][i].floatValue() / finalMatrix.matrix[i][i].floatValue();
-                        Float tmp2 = finalMatrix.matrix[i][k].floatValue() * tmp1;
-                        Float tmp3 = finalMatrix.matrix[j][k].floatValue() - tmp2;
-                        tmpMatrix.matrix[j][k] = (T) tmp3;
-
-                    } else {
-                        if (classType.equals(Double.class)) {
-                            Double tmp1 = finalMatrix.matrix[j][i].doubleValue() / finalMatrix.matrix[i][i].doubleValue();
-                            Double tmp2 = finalMatrix.matrix[i][k].doubleValue() * tmp1;
-                            Double tmp3 = finalMatrix.matrix[j][k].doubleValue() - tmp2;
-                            tmpMatrix.matrix[j][k] = (T) tmp3;
-                        } else {
-
-                            if (classType.equals(MyOwnPrecision.class)) {
-                                MyOwnPrecision tmp1 = (MyOwnPrecision) finalMatrix.matrix[i][i];
-                                MyOwnPrecision tmp2 = (MyOwnPrecision) finalMatrix.matrix[j][i];
-                                MyOwnPrecision tmp3 = (MyOwnPrecision) finalMatrix.matrix[i][k];
-                                MyOwnPrecision tmp4 = (MyOwnPrecision) finalMatrix.matrix[j][k];
-                                MyOwnPrecision tmp = MyOwnPrecision.flip(tmp1);
-                                tmp = MyOwnPrecision.multiply(tmp2, tmp);
-                                tmp = MyOwnPrecision.multiply(tmp3, tmp);
-                                tmp = MyOwnPrecision.negate(tmp);
-                                tmpMatrix.matrix[j][k] = (T) MyOwnPrecision.add(tmp4, tmp);
-                            }
-                        }
-                    }
+                    CountValueForPlace(finalMatrix, tmpMatrix, i, j, k);
                 }
             }
-            for (int ii = 0; ii < this.rows; ii++) {
+            for (int ii = 0; ii < this.columns; ii++) {
                 for (int jj = 0; jj < this.columns + 1; jj++) {
                     finalMatrix.matrix[ii][jj] = tmpMatrix.matrix[ii][jj];
                 }
@@ -216,8 +194,6 @@ public class MyMatrix<T extends Number> {
         joinMatrixAndVector(vector, tmpMatrix);
 
         for (int i = 0; i < this.columns - 1; i++) {
-
-
             //Everytime sub-matrix shrincks, final matrix is changed to find biggest value in it
             finalMatrix = findAndSetBiggestValueInMatrix(finalMatrix, i, queue);
 
@@ -230,33 +206,7 @@ public class MyMatrix<T extends Number> {
             for (int j = i + 1; j < this.columns; j++) {
                 for (int k = 0; k < this.columns + 1; k++) {
 
-                    if (classType.equals(Float.class)) {
-                        Float tmp1 = finalMatrix.matrix[j][i].floatValue() / finalMatrix.matrix[i][i].floatValue();
-                        Float tmp2 = finalMatrix.matrix[i][k].floatValue() * tmp1;
-                        Float tmp3 = finalMatrix.matrix[j][k].floatValue() - tmp2;
-                        tmpMatrix.matrix[j][k] = (T) tmp3;
-
-                    } else {
-                        if (classType.equals(Double.class)) {
-                            Double tmp1 = finalMatrix.matrix[j][i].doubleValue() / finalMatrix.matrix[i][i].doubleValue();
-                            Double tmp2 = finalMatrix.matrix[i][k].doubleValue() * tmp1;
-                            Double tmp3 = finalMatrix.matrix[j][k].doubleValue() - tmp2;
-                            tmpMatrix.matrix[j][k] = (T) tmp3;
-                        } else {
-
-                            if (classType.equals(MyOwnPrecision.class)) {
-                                MyOwnPrecision tmp1 = (MyOwnPrecision) finalMatrix.matrix[i][i];
-                                MyOwnPrecision tmp2 = (MyOwnPrecision) finalMatrix.matrix[j][i];
-                                MyOwnPrecision tmp3 = (MyOwnPrecision) finalMatrix.matrix[i][k];
-                                MyOwnPrecision tmp4 = (MyOwnPrecision) finalMatrix.matrix[j][k];
-                                MyOwnPrecision tmp = MyOwnPrecision.flip(tmp1);
-                                tmp = MyOwnPrecision.multiply(tmp2, tmp);
-                                tmp = MyOwnPrecision.multiply(tmp3, tmp);
-                                tmp = MyOwnPrecision.negate(tmp);
-                                tmpMatrix.matrix[j][k] = (T) MyOwnPrecision.add(tmp4, tmp);
-                            }
-                        }
-                    }
+                    CountValueForPlace(finalMatrix, tmpMatrix, i, j, k);
                 }
             }
 
@@ -518,5 +468,47 @@ public class MyMatrix<T extends Number> {
         }
         br.close();
         fstream.close();
+    }
+
+    public MyMatrix<T> calculateResult(MyMatrix<T> vector, int choise) throws IOException {
+
+
+        switch (choise) {
+            case 1:       //base gauss
+                ArrayList<Integer> queue = new ArrayList<>();
+                MyMatrix<T> cleanedExtendedMatrix1 = this.gaussBase(vector, queue);
+                System.out.println("Result after gauss");
+                cleanedExtendedMatrix1.printMatrix();
+                MyMatrix<T> resultVector1 = cleanedExtendedMatrix1.countResultsFromGauss(queue);
+                return resultVector1;
+            case 2:
+                ArrayList<Integer> queue2 = new ArrayList<>();
+                MyMatrix<T> cleanedExtendedMatrix2 = this.partialChoiseGauss(vector, queue2);
+                cleanedExtendedMatrix2.printMatrix();
+                MyMatrix<T> resultVector2 = cleanedExtendedMatrix2.countResultsFromGauss(queue2);
+                return resultVector2;
+            case 3:
+                ArrayList<Integer> queue3 = new ArrayList<>();
+                MyMatrix<T> cleanedExtendedMatrix3 = this.fullChoiseGauss(vector, queue3);
+                cleanedExtendedMatrix3.printMatrix();
+
+                MyMatrix<T> resultVector3 = cleanedExtendedMatrix3.countResultsFromGauss(queue3);
+                return resultVector3;
+        }
+        return null;
+    }
+
+    public void countAbsOfResult(MyMatrix<T> vector, MyMatrix<T> result){
+        Float resultFloat = 0.0f ;
+
+        for(int j = 0 ; j<this.rows;j++) {
+            resultFloat = 0.0f ;
+            for (int i = 0; i < this.columns; i++) {
+                resultFloat += this.matrix[j][i].floatValue() * result.matrix[i][0].floatValue();
+            }
+            //System.out.println(resultFloat + " - " + vector.matrix[j][0].floatValue());
+            Float diff = Math.abs(resultFloat - vector.matrix[j][0].floatValue());
+            System.out.printf("%.8f\n",diff);
+        }
     }
 }
