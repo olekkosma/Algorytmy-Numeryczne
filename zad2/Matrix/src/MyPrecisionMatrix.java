@@ -117,9 +117,12 @@ public class MyPrecisionMatrix {
                 }
             }
             for (int j = i + 1; j < this.columns; j++) {
+                MyOwnPrecision tmp = MyOwnPrecision.flip(finalMatrix.matrix[i][i]);
+                tmp = MyOwnPrecision.multiply(finalMatrix.matrix[j][i], tmp);
+
+
                 for (int k = 0; k < this.columns + 1; k++) {
-                    MyOwnPrecision tmp = MyOwnPrecision.flip(finalMatrix.matrix[i][i]);
-                    tmp = MyOwnPrecision.multiply(finalMatrix.matrix[j][i], tmp);
+
                     tmp = MyOwnPrecision.multiply(finalMatrix.matrix[i][k], tmp);
                     tmp = MyOwnPrecision.negate(tmp);
                     tmpMatrix.matrix[j][k] = MyOwnPrecision.add(finalMatrix.matrix[j][k], tmp);

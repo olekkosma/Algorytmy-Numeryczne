@@ -1,3 +1,5 @@
+
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -98,7 +100,7 @@ public class MyMatrix<T extends Number> {
             Float tmp1 = finalMatrix.matrix[j][i].floatValue() / finalMatrix.matrix[i][i].floatValue();
             Float tmp2 = finalMatrix.matrix[i][k].floatValue() * tmp1;
             Float tmp3 = finalMatrix.matrix[j][k].floatValue() - tmp2;
-            tmpMatrix.matrix[j][k] = (T) tmp3;
+            tmpMatrix.matrix[j][k] = (T) (Float) (finalMatrix.matrix[j][k].floatValue() - tmp2);
 
         } else {
             if (classType.equals(Double.class)) {
@@ -123,150 +125,310 @@ public class MyMatrix<T extends Number> {
         }
     }
 
-    public MyMatrix<T> gaussBase(MyMatrix<T> vector, ArrayList<Integer> queue) {
+    public MyMatrix<T> gaussBase(MyMatrix<T> matrix, MyMatrix<T> vector) {
 
-        MyMatrix<T> finalMatrix = new MyMatrix<T>(classType, this.rows, this.columns + 1);
-        MyMatrix<T> tmpMatrix = new MyMatrix<T>(classType, this.rows, this.columns + 1);
+        int n = vector.rows;
 
-        joinMatrixAndVector(vector, finalMatrix);
-        joinMatrixAndVector(vector, tmpMatrix);
+        for (int p = 0; p < n; p++) {
 
-
-        for (int i = 0; i < this.columns - 1; i++) {
-            for (int j = i + 1; j < this.columns; j++) {
-                for (int k = 0; k < this.columns + 1; k++) {
-                    CountValueForPlace(finalMatrix, tmpMatrix, i, j, k);
-                }
-            }
-            for (int ii = 0; ii < this.rows; ii++) {
-                for (int jj = 0; jj < this.columns + 1; jj++) {
-                    finalMatrix.matrix[ii][jj] = tmpMatrix.matrix[ii][jj];
-                }
-            }
-        }
-        return tmpMatrix;
-    }
-
-    //search biggest value in column( search only in sub-matrix of course) column- can be also understood as iteration
-    public MyMatrix<T> partialChoiseGauss(MyMatrix<T> vector, ArrayList<Integer> queue) {
-
-        MyMatrix<T> finalMatrix = new MyMatrix<T>(classType, this.rows, this.columns + 1);
-        MyMatrix<T> tmpMatrix = new MyMatrix<T>(classType, this.rows, this.columns + 1);
-
-        joinMatrixAndVector(vector, finalMatrix);
-        joinMatrixAndVector(vector, tmpMatrix);
-
-        for (int i = 0; i < this.columns - 1; i++) {
-
-            int index = absValueInColumn(finalMatrix, i);
-            finalMatrix = flipRows(finalMatrix, i, index);
-
-            for (int ii = 0; ii < this.columns; ii++) {
-                for (int jj = 0; jj < this.columns + 1; jj++) {
-                    tmpMatrix.matrix[ii][jj] = finalMatrix.matrix[ii][jj];
-                }
-            }
-            for (int j = i + 1; j < this.columns; j++) {
-                for (int k = 0; k < this.columns + 1; k++) {
-                    CountValueForPlace(finalMatrix, tmpMatrix, i, j, k);
-                }
-            }
-            for (int ii = 0; ii < this.columns; ii++) {
-                for (int jj = 0; jj < this.columns + 1; jj++) {
-                    finalMatrix.matrix[ii][jj] = tmpMatrix.matrix[ii][jj];
-                }
-            }
-        }
-        return tmpMatrix;
-    }
-
-
-    public MyMatrix<T> fullChoiseGauss(MyMatrix<T> vector, ArrayList<Integer> queue) {
-
-        MyMatrix<T> finalMatrix = new MyMatrix(classType, this.rows, this.columns + 1);
-        MyMatrix<T> tmpMatrix = new MyMatrix(classType, this.rows, this.columns + 1);
-        for (int i = 0; i < finalMatrix.rows; i++) {
-            queue.add(i);
-        }
-
-        //create extended matrix with one more column.
-        joinMatrixAndVector(vector, finalMatrix);
-        joinMatrixAndVector(vector, tmpMatrix);
-
-        for (int i = 0; i < this.columns - 1; i++) {
-            //Everytime sub-matrix shrincks, final matrix is changed to find biggest value in it
-            finalMatrix = findAndSetBiggestValueInMatrix(finalMatrix, i, queue);
-
-            for (int ii = 0; ii < this.rows; ii++) {
-                for (int jj = 0; jj < this.columns + 1; jj++) {
-                    tmpMatrix.matrix[ii][jj] = finalMatrix.matrix[ii][jj];
-                }
-            }
-
-            for (int j = i + 1; j < this.columns; j++) {
-                for (int k = 0; k < this.columns + 1; k++) {
-
-                    CountValueForPlace(finalMatrix, tmpMatrix, i, j, k);
-                }
-            }
-
-            for (int ii = 0; ii < this.rows; ii++) {
-                for (int jj = 0; jj < this.columns + 1; jj++) {
-                    finalMatrix.matrix[ii][jj] = tmpMatrix.matrix[ii][jj];
-                }
-            }
-        }
-        return tmpMatrix;
-    }
-
-    public MyMatrix<T> findAndSetBiggestValueInMatrix(MyMatrix<T> finalMatrix, int iteration, ArrayList<Integer> queue) {
-
-        T maxValue = finalMatrix.matrix[iteration][iteration];
-        int rowIndex = iteration;
-        int columnIndex = iteration;
-        for (int ii = iteration; ii < finalMatrix.rows; ii++) {
-            for (int jj = iteration; jj < finalMatrix.columns - 1; jj++) {
-
+            for (int i = p + 1; i < n; i++) {
                 if (classType.equals(Float.class)) {
-                    Float tmp1 = (Float) finalMatrix.matrix[ii][jj];
-                    Float tmp2 = (Float) maxValue;
-                    if (Math.abs(tmp1) > tmp2) {
-                        tmp2 = Math.abs((Float) finalMatrix.matrix[ii][jj]);
-                        rowIndex = ii;
-                        columnIndex = jj;
-                        maxValue = (T) tmp2;
+                    float alpha = matrix.matrix[i][p].floatValue() / matrix.matrix[p][p].floatValue();
+                    vector.matrix[i][0] = (T) (Float) (vector.matrix[i][0].floatValue() - alpha * vector.matrix[p][0].floatValue());
+                    for (int j = p; j < n; j++) {
+                        matrix.matrix[i][j] = (T) (Float) (matrix.matrix[i][j].floatValue() - alpha * matrix.matrix[p][j].floatValue());
                     }
                 } else {
                     if (classType.equals(Double.class)) {
-                        Double tmp1 = (Double) finalMatrix.matrix[ii][jj];
-                        Double tmp2 = (Double) maxValue;
-                        if (Math.abs(tmp1) > tmp2) {
-                            tmp2 = Math.abs((Double) finalMatrix.matrix[ii][jj]);
-                            rowIndex = ii;
-                            columnIndex = jj;
-                            maxValue = (T) tmp2;
+                        double alpha = matrix.matrix[i][p].doubleValue() / matrix.matrix[p][p].doubleValue();
+                        vector.matrix[i][0] = (T) (Double) (vector.matrix[i][0].doubleValue() - alpha * vector.matrix[p][0].doubleValue());
+                        for (int j = p; j < n; j++) {
+                            matrix.matrix[i][j] = (T) (Double) (matrix.matrix[i][j].doubleValue() - alpha * matrix.matrix[p][j].doubleValue());
                         }
                     } else {
                         if (classType.equals(MyOwnPrecision.class)) {
-                            MyOwnPrecision tmp1 = (MyOwnPrecision) finalMatrix.matrix[ii][jj];
-                            MyOwnPrecision tmp2 = (MyOwnPrecision) maxValue;
-                            if (Math.abs(tmp1.returnDoubleFormat()) > tmp2.returnDoubleFormat()) {
-                                MyOwnPrecision tmp3 = (MyOwnPrecision) finalMatrix.matrix[ii][jj];
-                                MyOwnPrecision tmp = tmp3.newInstance();
-                                tmp.absConvert();
-                                maxValue = (T) tmp;
-                                rowIndex = ii;
-                                columnIndex = jj;
+                            MyOwnPrecision alpha = MyOwnPrecision.multiply((MyOwnPrecision) matrix.matrix[i][p], MyOwnPrecision.flip((MyOwnPrecision) matrix.matrix[p][p]));
+                            MyOwnPrecision tmp1 = MyOwnPrecision.multiply(alpha, (MyOwnPrecision) vector.matrix[p][0]);
+                            tmp1 = MyOwnPrecision.negate(tmp1);
+                            vector.matrix[i][0] = (T) MyOwnPrecision.add((MyOwnPrecision) vector.matrix[i][0], tmp1);
+                            for (int j = p; j < n; j++) {
+                                MyOwnPrecision tmp2 = MyOwnPrecision.multiply(alpha, (MyOwnPrecision) matrix.matrix[p][j]);
+                                tmp2 = MyOwnPrecision.negate(tmp2);
+                                matrix.matrix[i][j] = (T) MyOwnPrecision.add((MyOwnPrecision) matrix.matrix[i][j], tmp2);
                             }
+
                         }
                     }
                 }
             }
         }
-        finalMatrix = flipRows(finalMatrix, iteration, rowIndex);
-        finalMatrix = flipColumns(finalMatrix, iteration, columnIndex, queue);
 
-        return finalMatrix;
+        MyMatrix<T> resultVector = new MyMatrix(classType, vector.rows, 1);
+
+        if (classType.equals(Float.class)) {
+            for (int i = n - 1; i >= 0; i--) {
+                float sum = 0f;
+                for (int j = i + 1; j < n; j++) {
+                    sum += matrix.matrix[i][j].floatValue() * resultVector.matrix[j][0].floatValue();
+                }
+                resultVector.matrix[i][0] = (T) (Float) ((vector.matrix[i][0].floatValue() - sum) / matrix.matrix[i][i].floatValue());
+
+            }
+        } else {
+            if (classType.equals(Double.class)) {
+                for (int i = n - 1; i >= 0; i--) {
+                    double sum = 0.0;
+                    for (int j = i + 1; j < n; j++) {
+                        sum += matrix.matrix[i][j].doubleValue() * resultVector.matrix[j][0].doubleValue();
+                    }
+                    resultVector.matrix[i][0] = (T) (Double) ((vector.matrix[i][0].doubleValue() - sum) / matrix.matrix[i][i].doubleValue());
+
+                }
+            } else {
+                if (classType.equals(MyOwnPrecision.class)) {
+                    for (int i = n - 1; i >= 0; i--) {
+                        MyOwnPrecision sum = new MyOwnPrecision("0.0");
+                        for (int j = i + 1; j < n; j++) {
+                            MyOwnPrecision tmp1 = (MyOwnPrecision) matrix.matrix[i][j];
+                            MyOwnPrecision tmp2 = (MyOwnPrecision) resultVector.matrix[j][0];
+                            tmp1.multiply(tmp2);
+                            sum.add(tmp1);
+                        }
+                        MyOwnPrecision tmp3 = (MyOwnPrecision) vector.matrix[i][0];
+                        sum = MyOwnPrecision.negate(sum);
+                        tmp3.add(sum);
+                        MyOwnPrecision tmp4 = (MyOwnPrecision) matrix.matrix[i][i];
+                        tmp4 = MyOwnPrecision.flip(tmp4);
+                        tmp3.multiply(tmp4);
+                        resultVector.matrix[i][0] = (T) tmp3;
+                    }
+                }
+            }
+        }
+        return resultVector;
+    }
+
+    //search biggest value in column( search only in sub-matrix of course) column- can be also understood as iteration
+    public MyMatrix<T> partialChoiseGauss(MyMatrix<T> matrix, MyMatrix<T> vector) {
+
+
+        int n = vector.rows;
+
+        for (int p = 0; p < n; p++) {
+
+            int max = p;
+
+            for (int i = p + 1; i < n; i++) {
+                if (classType.equals(Float.class)) {
+                    if (Math.abs(matrix.matrix[i][p].floatValue()) > Math.abs(matrix.matrix[max][p].floatValue())) {
+                        max = i;
+                    }
+                }else{
+                    if(classType.equals(Double.class)){
+                        if (Math.abs(matrix.matrix[i][p].doubleValue()) > Math.abs(matrix.matrix[max][p].doubleValue())) {
+                            max = i;
+                        }
+
+                    }else {
+                        if (classType.equals(MyOwnPrecision.class)) {
+                            if (Math.abs(((MyOwnPrecision) matrix.matrix[i][p]).returnDoubleFormat()) > Math.abs(((MyOwnPrecision) matrix.matrix[max][p]).returnDoubleFormat())) {
+                                max = i;
+                            }
+
+                        }
+                    }
+                }
+            }
+            matrix.printMatrix();
+            flipRows(matrix, p, max);
+            flipRows(vector, p, max);
+            matrix.printMatrix();
+
+
+            for (int i = p + 1; i < n; i++) {
+                if (classType.equals(Float.class)) {
+                    float alpha = matrix.matrix[i][p].floatValue() / matrix.matrix[p][p].floatValue();
+                    vector.matrix[i][0] = (T) (Float) (vector.matrix[i][0].floatValue() - alpha * vector.matrix[p][0].floatValue());
+                    for (int j = p; j < n; j++) {
+                        matrix.matrix[i][j] = (T) (Float) (matrix.matrix[i][j].floatValue() - alpha * matrix.matrix[p][j].floatValue());
+                    }
+                } else {
+                    if (classType.equals(Double.class)) {
+                        double alpha = matrix.matrix[i][p].doubleValue() / matrix.matrix[p][p].doubleValue();
+                        vector.matrix[i][0] = (T) (Double) (vector.matrix[i][0].doubleValue() - alpha * vector.matrix[p][0].doubleValue());
+                        for (int j = p; j < n; j++) {
+                            matrix.matrix[i][j] = (T) (Double) (matrix.matrix[i][j].doubleValue() - alpha * matrix.matrix[p][j].doubleValue());
+                        }
+                    } else {
+                        if (classType.equals(MyOwnPrecision.class)) {
+                            MyOwnPrecision alpha = MyOwnPrecision.multiply((MyOwnPrecision) matrix.matrix[i][p], MyOwnPrecision.flip((MyOwnPrecision) matrix.matrix[p][p]));
+                            MyOwnPrecision tmp1 = MyOwnPrecision.multiply(alpha, (MyOwnPrecision) vector.matrix[p][0]);
+                            tmp1 = MyOwnPrecision.negate(tmp1);
+                            vector.matrix[i][0] = (T) MyOwnPrecision.add((MyOwnPrecision) vector.matrix[i][0], tmp1);
+                            for (int j = p; j < n; j++) {
+                                MyOwnPrecision tmp2 = MyOwnPrecision.multiply(alpha, (MyOwnPrecision) matrix.matrix[p][j]);
+                                tmp2 = MyOwnPrecision.negate(tmp2);
+                                matrix.matrix[i][j] = (T) MyOwnPrecision.add((MyOwnPrecision) matrix.matrix[i][j], tmp2);
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+
+        MyMatrix<T> resultVector = new MyMatrix(classType, vector.rows, 1);
+
+        if (classType.equals(Float.class)) {
+            for (int i = n - 1; i >= 0; i--) {
+                float sum = 0f;
+                for (int j = i + 1; j < n; j++) {
+                    sum += matrix.matrix[i][j].floatValue() * resultVector.matrix[j][0].floatValue();
+                }
+                resultVector.matrix[i][0] = (T) (Float) ((vector.matrix[i][0].floatValue() - sum) / matrix.matrix[i][i].floatValue());
+
+            }
+        } else {
+            if (classType.equals(Double.class)) {
+                for (int i = n - 1; i >= 0; i--) {
+                    double sum = 0.0;
+                    for (int j = i + 1; j < n; j++) {
+                        sum += matrix.matrix[i][j].doubleValue() * resultVector.matrix[j][0].doubleValue();
+                    }
+                    resultVector.matrix[i][0] = (T) (Double) ((vector.matrix[i][0].doubleValue() - sum) / matrix.matrix[i][i].doubleValue());
+
+                }
+            } else {
+                if (classType.equals(MyOwnPrecision.class)) {
+                    for (int i = n - 1; i >= 0; i--) {
+                        MyOwnPrecision sum = new MyOwnPrecision("0.0");
+                        for (int j = i + 1; j < n; j++) {
+                            MyOwnPrecision tmp1 = (MyOwnPrecision) matrix.matrix[i][j];
+                            MyOwnPrecision tmp2 = (MyOwnPrecision) resultVector.matrix[j][0];
+                            tmp1.multiply(tmp2);
+                            sum.add(tmp1);
+                        }
+                        MyOwnPrecision tmp3 = (MyOwnPrecision) vector.matrix[i][0];
+                        sum = MyOwnPrecision.negate(sum);
+                        tmp3.add(sum);
+                        MyOwnPrecision tmp4 = (MyOwnPrecision) matrix.matrix[i][i];
+                        tmp4 = MyOwnPrecision.flip(tmp4);
+                        tmp3.multiply(tmp4);
+                        resultVector.matrix[i][0] = (T) tmp3;
+                    }
+                }
+            }
+        }
+        return resultVector;
+    }
+
+
+    public MyMatrix<T> fullChoiseGauss(MyMatrix<T> matrix, MyMatrix<T> vector, ArrayList<Integer> queue) {
+
+
+        int n = vector.rows;
+
+        for (int p = 0; p < n; p++) {
+
+            findAndSetBiggestValueInMatrix(matrix, vector, p, queue);
+
+            for (int i = p + 1; i < n; i++) {
+                if (classType.equals(Float.class)) {
+                    float alpha = matrix.matrix[i][p].floatValue() / matrix.matrix[p][p].floatValue();
+                    vector.matrix[i][0] = (T) (Float) (vector.matrix[i][0].floatValue() - alpha * vector.matrix[p][0].floatValue());
+                    for (int j = p; j < n; j++) {
+                        matrix.matrix[i][j] = (T) (Float) (matrix.matrix[i][j].floatValue() - alpha * matrix.matrix[p][j].floatValue());
+                    }
+                } else {
+                    if (classType.equals(Double.class)) {
+                        double alpha = matrix.matrix[i][p].doubleValue() / matrix.matrix[p][p].doubleValue();
+                        vector.matrix[i][0] = (T) (Double) (vector.matrix[i][0].doubleValue() - alpha * vector.matrix[p][0].doubleValue());
+                        for (int j = p; j < n; j++) {
+                            matrix.matrix[i][j] = (T) (Double) (matrix.matrix[i][j].doubleValue() - alpha * matrix.matrix[p][j].doubleValue());
+                        }
+                    } else {
+                        if (classType.equals(MyOwnPrecision.class)) {
+                            MyOwnPrecision alpha = MyOwnPrecision.multiply((MyOwnPrecision) matrix.matrix[i][p], MyOwnPrecision.flip((MyOwnPrecision) matrix.matrix[p][p]));
+                            MyOwnPrecision tmp1 = MyOwnPrecision.multiply(alpha, (MyOwnPrecision) vector.matrix[p][0]);
+                            tmp1 = MyOwnPrecision.negate(tmp1);
+                            vector.matrix[i][0] = (T) MyOwnPrecision.add((MyOwnPrecision) vector.matrix[i][0], tmp1);
+                            for (int j = p; j < n; j++) {
+                                MyOwnPrecision tmp2 = MyOwnPrecision.multiply(alpha, (MyOwnPrecision) matrix.matrix[p][j]);
+                                tmp2 = MyOwnPrecision.negate(tmp2);
+                                matrix.matrix[i][j] = (T) MyOwnPrecision.add((MyOwnPrecision) matrix.matrix[i][j], tmp2);
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+
+        MyMatrix<T> resultVector = new MyMatrix(classType, vector.rows, 1);
+
+        if (classType.equals(Float.class)) {
+            for (int i = n - 1; i >= 0; i--) {
+                float sum = 0f;
+                for (int j = i + 1; j < n; j++) {
+                    sum += matrix.matrix[i][j].floatValue() * resultVector.matrix[j][0].floatValue();
+                }
+                resultVector.matrix[i][0] = (T) (Float) ((vector.matrix[i][0].floatValue() - sum) / matrix.matrix[i][i].floatValue());
+
+            }
+        } else {
+            if (classType.equals(Double.class)) {
+                for (int i = n - 1; i >= 0; i--) {
+                    double sum = 0.0;
+                    for (int j = i + 1; j < n; j++) {
+                        sum += matrix.matrix[i][j].doubleValue() * resultVector.matrix[j][0].doubleValue();
+                    }
+                    resultVector.matrix[i][0] = (T) (Double) ((vector.matrix[i][0].doubleValue() - sum) / matrix.matrix[i][i].doubleValue());
+
+                }
+            } else {
+                if (classType.equals(MyOwnPrecision.class)) {
+                    for (int i = n - 1; i >= 0; i--) {
+                        MyOwnPrecision sum = new MyOwnPrecision("0.0");
+                        for (int j = i + 1; j < n; j++) {
+                            MyOwnPrecision tmp1 = (MyOwnPrecision) matrix.matrix[i][j];
+                            MyOwnPrecision tmp2 = (MyOwnPrecision) resultVector.matrix[j][0];
+                            tmp1.multiply(tmp2);
+                            sum.add(tmp1);
+                        }
+                        MyOwnPrecision tmp3 = (MyOwnPrecision) vector.matrix[i][0];
+                        sum = MyOwnPrecision.negate(sum);
+                        tmp3.add(sum);
+                        MyOwnPrecision tmp4 = (MyOwnPrecision) matrix.matrix[i][i];
+                        tmp4 = MyOwnPrecision.flip(tmp4);
+                        tmp3.multiply(tmp4);
+                        resultVector.matrix[i][0] = (T) tmp3;
+                    }
+                }
+            }
+        }
+        return resultVector;
+    }
+
+    public void findAndSetBiggestValueInMatrix(MyMatrix<T> matrix, MyMatrix<T> vector, int p, ArrayList<Integer> queue) {
+
+        Float maxValue = matrix.matrix[p][p].floatValue();
+        int rowIndex = p;
+        int columnIndex = p;
+        for (int ii = p; ii < matrix.rows; ii++) {
+            for (int jj = p; jj < matrix.columns; jj++) {
+
+                if (Math.abs(matrix.matrix[ii][jj].floatValue()) > maxValue) {
+                    maxValue = Math.abs(matrix.matrix[ii][jj].floatValue());
+                    rowIndex = ii;
+                    columnIndex = jj;
+                }
+            }
+        }
+
+        flipRows(matrix, p, rowIndex);
+        flipRows(vector, p, rowIndex);
+
+        flipColumns(matrix, p, columnIndex, queue);
     }
 
     public int absValueInColumn(MyMatrix<T> finalMatrix, int column) {
@@ -345,7 +507,6 @@ public class MyMatrix<T extends Number> {
                 }
             }
         }
-        //queue is used only in fullChoiseGauss so it is good to check there is any queue
         if (queue.size() > 0) vectorMatrix = sortResultsByQueue(vectorMatrix, queue);
         return vectorMatrix;
     }
@@ -359,24 +520,10 @@ public class MyMatrix<T extends Number> {
                 tmp.matrix[ii][jj] = vectorMatrix.matrix[ii][jj];
             }
         }
-
         for (int i = 0; i < vectorMatrix.rows; i++) {
             vectorMatrix.matrix[queue.get(i)][0] = tmp.matrix[i][0];
         }
         return vectorMatrix;
-    }
-
-    private void joinMatrixAndVector(MyMatrix<T> vector, MyMatrix<T> matrixToJoin) {
-        for (int i = 0; i < this.rows; i++) {
-            for (int j = 0; j < this.columns + 1; j++) {
-
-                if (j == this.columns) {
-                    matrixToJoin.matrix[i][j] = vector.matrix[i][0];
-                } else {
-                    matrixToJoin.matrix[i][j] = this.matrix[i][j];
-                }
-            }
-        }
     }
 
     public MyMatrix<T> flipRows(MyMatrix<T> finalMatrix, int row1, int row2) {
@@ -416,10 +563,6 @@ public class MyMatrix<T extends Number> {
             }
             System.out.println("");
         }
-    }
-
-    public void printClass() {
-        System.out.println(classType);
     }
 
     public void fillWithZero() {
@@ -470,9 +613,9 @@ public class MyMatrix<T extends Number> {
         fstream.close();
     }
 
-    public MyMatrix<T> calculateResult(MyMatrix<T> vector, int choise) throws IOException {
+    public void calculateResult(MyMatrix<T> vector, int choise) throws IOException {
 
-
+/*
         switch (choise) {
             case 1:       //base gauss
                 ArrayList<Integer> queue = new ArrayList<>();
@@ -496,19 +639,31 @@ public class MyMatrix<T extends Number> {
                 return resultVector3;
         }
         return null;
+        */
     }
 
-    public void countAbsOfResult(MyMatrix<T> vector, MyMatrix<T> result){
-        Float resultFloat = 0.0f ;
+    public void countAbsOfResult(MyMatrix<T> vector, MyMatrix<T> result) {
+        if (classType.equals(Float.class)) {
+            Float resultFloat = 0.0f;
 
-        for(int j = 0 ; j<this.rows;j++) {
-            resultFloat = 0.0f ;
-            for (int i = 0; i < this.columns; i++) {
-                resultFloat += this.matrix[j][i].floatValue() * result.matrix[i][0].floatValue();
+            for (int j = 0; j < this.rows; j++) {
+                resultFloat = 0.0f;
+                for (int i = 0; i < this.columns; i++) {
+                    resultFloat += this.matrix[j][i].floatValue() * result.matrix[i][0].floatValue();
+                }
+                Float diff = Math.abs(resultFloat - vector.matrix[j][0].floatValue());
+                System.out.printf("%.8f\n", diff);
             }
-            //System.out.println(resultFloat + " - " + vector.matrix[j][0].floatValue());
-            Float diff = Math.abs(resultFloat - vector.matrix[j][0].floatValue());
-            System.out.printf("%.8f\n",diff);
+        } else {
+            Double resultFloat = 0.0;
+            for (int j = 0; j < this.rows; j++) {
+                resultFloat = 0.0;
+                for (int i = 0; i < this.columns; i++) {
+                    resultFloat += this.matrix[j][i].doubleValue() * result.matrix[i][0].doubleValue();
+                }
+                Double diff = Math.abs(resultFloat - vector.matrix[j][0].doubleValue());
+                System.out.printf("%.8f\n", diff);
+            }
         }
     }
 }
