@@ -4,7 +4,6 @@
 //Algorytmy Numeryczne
 //--------------------
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -20,11 +19,6 @@ public class Main {
     //                3 -- gauss full
     public static void main(String[] args) throws IOException {
 
-
-
-
-
-
         MyMatrix.calculateResult(Float.class,1,1);
         MyMatrix.calculateResult(Float.class,1,2);
         MyMatrix.calculateResult(Float.class,1,3);
@@ -36,9 +30,5 @@ public class Main {
         MyMatrix.calculateResult(MyOwnPrecision.class,1,1);
         MyMatrix.calculateResult(MyOwnPrecision.class,1,2);
         MyMatrix.calculateResult(MyOwnPrecision.class,1,3);
-
-
-
-
     }
 }

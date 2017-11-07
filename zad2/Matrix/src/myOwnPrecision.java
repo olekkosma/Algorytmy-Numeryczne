@@ -1,3 +1,9 @@
+//Aleksander Kosma / Tomasz Adamczyk
+//Nr. indexu: 238193 / 243217
+//08.11.2017
+//Algorytmy Numeryczne
+//--------------------
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
@@ -20,24 +26,10 @@ public class MyOwnPrecision extends Number {
     }
     public static MyOwnPrecision flip(MyOwnPrecision first){
         MyOwnPrecision toReturn = first.newInstance();
-
         BigInteger tmp = toReturn.getNumerator();
         toReturn.setNumerator(toReturn.getDenominator());
         toReturn.setDenominator(tmp);
-
         return toReturn;
-    }
-
-    public BigInteger getNumerator() {
-        return numerator;
-    }
-
-    public BigInteger getDenominator() {
-        return denominator;
-    }
-
-    public String getNumberString() {
-        return numberString;
     }
 
     public static MyOwnPrecision negate(MyOwnPrecision first){
@@ -78,18 +70,6 @@ public class MyOwnPrecision extends Number {
         denominator = denominator.abs();
     }
 
-    public void setNumerator(BigInteger numerator) {
-        this.numerator = numerator;
-    }
-
-    public void setDenominator(BigInteger denominator) {
-        this.denominator = denominator;
-    }
-
-    public void setNumberString(String numberString) {
-        this.numberString = numberString;
-    }
-
     public void add(MyOwnPrecision second){
         this.numerator = this.numerator.multiply(second.denominator).add(this.denominator.multiply(second.numerator));
         this.denominator = this.denominator.multiply(second.denominator);
@@ -111,7 +91,6 @@ public class MyOwnPrecision extends Number {
     }
     public static MyOwnPrecision multiply(MyOwnPrecision first, MyOwnPrecision second){
         MyOwnPrecision toReturn1 = new MyOwnPrecision(first.getNumerator(),first.getDenominator(),first.getNumberString());
-
         MyOwnPrecision toReturn2 = new MyOwnPrecision(second.getNumerator(),second.getDenominator(),second.getNumberString());
 
         toReturn1.numerator = toReturn1.numerator.multiply(toReturn2.numerator);
@@ -130,9 +109,11 @@ public class MyOwnPrecision extends Number {
         //System.out.print(result);
         return result.toString();
     }
+
     public MyOwnPrecision newInstance(){
         return new MyOwnPrecision(this.numerator,this.denominator,this.numberString);
     }
+
     public Double returnDoubleFormat(){
         BigDecimal result = new BigDecimal(this.numerator.toString());
         result = result.divide(new BigDecimal(String.valueOf(denominator)),mc);
@@ -145,6 +126,7 @@ public class MyOwnPrecision extends Number {
         this.denominator = denominator.divide(commonFactor);
 
     }
+
     public BigInteger  commonFactor(BigInteger numerator, BigInteger denominator){
         if(denominator.equals(BigInteger.valueOf(0))){
             return numerator;
@@ -175,6 +157,30 @@ public class MyOwnPrecision extends Number {
     @Override
     public double doubleValue() {
         return 0;
+    }
+
+    public BigInteger getNumerator() {
+        return numerator;
+    }
+
+    public BigInteger getDenominator() {
+        return denominator;
+    }
+
+    public String getNumberString() {
+        return numberString;
+    }
+
+    public void setNumerator(BigInteger numerator) {
+        this.numerator = numerator;
+    }
+
+    public void setDenominator(BigInteger denominator) {
+        this.denominator = denominator;
+    }
+
+    public void setNumberString(String numberString) {
+        this.numberString = numberString;
     }
 
 }
