@@ -1,4 +1,8 @@
-
+//Aleksander Kosma / Tomasz Adamczyk
+//Nr. indexu: 238193 / 243217
+//08.11.2017
+//Algorytmy Numeryczne
+//--------------------
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -36,20 +40,23 @@ public class MyMatrix<T extends Number> {
 
         for (int i = 0; i < columns; i++) {
             for (int j = 0; j < columns; j++) {
-
                 if (classType.equals(Float.class)) {
+
                     Float sum = this.matrix[i][j].floatValue() + secondMatrix.matrix[i][j].floatValue();
                     this.matrix[i][j] = (T) sum;
+
                 } else {
                     if (classType.equals(Double.class)) {
+
                         Double sum = this.matrix[i][j].doubleValue() + secondMatrix.matrix[i][j].doubleValue();
                         this.matrix[i][j] = (T) sum;
+
                     } else {
-                        if (classType.equals(MyOwnPrecision.class)) {
-                            MyOwnPrecision first = (MyOwnPrecision) matrix[i][j];
-                            first.add((MyOwnPrecision) secondMatrix.matrix[i][j]);
-                            matrix[i][j] = (T) first;
-                        }
+
+                            MyOwnPrecision sum = (MyOwnPrecision) matrix[i][j];
+                            sum.add((MyOwnPrecision) secondMatrix.matrix[i][j]);
+                            matrix[i][j] = (T) sum;
+
                     }
                 }
             }
@@ -95,40 +102,9 @@ public class MyMatrix<T extends Number> {
         return sumMatrix;
     }
 
-    private void CountValueForPlace(MyMatrix<T> finalMatrix, MyMatrix<T> tmpMatrix, int i, int j, int k) {
-        if (classType.equals(Float.class)) {
-            Float tmp1 = finalMatrix.matrix[j][i].floatValue() / finalMatrix.matrix[i][i].floatValue();
-            Float tmp2 = finalMatrix.matrix[i][k].floatValue() * tmp1;
-            Float tmp3 = finalMatrix.matrix[j][k].floatValue() - tmp2;
-            tmpMatrix.matrix[j][k] = (T) (Float) (finalMatrix.matrix[j][k].floatValue() - tmp2);
-
-        } else {
-            if (classType.equals(Double.class)) {
-                Double tmp1 = finalMatrix.matrix[j][i].doubleValue() / finalMatrix.matrix[i][i].doubleValue();
-                Double tmp2 = finalMatrix.matrix[i][k].doubleValue() * tmp1;
-                Double tmp3 = finalMatrix.matrix[j][k].doubleValue() - tmp2;
-                tmpMatrix.matrix[j][k] = (T) tmp3;
-            } else {
-
-                if (classType.equals(MyOwnPrecision.class)) {
-                    MyOwnPrecision tmp1 = (MyOwnPrecision) finalMatrix.matrix[i][i];
-                    MyOwnPrecision tmp2 = (MyOwnPrecision) finalMatrix.matrix[j][i];
-                    MyOwnPrecision tmp3 = (MyOwnPrecision) finalMatrix.matrix[i][k];
-                    MyOwnPrecision tmp4 = (MyOwnPrecision) finalMatrix.matrix[j][k];
-                    MyOwnPrecision tmp = MyOwnPrecision.flip(tmp1);
-                    tmp = MyOwnPrecision.multiply(tmp2, tmp);
-                    tmp = MyOwnPrecision.multiply(tmp3, tmp);
-                    tmp = MyOwnPrecision.negate(tmp);
-                    tmpMatrix.matrix[j][k] = (T) MyOwnPrecision.add(tmp4, tmp);
-                }
-            }
-        }
-    }
-
     public MyMatrix<T> gaussBase(MyMatrix<T> matrix, MyMatrix<T> vector) {
 
         int n = vector.rows;
-
         for (int p = 0; p < n; p++) {
 
             for (int i = p + 1; i < n; i++) {
@@ -211,9 +187,7 @@ public class MyMatrix<T extends Number> {
     //search biggest value in column( search only in sub-matrix of course) column- can be also understood as iteration
     public MyMatrix<T> partialChoiseGauss(MyMatrix<T> matrix, MyMatrix<T> vector) {
 
-
         int n = vector.rows;
-
         for (int p = 0; p < n; p++) {
 
             int max = p;
@@ -223,13 +197,13 @@ public class MyMatrix<T extends Number> {
                     if (Math.abs(matrix.matrix[i][p].floatValue()) > Math.abs(matrix.matrix[max][p].floatValue())) {
                         max = i;
                     }
-                }else{
-                    if(classType.equals(Double.class)){
+                } else {
+                    if (classType.equals(Double.class)) {
                         if (Math.abs(matrix.matrix[i][p].doubleValue()) > Math.abs(matrix.matrix[max][p].doubleValue())) {
                             max = i;
                         }
 
-                    }else {
+                    } else {
                         if (classType.equals(MyOwnPrecision.class)) {
                             if (Math.abs(((MyOwnPrecision) matrix.matrix[i][p]).returnDoubleFormat()) > Math.abs(((MyOwnPrecision) matrix.matrix[max][p]).returnDoubleFormat())) {
                                 max = i;
@@ -239,11 +213,9 @@ public class MyMatrix<T extends Number> {
                     }
                 }
             }
-            matrix.printMatrix();
+
             flipRows(matrix, p, max);
             flipRows(vector, p, max);
-            matrix.printMatrix();
-
 
             for (int i = p + 1; i < n; i++) {
                 if (classType.equals(Float.class)) {
@@ -322,12 +294,12 @@ public class MyMatrix<T extends Number> {
         return resultVector;
     }
 
-
     public MyMatrix<T> fullChoiseGauss(MyMatrix<T> matrix, MyMatrix<T> vector, ArrayList<Integer> queue) {
 
-
+        for (int i = 0; i < matrix.rows; i++) {
+            queue.add(i);
+        }
         int n = vector.rows;
-
         for (int p = 0; p < n; p++) {
 
             findAndSetBiggestValueInMatrix(matrix, vector, p, queue);
@@ -357,7 +329,6 @@ public class MyMatrix<T extends Number> {
                                 tmp2 = MyOwnPrecision.negate(tmp2);
                                 matrix.matrix[i][j] = (T) MyOwnPrecision.add((MyOwnPrecision) matrix.matrix[i][j], tmp2);
                             }
-
                         }
                     }
                 }
@@ -427,94 +398,12 @@ public class MyMatrix<T extends Number> {
 
         flipRows(matrix, p, rowIndex);
         flipRows(vector, p, rowIndex);
-
         flipColumns(matrix, p, columnIndex, queue);
-    }
-
-    public int absValueInColumn(MyMatrix<T> finalMatrix, int column) {
-        int index = column;
-        T max = finalMatrix.matrix[column][column];
-        for (int i = column + 1; i < finalMatrix.rows; i++) {
-            if (classType.equals(Float.class)) {
-                Float tmp1 = (Float) finalMatrix.matrix[i][column];
-                Float tmp2 = (Float) max;
-                if (Math.abs(tmp1) > tmp2) {
-                    tmp1 = Math.abs((Float) finalMatrix.matrix[i][column]);
-                    index = i;
-                    max = (T) tmp1;
-                }
-            } else {
-                if (classType.equals(Double.class)) {
-                    Double tmp1 = (Double) finalMatrix.matrix[i][column];
-                    Double tmp2 = (Double) max;
-                    if (Math.abs(tmp1) > tmp2) {
-                        tmp1 = Math.abs((Double) finalMatrix.matrix[i][column]);
-                        index = i;
-                        max = (T) tmp1;
-                    }
-                } else {
-                    if (classType.equals(MyOwnPrecision.class)) {
-                        MyOwnPrecision tmp1 = (MyOwnPrecision) finalMatrix.matrix[i][column];
-                        MyOwnPrecision tmp2 = (MyOwnPrecision) max;
-                        if (Math.abs(tmp1.returnDoubleFormat()) > tmp2.returnDoubleFormat()) {
-                            MyOwnPrecision tmp3 = (MyOwnPrecision) finalMatrix.matrix[i][column];
-                            MyOwnPrecision tmp = tmp3.newInstance();
-                            tmp.absConvert();
-                            max = (T) tmp;
-                            index = i;
-                        }
-                    }
-                }
-            }
-
-        }
-        return index;
-    }
-
-    public MyMatrix<T> countResultsFromGauss(ArrayList<Integer> queue) {
-
-        MyMatrix<T> vectorMatrix = new MyMatrix(classType, this.rows, 1);
-
-        for (int i = 0; i < this.rows; i++) {
-            vectorMatrix.matrix[i][0] = this.matrix[i][this.columns - 1];
-        }
-        T s;
-        int n = this.rows;
-        for (int i = n - 1; i >= 0; i--) {
-            s = this.matrix[i][n];
-
-            for (int j = n - 1; j >= i + 1; j--) {
-                if (classType.equals(Float.class)) {
-                    Float tmp1 = this.matrix[i][j].floatValue() * vectorMatrix.matrix[j][0].floatValue();
-                    s = (T) ((Float) (s.floatValue() - tmp1));
-                    Float end = s.floatValue() / this.matrix[i][i].floatValue();
-                    vectorMatrix.matrix[i][0] = (T) end;
-                } else {
-                    if (classType.equals(Double.class)) {
-                        Double tmp1 = this.matrix[i][j].doubleValue() * vectorMatrix.matrix[j][0].doubleValue();
-                        s = (T) ((Double) (s.doubleValue() - tmp1));
-                        Double end = s.doubleValue() / this.matrix[i][i].doubleValue();
-                        vectorMatrix.matrix[i][0] = (T) end;
-                    } else {
-                        if (classType.equals(MyOwnPrecision.class)) {
-                            MyOwnPrecision tmp = MyOwnPrecision.multiply((MyOwnPrecision) this.matrix[i][j], (MyOwnPrecision) vectorMatrix.matrix[j][0]);
-                            tmp = MyOwnPrecision.negate(tmp);
-                            s = (T) MyOwnPrecision.add((MyOwnPrecision) s, tmp);
-                            MyOwnPrecision divider = MyOwnPrecision.flip((MyOwnPrecision) this.matrix[i][i]);
-                            vectorMatrix.matrix[i][0] = (T) MyOwnPrecision.multiply((MyOwnPrecision) s, divider);
-                        }
-                    }
-                }
-            }
-        }
-        if (queue.size() > 0) vectorMatrix = sortResultsByQueue(vectorMatrix, queue);
-        return vectorMatrix;
     }
 
     public MyMatrix<T> sortResultsByQueue(MyMatrix<T> vectorMatrix, ArrayList<Integer> queue) {
 
         MyMatrix<T> tmp = new MyMatrix(classType, vectorMatrix.rows, 1);
-
         for (int ii = 0; ii < vectorMatrix.rows; ii++) {
             for (int jj = 0; jj < vectorMatrix.columns; jj++) {
                 tmp.matrix[ii][jj] = vectorMatrix.matrix[ii][jj];
@@ -576,9 +465,7 @@ public class MyMatrix<T extends Number> {
                         Double zero = new Double(0);
                         matrix[i][j] = (T) zero;
                     } else {
-                        if (classType.equals(MyOwnPrecision.class)) {
                             matrix[i][j] = (T) new MyOwnPrecision("0.0");
-                        }
                     }
                 }
             }
@@ -594,17 +481,15 @@ public class MyMatrix<T extends Number> {
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                strLine = br.readLine();
 
+                strLine = br.readLine();
                 if (classType.equals(Float.class)) {
                     matrix[i][j] = (T) Float.valueOf(strLine);
                 } else {
                     if (classType.equals(Double.class)) {
                         matrix[i][j] = (T) Double.valueOf(strLine);
                     } else {
-                        if (classType.equals(MyOwnPrecision.class)) {
                             matrix[i][j] = (T) new MyOwnPrecision(strLine);
-                        }
                     }
                 }
             }
@@ -613,33 +498,54 @@ public class MyMatrix<T extends Number> {
         fstream.close();
     }
 
-    public void calculateResult(MyMatrix<T> vector, int choise) throws IOException {
+    public static int loadSize(String suffix) throws IOException {
+        FileInputStream fstream = new FileInputStream("C:\\Users\\Ukleja\\Desktop\\Algorytmy-Numeryczne\\zad2\\randomValues\\values" + suffix + ".txt");
+        BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+        String strLine;
+        int size = Integer.valueOf(br.readLine());
+        br.close();
+        fstream.close();
+        return size;
+    }
 
-/*
+    public static <T extends Number> T calculateResult(Class<T> className, int fileNumber, int choise) throws IOException {
+
+        String fileSuffix = String.valueOf(fileNumber);
+        int size = loadSize(fileSuffix);
+        MyMatrix<T> matrix = new MyMatrix<T>(className, size);
+        matrix.loadValues(fileSuffix);
+        MyMatrix<T> vector = new MyMatrix<T>(className, size, 1);
+        vector.loadValues("Vector");
+        MyMatrix<T> matrixTmp1 = new MyMatrix<T>(className, size);
+        matrixTmp1.loadValues(fileSuffix);
+        MyMatrix<T> vectorTmp1 = new MyMatrix<T>(className, size, 1);
+        vectorTmp1.loadValues("Vector");
+
         switch (choise) {
             case 1:       //base gauss
-                ArrayList<Integer> queue = new ArrayList<>();
-                MyMatrix<T> cleanedExtendedMatrix1 = this.gaussBase(vector, queue);
-                System.out.println("Result after gauss");
-                cleanedExtendedMatrix1.printMatrix();
-                MyMatrix<T> resultVector1 = cleanedExtendedMatrix1.countResultsFromGauss(queue);
-                return resultVector1;
-            case 2:
-                ArrayList<Integer> queue2 = new ArrayList<>();
-                MyMatrix<T> cleanedExtendedMatrix2 = this.partialChoiseGauss(vector, queue2);
-                cleanedExtendedMatrix2.printMatrix();
-                MyMatrix<T> resultVector2 = cleanedExtendedMatrix2.countResultsFromGauss(queue2);
-                return resultVector2;
-            case 3:
-                ArrayList<Integer> queue3 = new ArrayList<>();
-                MyMatrix<T> cleanedExtendedMatrix3 = this.fullChoiseGauss(vector, queue3);
-                cleanedExtendedMatrix3.printMatrix();
+                System.out.println("Result for basic gauss elimination:");
+                MyMatrix<T> result = matrix.gaussBase(matrix, vector);
+                result.printMatrix();
+                matrixTmp1.countAbsOfResult(vectorTmp1, result);
+                break;
 
-                MyMatrix<T> resultVector3 = cleanedExtendedMatrix3.countResultsFromGauss(queue3);
-                return resultVector3;
+            case 2:
+                System.out.println("Result for partial gauss elimination:");
+                MyMatrix<T> result1 = matrix.partialChoiseGauss(matrix, vector);
+                result1.printMatrix();
+                matrixTmp1.countAbsOfResult(vectorTmp1, result1);
+                break;
+
+            case 3:
+                System.out.println("Result for full gauss elimination:");
+                ArrayList<Integer> queue = new ArrayList<>();
+                MyMatrix<T> result3 = matrix.fullChoiseGauss(matrix, vector, queue);
+                matrix.sortResultsByQueue(result3, queue);
+                result3.printMatrix();
+                matrixTmp1.countAbsOfResult(vectorTmp1, result3);
+                break;
         }
         return null;
-        */
     }
 
     public void countAbsOfResult(MyMatrix<T> vector, MyMatrix<T> result) {
@@ -652,18 +558,36 @@ public class MyMatrix<T extends Number> {
                     resultFloat += this.matrix[j][i].floatValue() * result.matrix[i][0].floatValue();
                 }
                 Float diff = Math.abs(resultFloat - vector.matrix[j][0].floatValue());
-                System.out.printf("%.8f\n", diff);
+                System.out.printf("%26.8f\n", diff);
             }
         } else {
-            Double resultFloat = 0.0;
-            for (int j = 0; j < this.rows; j++) {
-                resultFloat = 0.0;
-                for (int i = 0; i < this.columns; i++) {
-                    resultFloat += this.matrix[j][i].doubleValue() * result.matrix[i][0].doubleValue();
+            if (classType.equals(Double.class)) {
+                Double resultFloat = 0.0;
+                for (int j = 0; j < this.rows; j++) {
+                    resultFloat = 0.0;
+                    for (int i = 0; i < this.columns; i++) {
+                        resultFloat += this.matrix[j][i].doubleValue() * result.matrix[i][0].doubleValue();
+                    }
+                    Double diff = Math.abs(resultFloat - vector.matrix[j][0].doubleValue());
+                    System.out.printf("%26.16f\n", diff);
                 }
-                Double diff = Math.abs(resultFloat - vector.matrix[j][0].doubleValue());
-                System.out.printf("%.8f\n", diff);
+            } else {
+
+                MyOwnPrecision resultMyOwn = new MyOwnPrecision("0.0");
+                for (int j = 0; j < this.rows; j++) {
+                    resultMyOwn = new MyOwnPrecision("0.0");
+                    for (int i = 0; i < this.columns; i++) {
+                        ((MyOwnPrecision) this.matrix[j][i]).multiply((MyOwnPrecision) result.matrix[i][0]);
+                        resultMyOwn.add((MyOwnPrecision) this.matrix[j][i]);
+
+                    }
+                    resultMyOwn.add(MyOwnPrecision.negate((MyOwnPrecision) vector.matrix[j][0]));
+                    MyOwnPrecision diff = resultMyOwn;
+                    diff.absConvert();
+                    System.out.println(diff.printAsDecimal());
+                }
             }
         }
     }
 }
+
