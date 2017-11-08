@@ -63,7 +63,7 @@ public class Main {
         fstream.close();
     }
     public static void main(String[] args) throws IOException {
-        int size =10;
+        int size =2000;
        writeToFile(size,size,"1");
        writeToFile(size,size,"2");
        writeToFile(size,size,"3");

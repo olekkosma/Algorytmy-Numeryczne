@@ -87,8 +87,9 @@ int main()
 	end = clock();
 	elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 	printf("time = %f secs\n\n", elapsed_secs);
-	cout << matrixMultipliedbyVector << endl;
+	//cout << matrixMultipliedbyVector << endl;
 	writeMatrixToFile(matrixMultipliedbyVector, "AX.txt", elapsed_secs);
+	cout <<" olo" << endl;
 
 
 	/*
