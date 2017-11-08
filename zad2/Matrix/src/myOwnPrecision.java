@@ -74,6 +74,11 @@ public class MyOwnPrecision extends Number {
         this.numerator = this.numerator.multiply(second.denominator).add(this.denominator.multiply(second.numerator));
         this.denominator = this.denominator.multiply(second.denominator);
     }
+    public void substract(MyOwnPrecision second){
+        second = MyOwnPrecision.negate(second);
+        this.numerator = this.numerator.multiply(second.denominator).add(this.denominator.multiply(second.numerator));
+        this.denominator = this.denominator.multiply(second.denominator);
+    }
 
     public static MyOwnPrecision add(MyOwnPrecision first, MyOwnPrecision second){
         MyOwnPrecision toReturn1 = new MyOwnPrecision(first.getNumerator(),first.getDenominator(),first.getNumberString());

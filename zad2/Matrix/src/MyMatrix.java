@@ -32,6 +32,7 @@ public class MyMatrix<T extends Number> {
         this.classType = classType;
     }
 
+    //Matrixs have to be the same, return frst matrix
     public void add(MyMatrix<T> secondMatrix) {
 
         if (!(secondMatrix.columns == this.columns && secondMatrix.rows == this.rows && secondMatrix.columns == this.rows)) {
@@ -63,6 +64,7 @@ public class MyMatrix<T extends Number> {
         }
     }
 
+    //Return new Matrix, rows from first, columns from second matrix
     public MyMatrix<T> multiply(MyMatrix<T> secondMatrix) {
         if (!(this.columns == secondMatrix.rows)) {
             return null;
@@ -345,9 +347,57 @@ public class MyMatrix<T extends Number> {
         }
     }
 
+    public MyOwnPrecision sumAllValues() {
+        MyOwnPrecision sum = new MyOwnPrecision("0.0");
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+
+                if(classType.equals(Float.class)){
+                    MyOwnPrecision value = new MyOwnPrecision(String.valueOf(this.matrix[i][j].floatValue()));
+                    value.printAsDecimal();
+                    sum.add(value);
+                }else{
+                    if(classType.equals(Double.class)){
+                        MyOwnPrecision value = new MyOwnPrecision(String.valueOf(this.matrix[i][j].doubleValue()));
+                        value.printAsDecimal();
+                        sum.add(value);
+                    }else{
+                        MyOwnPrecision value = (MyOwnPrecision) this.matrix[i][j];
+                        value.printAsDecimal();
+                        sum.add(value);
+                    }
+                }
+
+
+            }
+        }
+        int divider = rows*columns;
+        MyOwnPrecision divide = new MyOwnPrecision(String.valueOf(divider)+".0");
+        divide = MyOwnPrecision.flip(divide);
+         sum.multiply(divide);
+        return sum;
+    }
+
     public void loadValues(String suffix) throws IOException {
         FileInputStream fstream = new FileInputStream("C:\\Users\\Ukleja\\Desktop\\Algorytmy-Numeryczne\\zad2\\randomValues\\values" + suffix + ".txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+        loadData(br);
+        br.close();
+        fstream.close();
+    }
+
+    public Double loadValuesWithTime(String suffix, Double time) throws IOException {
+        FileInputStream fstream = new FileInputStream("C:\\Users\\Ukleja\\Desktop\\Algorytmy-Numeryczne\\zad2\\randomValues\\values" + suffix + ".txt");
+        BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+        String strLine;
+        time = Double.valueOf(br.readLine());
+        loadData(br);
+        br.close();
+        fstream.close();
+        return time;
+    }
+
+    private void loadData(BufferedReader br) throws IOException {
         String strLine;
         rows = Integer.valueOf(br.readLine());
         columns = Integer.parseInt(br.readLine());
@@ -367,8 +417,6 @@ public class MyMatrix<T extends Number> {
                 }
             }
         }
-        br.close();
-        fstream.close();
     }
 
     public static int loadSize(String suffix) throws IOException {

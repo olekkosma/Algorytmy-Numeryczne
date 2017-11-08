@@ -31,6 +31,9 @@ public class Main {
         for(int i= 0 ; i <rows;i++){
             for(int j= 0 ; j <columns;j++){
                 Double value = random.nextDouble();
+                //String valueString = String.valueOf(value);
+               //valueString = valueString.substring(0,15);
+                //value = Double.parseDouble(valueString);
                 br.write(String.valueOf(value));
                 br.newLine();
             }
