@@ -6,7 +6,7 @@ import java.util.Random;
 public class Main {
 
     public static void readFile(String suffix) throws IOException {
-        FileInputStream fstream = new FileInputStream("C:\\Users\\Ukleja\\Desktop\\Algorytmy-Numeryczne\\zad2\\randomValues\\values"+suffix+".txt");
+        FileInputStream fstream = new FileInputStream("C:\\Users\\Ukleja\\Desktop\\Algorytmy-Numeryczne\\zad2\\Values\\values"+suffix+".txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 
         String strLine;
@@ -20,7 +20,7 @@ public class Main {
     fstream.close();
     }
     public static void writeToFile(int rows,int columns,String suffix) throws IOException  {
-        FileOutputStream fstream = new FileOutputStream("C:\\Users\\Ukleja\\Desktop\\Algorytmy-Numeryczne\\zad2\\randomValues\\values"+suffix+".txt");
+        FileOutputStream fstream = new FileOutputStream("C:\\Users\\Ukleja\\Desktop\\Algorytmy-Numeryczne\\zad2\\Values\\values"+suffix+".txt");
         BufferedWriter br = new BufferedWriter(new OutputStreamWriter(fstream, "utf-8"));
         br.write(String.valueOf(rows));
         br.newLine();
@@ -43,7 +43,7 @@ public class Main {
         fstream.close();
     }
     public static void writeToFileInteger(int rows,int columns,String suffix) throws IOException  {
-        FileOutputStream fstream = new FileOutputStream("C:\\Users\\Ukleja\\Desktop\\Algorytmy-Numeryczne\\zad2\\randomValues\\values"+suffix+".txt");
+        FileOutputStream fstream = new FileOutputStream("C:\\Users\\Ukleja\\Desktop\\Algorytmy-Numeryczne\\zad2\\Values\\values"+suffix+".txt");
         BufferedWriter br = new BufferedWriter(new OutputStreamWriter(fstream, "utf-8"));
         br.write(String.valueOf(rows));
         br.newLine();
@@ -63,7 +63,7 @@ public class Main {
         fstream.close();
     }
     public static void main(String[] args) throws IOException {
-        int size =2000;
+        int size =500;
        writeToFile(size,size,"1");
        writeToFile(size,size,"2");
        writeToFile(size,size,"3");

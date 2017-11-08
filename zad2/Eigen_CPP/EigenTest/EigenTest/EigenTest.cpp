@@ -15,9 +15,7 @@ using namespace std;
 using namespace Eigen;
 
 MatrixXd loadRandomValuesMatrix(string fileName) {
-
-	//fstream myfile("C:/Users/Ukleja/Desktop/Algorytmy-Numeryczne/zad2/randomValues/"+fileName, ios_base::in);
-	fstream myfile("C:/Users/Ukleja/Desktop/Algorytmy-Numeryczne/zad2/randomValues/" + fileName, ios_base::in);
+	fstream myfile("C:/Users/Ukleja/Desktop/Algorytmy-Numeryczne/zad2/Values/" + fileName, ios_base::in);
 
 	int rows;
 	int columns;
@@ -37,7 +35,7 @@ MatrixXd loadRandomValuesMatrix(string fileName) {
 
 void writeMatrixToFile(MatrixXd matrix, string fileName,double time) {
 
-	fstream myfile("C:/Users/Ukleja/Desktop/Algorytmy-Numeryczne/zad2/randomValues/values" + fileName, ios_base::out);
+	fstream myfile("C:/Users/Ukleja/Desktop/Algorytmy-Numeryczne/zad2/Values/AddMultiplyFiles/values" + fileName, ios_base::out);
 
 	int rows = matrix.rows();
 	int columns = matrix.cols();
@@ -58,6 +56,9 @@ int main()
 	clock_t begin;
 	clock_t end;
 	double elapsed_secs;
+	double sum = 0;
+	int iterations = 1;
+	double avgTime = 0;
 	int precision = std::numeric_limits<double>::max_digits10;
 	cout.precision(precision);
 	
@@ -67,61 +68,75 @@ int main()
 	printf("Matrix A : \n");
 	//cout << matrix1 << endl;
 	
-	//MatrixXd matrix2 = loadRandomValuesMatrix("values2.txt");
-	//printf("\nMatrix B : \n");
+	MatrixXd matrix2 = loadRandomValuesMatrix("values2.txt");
+	printf("\nMatrix B : \n");
 	//cout << matrix2 << endl;
 
-	//MatrixXd matrix3 = loadRandomValuesMatrix("values3.txt");
-	//printf("\nMatrix C : \n");
+	MatrixXd matrix3 = loadRandomValuesMatrix("values3.txt");
+	printf("\nMatrix C : \n");
 	//cout << matrix3 << endl;
 
 	VectorXd vector = loadRandomValuesMatrix("valuesVector.txt");
 	printf("\nVector X : \n");
 	//cout << vector << endl;
 	
-	printf("\n\n A * X counting...\n");
-	begin = clock();
 
+	printf("\n\n A * X counting...\n");
+	for (int i = 0; i < iterations; i++) {
+		begin = clock();
+
+		VectorXd matrixMultipliedbyVector = matrix1 * vector;
+
+		end = clock();
+		elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+		sum = sum + elapsed_secs;
+	}
+	avgTime = sum / iterations;
 	VectorXd matrixMultipliedbyVector = matrix1 * vector;
 
-	end = clock();
-	elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 	printf("time = %f secs\n\n", elapsed_secs);
 	//cout << matrixMultipliedbyVector << endl;
-	writeMatrixToFile(matrixMultipliedbyVector, "AX.txt", elapsed_secs);
-	cout <<" olo" << endl;
+	writeMatrixToFile(matrixMultipliedbyVector, "AX.txt", avgTime);
+	sum = 0;
+	avgTime = 0;
 
-
-	/*
 	printf("\n\n (A + B + C ) * X counting...\n");
-	begin = clock();
+	for (int i = 0; i < iterations; i++) {
+		begin = clock();
 
-	VectorXd sumOfThreeMatrixMultipliedByVector = (matrix1 + matrix2 + matrix3) * vector;
+		VectorXd sumOfThreeMatrixMultipliedByVector = (matrix1 + matrix2 + matrix3)  * vector;
 
-	end = clock();
-	elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+		end = clock();
+		elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+		sum = sum + elapsed_secs;
+	}
+	avgTime = sum / iterations;
+	VectorXd sumOfThreeMatrixMultipliedByVector = (matrix1 + matrix2 + matrix3)  * vector;
 	printf("time = %f secs\n\n", elapsed_secs);
 	//cout << sumOfThreeMatrixMultipliedByVector << endl;
+	writeMatrixToFile(sumOfThreeMatrixMultipliedByVector, "ABCX.txt", avgTime);
+	sum = 0;
+	avgTime = 0;
 
 
 	printf("\n\n A * (B * C) counting...\n");
-	begin = clock();
+	for (int i = 0; i < iterations; i++) {
+		begin = clock();
 
+		MatrixXd multiplyThreeMatrix = matrix1 * (matrix2 * matrix3);
+
+		end = clock();
+		elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+		sum = sum + elapsed_secs;
+	}
+	avgTime = sum / iterations;
 	MatrixXd multiplyThreeMatrix = matrix1 * (matrix2 * matrix3);
-
-	end = clock();
-	elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 	printf("time = %f secs\n\n", elapsed_secs);
 	//cout << multiplyThreeMatrix << endl;
-	*/
+	writeMatrixToFile(multiplyThreeMatrix, "ABC.txt", elapsed_secs);
 
-	//cout << "Here is the matrix A:\n" << matrix1 << endl;
-	//cout << "Here is the vector b:\n" << vector << endl;
-	//VectorXd x = matrix1.partialPivLu().solve(vector);
-	//cout << "The solution is:\n" << x << endl;
-	
-	int pause;
-	cin >> pause;
+	//int pause;
+	//cin >> pause;
 	return 0;
 }
 

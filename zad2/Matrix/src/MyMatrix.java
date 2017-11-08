@@ -33,10 +33,13 @@ public class MyMatrix<T extends Number> {
     }
 
     //Matrixs have to be the same, return frst matrix
-    public void add(MyMatrix<T> secondMatrix) {
+    public MyMatrix<T> add(MyMatrix<T> secondMatrix) {
+
+        MyMatrix<T> sumMatrix = new MyMatrix<T>(classType, this.rows, this.columns);
+
 
         if (!(secondMatrix.columns == this.columns && secondMatrix.rows == this.rows && secondMatrix.columns == this.rows)) {
-            return;
+            return null;
         }
 
         for (int i = 0; i < columns; i++) {
@@ -44,24 +47,25 @@ public class MyMatrix<T extends Number> {
                 if (classType.equals(Float.class)) {
 
                     Float sum = this.matrix[i][j].floatValue() + secondMatrix.matrix[i][j].floatValue();
-                    this.matrix[i][j] = (T) sum;
+                    sumMatrix.matrix[i][j] = (T) sum;
 
                 } else {
                     if (classType.equals(Double.class)) {
 
                         Double sum = this.matrix[i][j].doubleValue() + secondMatrix.matrix[i][j].doubleValue();
-                        this.matrix[i][j] = (T) sum;
+                        sumMatrix.matrix[i][j] = (T) sum;
 
                     } else {
 
                         MyOwnPrecision sum = (MyOwnPrecision) matrix[i][j];
                         sum.add((MyOwnPrecision) secondMatrix.matrix[i][j]);
-                        matrix[i][j] = (T) sum;
+                        sumMatrix.matrix[i][j] = (T) sum;
 
                     }
                 }
             }
         }
+        return sumMatrix;
     }
 
     //Return new Matrix, rows from first, columns from second matrix
@@ -347,23 +351,20 @@ public class MyMatrix<T extends Number> {
         }
     }
 
-    public MyOwnPrecision sumAllValues() {
+    public MyOwnPrecision countAverageValue() {
         MyOwnPrecision sum = new MyOwnPrecision("0.0");
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
 
                 if(classType.equals(Float.class)){
                     MyOwnPrecision value = new MyOwnPrecision(String.valueOf(this.matrix[i][j].floatValue()));
-                    value.printAsDecimal();
                     sum.add(value);
                 }else{
                     if(classType.equals(Double.class)){
                         MyOwnPrecision value = new MyOwnPrecision(String.valueOf(this.matrix[i][j].doubleValue()));
-                        value.printAsDecimal();
                         sum.add(value);
                     }else{
                         MyOwnPrecision value = (MyOwnPrecision) this.matrix[i][j];
-                        value.printAsDecimal();
                         sum.add(value);
                     }
                 }
@@ -379,7 +380,7 @@ public class MyMatrix<T extends Number> {
     }
 
     public void loadValues(String suffix) throws IOException {
-        FileInputStream fstream = new FileInputStream("C:\\Users\\Ukleja\\Desktop\\Algorytmy-Numeryczne\\zad2\\randomValues\\values" + suffix + ".txt");
+        FileInputStream fstream = new FileInputStream("C:\\Users\\Ukleja\\Desktop\\Algorytmy-Numeryczne\\zad2\\Values\\values" + suffix + ".txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
         loadData(br);
         br.close();
@@ -387,7 +388,7 @@ public class MyMatrix<T extends Number> {
     }
 
     public Double loadValuesWithTime(String suffix, Double time) throws IOException {
-        FileInputStream fstream = new FileInputStream("C:\\Users\\Ukleja\\Desktop\\Algorytmy-Numeryczne\\zad2\\randomValues\\values" + suffix + ".txt");
+        FileInputStream fstream = new FileInputStream("C:\\Users\\Ukleja\\Desktop\\Algorytmy-Numeryczne\\zad2\\Values\\AddMultiplyFiles\\values" + suffix + ".txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
         String strLine;
         time = Double.valueOf(br.readLine());
@@ -420,7 +421,7 @@ public class MyMatrix<T extends Number> {
     }
 
     public static int loadSize(String suffix) throws IOException {
-        FileInputStream fstream = new FileInputStream("C:\\Users\\Ukleja\\Desktop\\Algorytmy-Numeryczne\\zad2\\randomValues\\values" + suffix + ".txt");
+        FileInputStream fstream = new FileInputStream("C:\\Users\\Ukleja\\Desktop\\Algorytmy-Numeryczne\\zad2\\Values\\values" + suffix + ".txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
         String strLine;
         int size = Integer.valueOf(br.readLine());

@@ -13,7 +13,7 @@ public class MyOwnPrecision extends Number {
     BigInteger numerator;
     BigInteger denominator;
     String numberString;
-    MathContext mc = new MathContext(30, RoundingMode.HALF_DOWN);
+    MathContext mc = new MathContext(40, RoundingMode.HALF_DOWN);
 
     public MyOwnPrecision(String numberString){
         this.numberString=numberString;
