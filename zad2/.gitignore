@@ -49,3 +49,5 @@ fabric.properties
 *.class
 *.out
 *.exe
+
+*.txt
