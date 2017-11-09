@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.11)  9 NOV 2017 02:20
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.11)  9 NOV 2017 23:36
 entering extended mode
 **./latexFile.tex
 (latexFile.tex
@@ -922,24 +922,28 @@ File: tikzlibraryplotmarks.code.tex 2008/01/09 v3.0.1a (rcs-revision 1.1)
 (C:\Users\Ukleja\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\libraries\pgflibrar
 yplotmarks.code.tex
 File: pgflibraryplotmarks.code.tex 2015/08/03 v3.0.1a (rcs-revision 1.14)
-))) (latexFile.aux)
+)))
+
+LaTeX Warning: Unused global option(s):
+    [8pt].
+
+(latexFile.aux)
 \openout1 = `latexFile.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 23.
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmr.fd"
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 24.
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmr.fd"
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 *geometry* driver: auto-detecting
@@ -951,15 +955,15 @@ File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * bindingoffset: 14.45377pt
 * modes: 
-* h-part:(L,W,R)=(72.26999pt, 438.51413pt, 72.26999pt)
-* v-part:(T,H,B)=(14.45377pt, 808.91187pt, 21.68121pt)
+* h-part:(L,W,R)=(43.36243pt, 496.32925pt, 43.36243pt)
+* v-part:(T,H,B)=(0.0pt, 816.1393pt, 28.90755pt)
 * \paperwidth=597.50787pt
 * \paperheight=845.04684pt
-* \textwidth=438.51413pt
-* \textheight=808.91187pt
-* \oddsidemargin=14.45377pt
-* \evensidemargin=0.0pt
-* \topmargin=-94.81622pt
+* \textwidth=496.32925pt
+* \textheight=816.1393pt
+* \oddsidemargin=-14.4538pt
+* \evensidemargin=-28.90756pt
+* \topmargin=-109.26999pt
 * \headheight=12.0pt
 * \headsep=25.0pt
 * \topskip=10.0pt
@@ -1037,103 +1041,125 @@ ABD: EveryShipout initializing macros
 Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
 ick labels; missing features). Consider writing \pgfplotsset{compat=1.15} into 
 your preamble.
- on input line 23.
+ on input line 24.
 
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 24.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 25.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\ot1lmr.fd"
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 24.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 25.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\omllmm.fd"
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 24.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 25.
 
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\omslmsy.fd"
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 24.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 25.
 
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\omxlmex.fd"
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 24.
+(Font)              <12> on input line 25.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 24.
+(Font)              <8> on input line 25.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 24.
+(Font)              <6> on input line 25.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 33.
+(Font)              <10> on input line 34.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 33.
+(Font)              <7> on input line 34.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 33.
+(Font)              <5> on input line 34.
 
-Underfull \hbox (badness 10000) in paragraph at lines 42--43
+Underfull \hbox (badness 10000) in paragraph at lines 39--40
 
  []
 
-<ABCCzas.png, id=4, 1089.06876pt x 567.11874pt>
-File: ABCCzas.png Graphic file (type png)
- <use ABCCzas.png>
-Package pdftex.def Info: ABCCzas.png used on input line 46.
-(pdftex.def)             Requested size: 418.25368pt x 217.80054pt.
+<CzasRazem.png, id=4, 2056.68375pt x 679.53876pt>
+File: CzasRazem.png Graphic file (type png)
+ <use CzasRazem.png>
+Package pdftex.def Info: CzasRazem.png used on input line 41.
+(pdftex.def)             Requested size: 569.05754pt x 199.16608pt.
 
-<ABCRoznica.png, id=5, 1026.83624pt x 546.04pt>
-File: ABCRoznica.png Graphic file (type png)
- <use ABCRoznica.png>
-Package pdftex.def Info: ABCRoznica.png used on input line 51.
-(pdftex.def)             Requested size: 418.25368pt x 222.41144pt.
- [1
+<RoznicaRazem.png, id=6, 1789.68625pt x 546.04pt>
+File: RoznicaRazem.png Graphic file (type png)
+ <use RoznicaRazem.png>
+Package pdftex.def Info: RoznicaRazem.png used on input line 50.
+(pdftex.def)             Requested size: 569.05199pt x 199.16547pt.
 
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <./ABCCzas.png>]
-<ABCXCzas.png, id=17, 955.57pt x 569.12625pt>
-File: ABCXCzas.png Graphic file (type png)
- <use ABCXCzas.png>
-Package pdftex.def Info: ABCXCzas.png used on input line 57.
-(pdftex.def)             Requested size: 418.25368pt x 249.10501pt.
+[1
 
-<AXRoznica.png, id=18, 882.29625pt x 553.06625pt>
-File: AXRoznica.png Graphic file (type png)
- <use AXRoznica.png>
-Package pdftex.def Info: AXRoznica.png used on input line 62.
-(pdftex.def)             Requested size: 418.25368pt x 262.17754pt.
- [2 <./ABCRoznica.png> <./ABCXCzas.png> <./AXRoznica.png>]
-<ABCCzasMy.png, id=22, 1005.7575pt x 554.07pt>
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <./CzasRazem.png> <./Rozni
+caRazem.png>] <ABCCzasMy.png, id=20, 1005.7575pt x 554.07pt>
 File: ABCCzasMy.png Graphic file (type png)
- <use ABCCzasMy.png>
-Package pdftex.def Info: ABCCzasMy.png used on input line 69.
-(pdftex.def)             Requested size: 418.25368pt x 230.4082pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 75--77
+<use ABCCzasMy.png>
+Package pdftex.def Info: ABCCzasMy.png used on input line 60.
+(pdftex.def)             Requested size: 341.43124pt x 170.71158pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 69--76
 
  []
 
-[3 <./ABCCzasMy.png>] (latexFile.aux) ) 
+<gaussPrecyzja2.png, id=21, 1017.8025pt x 695.59875pt>
+File: gaussPrecyzja2.png Graphic file (type png)
+
+<use gaussPrecyzja2.png>
+Package pdftex.def Info: gaussPrecyzja2.png used on input line 81.
+(pdftex.def)             Requested size: 369.88744pt x 227.61655pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 84--85
+
+ []
+
+<GaussCzas.png, id=22, 706.64pt x 576.1525pt>
+File: GaussCzas.png Graphic file (type png)
+ <use GaussCzas.png>
+Package pdftex.def Info: GaussCzas.png used on input line 87.
+(pdftex.def)             Requested size: 341.43687pt x 284.53261pt.
+ [2 <./ABCCzasMy.png> <./gaussPrecyzja2.png>]
+<MyOwnTime.png, id=26, 765.86125pt x 463.7325pt>
+File: MyOwnTime.png Graphic file (type png)
+ <use MyOwnTime.png>
+Package pdftex.def Info: MyOwnTime.png used on input line 94.
+(pdftex.def)             Requested size: 369.888pt x 199.17465pt.
+
+Underfull \hbox (badness 1062) in paragraph at lines 107--107
+[]\T1/lmr/m/n/10 -Generowanie wy-niku po-przez bi-blio-tek¦ Eigen w
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 97--113
+
+ []
+
+[3 <./GaussCzas.png> <./MyOwnTime.png>] (latexFile.aux) ) 
 Here is how much of TeX's memory you used:
- 22918 strings out of 493323
- 587300 string characters out of 3139062
+ 22924 strings out of 493323
+ 587438 string characters out of 3139062
  794882 words of memory out of 3000000
- 26031 multiletter control sequences out of 15000+200000
+ 26036 multiletter control sequences out of 15000+200000
  41215 words of font info for 39 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,6n,96p,729b,609s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files/MiKTeX 2.9/fonts/enc/d
-vips/lm/lm-rm.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathsy.enc
-}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Program File
-s/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}<C:/Program Files/MiKTeX 2.9/fonts/ty
-pe1/public/lm/lmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmm
-i10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Progra
-m Files/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX 2.9
-/fonts/type1/public/lm/lmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publi
-c/lm/lmsy10.pfb>
-Output written on latexFile.pdf (3 pages, 197324 bytes).
+ 62i,8n,96p,729b,609s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files/MiKT
+eX 2.9/fonts/enc/dvips/lm/lm-rm.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvip
+s/lm/lm-mathsy.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathit.en
+c}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}<C:/Program Files/M
+iKTeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
+ype1/public/lm/lmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lm
+r10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Progra
+m Files/MiKTeX 2.9/fonts/type1/public/lm/lmr17.pfb><C:/Program Files/MiKTeX 2.9
+/fonts/type1/public/lm/lmsy10.pfb>
+Output written on latexFile.pdf (3 pages, 395093 bytes).
 PDF statistics:
- 50 PDF objects out of 1000 (max. 8388607)
+ 54 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 38 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 43 words of extra memory for PDF output out of 10000 (max. 10000000)
 

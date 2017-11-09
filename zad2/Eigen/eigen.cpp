@@ -1,3 +1,8 @@
+//Aleksander Kosma / Tomasz Adamczyk
+//Nr. indexu: 238193 / 243217
+//09.11.2017
+//Algorytmy Numeryczne
+//--------------------
 #include <Eigen/Dense>
 #include <iostream>
 #include <cstdio>
