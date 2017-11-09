@@ -1,13 +1,11 @@
-#include <iostream>
 #include <Eigen/Dense>
+#include <iostream>
+#include <cstdio>
+#include <cstdlib>
 #include <ctime>
-#include <time.h>
 #include <chrono>
 #include <fstream>
 #include <iomanip>
-#include <stdio.h>
-#include <stdlib.h>
-#include <cmath>
 
 using namespace std;
 using namespace Eigen;
@@ -32,8 +30,8 @@ void writeMatrixToFile(MatrixXd matrix, string fileName, double time) {
   int rows = matrix.rows();
   int columns = matrix.cols();
   myfile << fixed << time << endl;
-  myfile << rows <<endl;
-  myfile << columns<<endl;
+  myfile << rows << endl;
+  myfile << columns << endl;
   int precision = std::numeric_limits<double>::max_digits10;
   for (int i = 0; i < rows; i++) {
     for (int j = 0; j < columns; j++) {
