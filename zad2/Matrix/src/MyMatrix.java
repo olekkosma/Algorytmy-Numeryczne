@@ -156,6 +156,8 @@ public class MyMatrix<T extends Number> {
 
         MyMatrix<T> resultVector = new MyMatrix(classType, vector.rows, 1);
         CountBackwardResult(matrix, vector, n, resultVector);
+
+        this.sortResultsByQueue(resultVector,queue);
         return resultVector;
     }
 
@@ -380,7 +382,7 @@ public class MyMatrix<T extends Number> {
     }
 
     public void loadValues(String suffix) throws IOException {
-        FileInputStream fstream = new FileInputStream("C:\\Users\\Ukleja\\Desktop\\Algorytmy-Numeryczne\\zad2\\Values\\values" + suffix + ".txt");
+        FileInputStream fstream = new FileInputStream("..\\..\\zad2\\Values\\values" + suffix + ".txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
         loadData(br);
         br.close();
@@ -388,7 +390,7 @@ public class MyMatrix<T extends Number> {
     }
 
     public Double loadValuesWithTime(String suffix, Double time) throws IOException {
-        FileInputStream fstream = new FileInputStream("C:\\Users\\Ukleja\\Desktop\\Algorytmy-Numeryczne\\zad2\\Values\\AddMultiplyFiles\\values" + suffix + ".txt");
+        FileInputStream fstream = new FileInputStream("..\\..\\zad2\\Values\\AddMultiplyFiles\\values" + suffix + ".txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
         String strLine;
         time = Double.valueOf(br.readLine());
@@ -421,7 +423,7 @@ public class MyMatrix<T extends Number> {
     }
 
     public static int loadSize(String suffix) throws IOException {
-        FileInputStream fstream = new FileInputStream("C:\\Users\\Ukleja\\Desktop\\Algorytmy-Numeryczne\\zad2\\Values\\values" + suffix + ".txt");
+        FileInputStream fstream = new FileInputStream("..\\..\\zad2\\Values\\values" + suffix + ".txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
         String strLine;
         int size = Integer.valueOf(br.readLine());
@@ -459,12 +461,16 @@ public class MyMatrix<T extends Number> {
                 for (int j = 0; j < this.rows; j++) {
                     resultMyOwn = new MyOwnPrecision("0.0");
                     for (int i = 0; i < this.columns; i++) {
-                        ((MyOwnPrecision) this.matrix[j][i]).multiply((MyOwnPrecision) result.matrix[i][0]);
-                        resultMyOwn.add((MyOwnPrecision) this.matrix[j][i]);
+                        MyOwnPrecision tmp1 = ((MyOwnPrecision) this.matrix[j][i]).newInstance();
+                        tmp1 = MyOwnPrecision.multiply(tmp1,(MyOwnPrecision) result.matrix[i][0]);
+                        resultMyOwn.add(tmp1);
 
                     }
-                    resultMyOwn.add(MyOwnPrecision.negate((MyOwnPrecision) vector.matrix[j][0]));
-                    MyOwnPrecision diff = resultMyOwn;
+                    MyOwnPrecision tmp2 = resultMyOwn.newInstance();
+                    MyOwnPrecision negateValue = ((MyOwnPrecision) vector.matrix[j][0]).newInstance();
+                    negateValue = MyOwnPrecision.negate(negateValue);
+                    tmp2.add(negateValue);
+                    MyOwnPrecision diff = tmp2;
                     diff.absConvert();
                     sum.add(diff);
                 }

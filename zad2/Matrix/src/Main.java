@@ -8,77 +8,29 @@ import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Main {
 
-    //    First field:
-    //                -Class to count on
-    //    Second field:
-    //                 --suffix of fileToReadData
-    //    Third field:
-    //                1 -- gauss base
-    //                2 -- gauss partial
-    //                3 -- gauss full
     public static void main(String[] args) throws IOException {
 
-        //Wykres, przedstrawiający:
-        //oś pozioma - rozmiar matrixów. spodziewam sie: tym wiekszy matrix tym wieksza bedzie roznica koncowa na tle eigen
-        //poniewaz bedzie wiecej obliczen. Tylko MyMatrix pewnie bedzie nienaruszony
-        // Float będzie robiony tak jak dobule, będzie tylko jego wartosc kastowana z pliku
-        //dla pierwszych paru rozmiarów lepiej zrobic srednia z paru matrixow, potem juz jeden matrix wystarczy do obliczenia sredniej
-        //os pionowa - koncowa srednia roznica na tle eigena. Srednia obliczona z sumowania wszystkich wartosci koncowego matrixa,
-        //podzielona przez ilosc liczb w matrixie i odjeta od tego samego z eigena
-        //--------------------------------------------------------------------------
-        //drugi wykres:
-        //os pozioma - tak samo rozmiar matrixów
-        //os pionowa - czas wyliczania danej wartosci, tu chyba zostaniemy tylko przy double i MyPrecision
-        //moze bedzie widoczna jaaks fajna funkcja widoczna, pewnie eigen bedzie najszybszy
-        //------------------------------------------------------------------------------------
-        //jak masz Tomek jakies pomysly pisz
-        //---------------------------------------------------------
-        //koncowe wyniki mozna wypluwac w formacie
-        //-rozmiar tablicy
-        //-czas obliczania
-        //-koncowa roznica srednich juz po odliczenia od eigena
-        //---------------------------------------------------------
-        //kolejnosc obliczen
-        //1.wygenerowanie liczb losowych
-        //2.odpalenie eigena i wyplucie do pliku resultatow
-        //3.wczytanie do programu eigena i obliczenie sredniej
-        //4.odpalenie wlasnych obliczen
-        //5.obliczenie roznicy
-        //6. wyplucie ostatecznego pliku podusmowujacego wartosci dla danego rozmiaru
-        //   moze jednak lepiej w jednym pliku oba czasy i roznice srednich
-        //--------------------------------------------------------------------------
-
-       // CountStatsForAddAndMultiply();
+        //CountStatsForAddAndMultiply();
         //CountStatsForAddAndMultiplyMyOwn();
 
         countStatsForGauss();
 
-        /*
-        MyMatrix.calculateResult(Float.class,1,1);
-        MyMatrix.calculateResult(Float.class,1,2);
-        MyMatrix.calculateResult(Float.class,1,3);
-*/
-       // MyMatrix.calculateResult(Double.class,1,1);
-        //MyMatrix.calculateResult(Double.class,1,2);
-        //MyMatrix.calculateResult(Double.class,1,3);
-
-        ///MyMatrix.calculateResult(MyOwnPrecision.class,1,1);
-        //MyMatrix.calculateResult(MyOwnPrecision.class,1,2);
-        //MyMatrix.calculateResult(MyOwnPrecision.class,1,3);
-
     }
 
     public static void countStatsForGauss() throws IOException {
+        ArrayList<String> data = new ArrayList<>();
         long start;
         long elapsedTimeMillis;
         int size = MyMatrix.loadSize("1");
         double sum = 0;
         double iterations = 1;
-        double avgTime = 0;
+        double timeTmp = 0;
 
         MyMatrix<Double> vectorPartial = new MyMatrix(Double.class, size, 1);
         MyMatrix<Double> vectorFull = new MyMatrix(Double.class, size, 1);
@@ -88,18 +40,146 @@ public class Main {
 
         timePartial = vectorPartial.loadValuesWithTime("partial", timePartial);
         timeFull = vectorFull.loadValuesWithTime("full", timeFull);
+        MyMatrix<Double> matrixADoubleTmp = new MyMatrix<>(Double.class, size);
+        MyMatrix<Double> vectorXDoubleTmp = new MyMatrix<>(Double.class, size, 1);
+        matrixADoubleTmp.loadValues("1");
+        vectorXDoubleTmp.loadValues("Vector");
 
-        MyMatrix<Double> matrixA = new MyMatrix<Double>(Double.class, size);
-        MyMatrix<Double> vectorX = new MyMatrix<Double>(Double.class, size, 1);
+        MyOwnPrecision averageDiffDoubleEigenpartial = matrixADoubleTmp.countAverageDiff(vectorXDoubleTmp, vectorPartial);
+        MyOwnPrecision averageDiffDoubleEigenFull = matrixADoubleTmp.countAverageDiff(vectorXDoubleTmp, vectorFull);
+        data.add("eigen partial: \n" + timePartial.toString());
+        data.add(averageDiffDoubleEigenpartial.printAsDecimal());
+        data.add("eigen full: \n" + timeFull.toString());
+        data.add(averageDiffDoubleEigenFull.printAsDecimal());
 
-        matrixA.loadValues("1");
-        vectorX.loadValues("Vector");
 
-        MyMatrix<Double> resultBase = matrixA.gaussBase(matrixA,vectorX);
+        MyMatrix<Float> matrixAFloat = new MyMatrix<>(Float.class, size);
+        MyMatrix<Double> matrixADouble = new MyMatrix<>(Double.class, size);
+        MyMatrix<MyOwnPrecision> matrixAMyOwnPrecision = new MyMatrix<>(MyOwnPrecision.class, size);
+        MyMatrix<Float> vectorXFloat = new MyMatrix<>(Float.class, size, 1);
+        MyMatrix<Double> vectorXDouble = new MyMatrix<>(Double.class, size, 1);
+        MyMatrix<MyOwnPrecision> vectorXMyOwnPrecision = new MyMatrix<>(MyOwnPrecision.class, size, 1);
+        ArrayList<Integer> queue = new ArrayList<>();
+        ArrayList<Integer> queue2 = new ArrayList<>();
+        ArrayList<Integer> queue3 = new ArrayList<>();
 
-       MyOwnPrecision averageDiff = matrixA.countAverageDiff(vectorX,resultBase);
-        System.out.println("test");
-        System.out.println(averageDiff.printAsDecimal());
+        loadFloatValues(matrixAFloat, vectorXFloat);
+        loadDoubleValues(matrixADouble, vectorXDouble);
+        loadMyOwnValues(matrixAMyOwnPrecision, vectorXMyOwnPrecision);
+
+        System.out.println("eigen counted...");
+        //---------------------------------Float--------------------------------------
+
+        start = System.currentTimeMillis();
+        MyMatrix<Float> resultBaseFloat = matrixAFloat.gaussBase(matrixAFloat, vectorXFloat);
+        elapsedTimeMillis = System.currentTimeMillis() - start;
+        timeTmp = elapsedTimeMillis / 1000.0;
+
+        loadFloatValues(matrixAFloat, vectorXFloat);
+        MyOwnPrecision averageDiffBaseFloat = matrixAFloat.countAverageDiff(vectorXFloat, resultBaseFloat);
+
+        data.add("java base float: \n" + String.valueOf(timeTmp));
+        data.add(averageDiffBaseFloat.printAsDecimal());
+
+        start = System.currentTimeMillis();
+        MyMatrix<Float> resultPartialFloat = matrixAFloat.partialChoiseGauss(matrixAFloat, vectorXFloat);
+        elapsedTimeMillis = System.currentTimeMillis() - start;
+        timeTmp = elapsedTimeMillis / 1000.0;
+
+        loadFloatValues(matrixAFloat, vectorXFloat);
+        MyOwnPrecision averageDiffPartialFloat = matrixAFloat.countAverageDiff(vectorXFloat, resultPartialFloat);
+        data.add("java partial float: \n" + String.valueOf(timeTmp));
+        data.add(averageDiffPartialFloat.printAsDecimal());
+
+
+        start = System.currentTimeMillis();
+        MyMatrix<Float> resultFullFloat = matrixAFloat.fullChoiseGauss(matrixAFloat, vectorXFloat, queue);
+        elapsedTimeMillis = System.currentTimeMillis() - start;
+        timeTmp = elapsedTimeMillis / 1000.0;
+
+        loadFloatValues(matrixAFloat, vectorXFloat);
+        MyOwnPrecision averageDiffFullFloat = matrixAFloat.countAverageDiff(vectorXFloat, resultFullFloat);
+        data.add("java full float: \n" + String.valueOf(timeTmp));
+        data.add(averageDiffFullFloat.printAsDecimal());
+        System.out.println("float counted...");
+
+
+        //---------------------------------Double--------------------------------------
+
+        start = System.currentTimeMillis();
+        MyMatrix<Double> resultBaseDouble = matrixADouble.gaussBase(matrixADouble, vectorXDouble);
+        elapsedTimeMillis = System.currentTimeMillis() - start;
+        timeTmp = elapsedTimeMillis / 1000.0;
+
+        loadDoubleValues(matrixADouble, vectorXDouble);
+        MyOwnPrecision averageDiffBaseDouble = matrixADouble.countAverageDiff(vectorXDouble, resultBaseDouble);
+        data.add("java base double: \n" + String.valueOf(timeTmp));
+        data.add(averageDiffBaseDouble.printAsDecimal());
+
+        start = System.currentTimeMillis();
+        MyMatrix<Double> resultPartialDouble = matrixADouble.partialChoiseGauss(matrixADouble, vectorXDouble);
+        elapsedTimeMillis = System.currentTimeMillis() - start;
+        timeTmp = elapsedTimeMillis / 1000.0;
+
+        loadDoubleValues(matrixADouble, vectorXDouble);
+        MyOwnPrecision averageDiffPartialDouble = matrixADouble.countAverageDiff(vectorXDouble, resultPartialDouble);
+        data.add("java partial double: \n" + String.valueOf(timeTmp));
+        data.add(averageDiffPartialDouble.printAsDecimal());
+
+
+        queue = new ArrayList<>();
+        start = System.currentTimeMillis();
+        MyMatrix<Double> resultFullDouble = matrixADouble.fullChoiseGauss(matrixADouble, vectorXDouble, queue);
+        elapsedTimeMillis = System.currentTimeMillis() - start;
+        timeTmp = elapsedTimeMillis / 1000.0;
+
+        loadDoubleValues(matrixADouble, vectorXDouble);
+        MyOwnPrecision averageDiffFullDouble = matrixADouble.countAverageDiff(vectorXDouble, resultFullDouble);
+        data.add("java full double: \n" + String.valueOf(timeTmp));
+        data.add(averageDiffFullDouble.printAsDecimal());
+
+        System.out.println("double counted...");
+
+        //---------------------------------My Own--------------------------------------
+/*
+        start = System.currentTimeMillis();
+        MyMatrix<MyOwnPrecision> resultBaseMyOwnPrecision = matrixAMyOwnPrecision.gaussBase(matrixAMyOwnPrecision, vectorXMyOwnPrecision);
+        elapsedTimeMillis = System.currentTimeMillis() - start;
+        timeTmp = elapsedTimeMillis / 1000.0;
+
+        loadMyOwnValues(matrixAMyOwnPrecision, vectorXMyOwnPrecision);
+        MyOwnPrecision averageDiffBaseMyOwnPrecision = matrixAMyOwnPrecision.countAverageDiff(vectorXMyOwnPrecision, resultBaseMyOwnPrecision);
+        data.add("java base my own: \n" + String.valueOf(timeTmp));
+        data.add(averageDiffBaseMyOwnPrecision.printAsDecimal());
+
+        System.out.println("my own base counted...");
+
+        start = System.currentTimeMillis();
+        MyMatrix<MyOwnPrecision> resultPartialMyOwnPrecision = matrixAMyOwnPrecision.partialChoiseGauss(matrixAMyOwnPrecision, vectorXMyOwnPrecision);
+        elapsedTimeMillis = System.currentTimeMillis() - start;
+        timeTmp = elapsedTimeMillis / 1000.0;
+
+        loadMyOwnValues(matrixAMyOwnPrecision, vectorXMyOwnPrecision);
+        MyOwnPrecision averageDiffPartialMyOwnPrecision = matrixAMyOwnPrecision.countAverageDiff(vectorXMyOwnPrecision, resultPartialMyOwnPrecision);
+        data.add("java partial my own: \n" + String.valueOf(timeTmp));
+        data.add(averageDiffPartialMyOwnPrecision.printAsDecimal());
+
+        System.out.println("my own partial counted...");
+
+        queue = new ArrayList<>();
+        start = System.currentTimeMillis();
+        MyMatrix<MyOwnPrecision> resultFullMyOwnPrecision = matrixAMyOwnPrecision.fullChoiseGauss(matrixAMyOwnPrecision, vectorXMyOwnPrecision, queue3);
+        elapsedTimeMillis = System.currentTimeMillis() - start;
+        timeTmp = elapsedTimeMillis / 1000.0;
+
+        loadMyOwnValues(matrixAMyOwnPrecision, vectorXMyOwnPrecision);
+        MyOwnPrecision averageDiffFullMyOwnPrecision = matrixAMyOwnPrecision.countAverageDiff(vectorXMyOwnPrecision, resultFullMyOwnPrecision);
+        data.add("java full my own: \n" + String.valueOf(timeTmp));
+        data.add(averageDiffFullMyOwnPrecision.printAsDecimal());
+        System.out.println("my own counted...");
+*/
+        writeToFileGauss("GaussStats", size, data);
+
     }
 
     private static void CountStatsForAddAndMultiply() throws IOException {
@@ -125,7 +205,7 @@ public class Main {
 
         //MyOwnPrecision averageAX = matrixResultsAX.countAverageValue();
         //MyOwnPrecision averageABCX = matrixResultsABCX.countAverageValue();
-       // MyOwnPrecision averageABC = matrixResultsABC.countAverageValue();
+        // MyOwnPrecision averageABC = matrixResultsABC.countAverageValue();
 
         System.out.println("Counted average for eigen...");
         MyMatrix<Double> matrixA = new MyMatrix<Double>(Double.class, size);
@@ -225,9 +305,9 @@ public class Main {
         timeABC = matrixResultsABC.loadValuesWithTime("ABC", timeABC);
         System.out.println("Eigen results loaded...");
 
-       // MyOwnPrecision averageAX = matrixResultsAX.countAverageValue();
-       // MyOwnPrecision averageABCX = matrixResultsABCX.countAverageValue();
-        //MyOwnPrecision averageABC = matrixResultsABC.countAverageValue();
+         MyOwnPrecision averageAX = matrixResultsAX.countAverageValue();
+         MyOwnPrecision averageABCX = matrixResultsABCX.countAverageValue();
+        MyOwnPrecision averageABC = matrixResultsABC.countAverageValue();
 
         System.out.println("Counted average for eigen...");
         MyMatrix<MyOwnPrecision> matrixA = new MyMatrix<MyOwnPrecision>(MyOwnPrecision.class, size);
@@ -265,8 +345,8 @@ public class Main {
         }
         avgTime = sum / iterations;
         MyMatrix<MyOwnPrecision> matrixAX = matrixA.multiply(vectorX);
-        //MyOwnPrecision averageAXMy = matrixAX.countAverageValue();
-        writeToFile("AXResults", size, timeAX, avgTime, new MyOwnPrecision("0.0"), new MyOwnPrecision("0.0"));
+        MyOwnPrecision averageAXMy = matrixAX.countAverageValue();
+        writeToFile("AXResults", size, timeAX, avgTime, averageAX, averageAXMy);
         System.out.println("A * X counted...");
         avgTime = 0;
         sum = 0;
@@ -285,8 +365,8 @@ public class Main {
         MyMatrix<MyOwnPrecision> tmp = matrixA3.add(matrixB3);
         tmp = tmp.add(matrixC3);
         MyMatrix<MyOwnPrecision> matrixABCX = tmp.multiply(vectorX2);
-       // MyOwnPrecision averageABCXMy = matrixABCX.countAverageValue();
-        writeToFile("ABCXResults", size, timeABCX, avgTime, new MyOwnPrecision("0.0"), new MyOwnPrecision("0.0"));
+         MyOwnPrecision averageABCXMy = matrixABCX.countAverageValue();
+        writeToFile("ABCXResults", size, timeABCX, avgTime, averageABCX, averageABCXMy);
         System.out.println("A+B+C * X counted...");
         avgTime = 0;
         sum = 0;
@@ -303,8 +383,8 @@ public class Main {
         avgTime = sum / iterations;
         MyMatrix<MyOwnPrecision> matrixAB = matrixA2.multiply(matrixB2);
         MyMatrix<MyOwnPrecision> matrixABC = matrixAB.multiply(matrixC2);
-        //MyOwnPrecision averageABCMy = matrixABC.countAverageValue();
-        writeToFile("ABCResults", size, timeABC, avgTime, new MyOwnPrecision("0.0"), new MyOwnPrecision("0.0"));
+        MyOwnPrecision averageABCMy = matrixABC.countAverageValue();
+        writeToFile("ABCResults", size, timeABC, avgTime, averageABC, averageABCMy);
         System.out.println("A*B*C counted...");
         System.out.println("the end");
         avgTime = 0;
@@ -313,7 +393,7 @@ public class Main {
     }
 
     public static void writeToFile(String suffix, int size, Double time, Double timeMy, MyOwnPrecision average, MyOwnPrecision averageMy) throws IOException {
-        FileOutputStream fstream = new FileOutputStream("C:\\Users\\Ukleja\\Desktop\\Algorytmy-Numeryczne\\zad2\\Values\\AddMultiplyFiles\\values" + suffix + ".txt");
+        FileOutputStream fstream = new FileOutputStream("..\\..\\zad2\\Values\\AddMultiplyFiles\\values" + suffix + ".txt");
         BufferedWriter br = new BufferedWriter(new OutputStreamWriter(fstream, "utf-8"));
         averageMy = MyOwnPrecision.negate(averageMy);
         average.add(averageMy);
@@ -331,5 +411,34 @@ public class Main {
         br.newLine();
         br.close();
         fstream.close();
+    }
+
+    public static void writeToFileGauss(String suffix, int size, ArrayList<String> data) throws IOException {
+        FileOutputStream fstream = new FileOutputStream("..\\..\\zad2\\Values\\AddMultiplyFiles\\values" + suffix + ".txt");
+        BufferedWriter br = new BufferedWriter(new OutputStreamWriter(fstream, "utf-8"));
+
+        br.write(String.valueOf(size));
+        br.newLine();
+        for (String line : data) {
+            br.write(line);
+            br.newLine();
+        }
+        br.close();
+        fstream.close();
+    }
+
+    private static void loadMyOwnValues(MyMatrix<MyOwnPrecision> matrixAMyOwnPrecision, MyMatrix<MyOwnPrecision> vectorXMyOwnPrecision) throws IOException {
+        matrixAMyOwnPrecision.loadValues("1");
+        vectorXMyOwnPrecision.loadValues("Vector");
+    }
+
+    private static void loadDoubleValues(MyMatrix<Double> matrixADouble, MyMatrix<Double> vectorXDouble) throws IOException {
+        matrixADouble.loadValues("1");
+        vectorXDouble.loadValues("Vector");
+    }
+
+    private static void loadFloatValues(MyMatrix<Float> matrixAFloat, MyMatrix<Float> vectorXFloat) throws IOException {
+        matrixAFloat.loadValues("1");
+        vectorXFloat.loadValues("Vector");
     }
 }
