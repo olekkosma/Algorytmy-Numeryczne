@@ -6,7 +6,6 @@ public class Generator {
     FileInputStream fstream = new FileInputStream("../Values/values" + suffix + ".txt");
     BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
     String strLine;
-    int lineNumber = 0;
     while ((strLine = br.readLine()) != null) {
       System.out.println(strLine);
     }

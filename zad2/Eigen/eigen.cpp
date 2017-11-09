@@ -46,8 +46,8 @@ int main()
   clock_t end;
   double elapsed_secs;
   double sum = 0;
-  int iterations = 1;
   double avgTime = 0;
+  int iterations = 1;
   int precision = std::numeric_limits<double>::max_digits10;
   cout.precision(precision);
   MatrixXd matrix1 = loadRandomValuesMatrix("values1.txt");
@@ -112,4 +112,3 @@ int main()
   //cin >> pause;
   return 0;
 }
-
