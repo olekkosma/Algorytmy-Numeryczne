@@ -68,6 +68,7 @@ int main()
 	printf("Matrix A : \n");
 	//cout << matrix1 << endl;
 	
+	/*
 	MatrixXd matrix2 = loadRandomValuesMatrix("values2.txt");
 	printf("\nMatrix B : \n");
 	//cout << matrix2 << endl;
@@ -75,12 +76,12 @@ int main()
 	MatrixXd matrix3 = loadRandomValuesMatrix("values3.txt");
 	printf("\nMatrix C : \n");
 	//cout << matrix3 << endl;
-
+	*/
 	VectorXd vector = loadRandomValuesMatrix("valuesVector.txt");
 	printf("\nVector X : \n");
 	//cout << vector << endl;
 	
-
+	/*
 	printf("\n\n A * X counting...\n");
 	for (int i = 0; i < iterations; i++) {
 		begin = clock();
@@ -99,7 +100,7 @@ int main()
 	writeMatrixToFile(matrixMultipliedbyVector, "AX.txt", avgTime);
 	sum = 0;
 	avgTime = 0;
-
+	
 	printf("\n\n (A + B + C ) * X counting...\n");
 	for (int i = 0; i < iterations; i++) {
 		begin = clock();
@@ -118,7 +119,7 @@ int main()
 	sum = 0;
 	avgTime = 0;
 
-
+	
 	printf("\n\n A * (B * C) counting...\n");
 	for (int i = 0; i < iterations; i++) {
 		begin = clock();
@@ -134,7 +135,24 @@ int main()
 	printf("time = %f secs\n\n", elapsed_secs);
 	//cout << multiplyThreeMatrix << endl;
 	writeMatrixToFile(multiplyThreeMatrix, "ABC.txt", elapsed_secs);
+	*/
 
+
+	begin = clock();
+	VectorXd resultVector = matrix1.partialPivLu().solve(vector);
+	end = clock();
+	elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+	
+	writeMatrixToFile(resultVector, "partial.txt", elapsed_secs);
+
+
+
+	begin = clock();
+	VectorXd resultVectorFull = matrix1.fullPivLu().solve(vector);
+	end = clock();
+	elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+	sum = sum + elapsed_secs;
+	writeMatrixToFile(resultVectorFull, "full.txt", elapsed_secs);
 	//int pause;
 	//cin >> pause;
 	return 0;

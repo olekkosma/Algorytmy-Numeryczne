@@ -58,8 +58,8 @@ public class MyMatrix<T extends Number> {
                     } else {
 
                         MyOwnPrecision sum = (MyOwnPrecision) matrix[i][j];
-                        sum.add((MyOwnPrecision) secondMatrix.matrix[i][j]);
-                        sumMatrix.matrix[i][j] = (T) sum;
+                        MyOwnPrecision tmp = MyOwnPrecision.add(sum,(MyOwnPrecision) secondMatrix.matrix[i][j]);
+                        sumMatrix.matrix[i][j] = (T) tmp;
 
                     }
                 }
@@ -430,47 +430,8 @@ public class MyMatrix<T extends Number> {
         return size;
     }
 
-    public static <T extends Number> T calculateResult(Class<T> className, int fileNumber, int choise) throws IOException {
-
-        String fileSuffix = String.valueOf(fileNumber);
-        int size = loadSize(fileSuffix);
-        MyMatrix<T> matrix = new MyMatrix<T>(className, size);
-        matrix.loadValues(fileSuffix);
-        MyMatrix<T> vector = new MyMatrix<T>(className, size, 1);
-        vector.loadValues("Vector");
-        MyMatrix<T> matrixTmp1 = new MyMatrix<T>(className, size);
-        matrixTmp1.loadValues(fileSuffix);
-        MyMatrix<T> vectorTmp1 = new MyMatrix<T>(className, size, 1);
-        vectorTmp1.loadValues("Vector");
-
-        switch (choise) {
-            case 1:       //base gauss
-                System.out.println("Result for basic gauss elimination:");
-                MyMatrix<T> result = matrix.gaussBase(matrix, vector);
-                result.printMatrix();
-                matrixTmp1.countAbsOfResult(vectorTmp1, result);
-                break;
-
-            case 2:
-                System.out.println("Result for partial gauss elimination:");
-                MyMatrix<T> result1 = matrix.partialChoiseGauss(matrix, vector);
-                result1.printMatrix();
-                matrixTmp1.countAbsOfResult(vectorTmp1, result1);
-                break;
-
-            case 3:
-                System.out.println("Result for full gauss elimination:");
-                ArrayList<Integer> queue = new ArrayList<>();
-                MyMatrix<T> result3 = matrix.fullChoiseGauss(matrix, vector, queue);
-                matrix.sortResultsByQueue(result3, queue);
-                result3.printMatrix();
-                matrixTmp1.countAbsOfResult(vectorTmp1, result3);
-                break;
-        }
-        return null;
-    }
-
-    public void countAbsOfResult(MyMatrix<T> vector, MyMatrix<T> result) {
+    public MyOwnPrecision countAverageDiff(MyMatrix<T> vector, MyMatrix<T> result){
+        MyOwnPrecision sum = new MyOwnPrecision("0.0");
         if (classType.equals(Float.class)) {
             Float resultFloat = 0.0f;
 
@@ -479,8 +440,7 @@ public class MyMatrix<T extends Number> {
                 for (int i = 0; i < this.columns; i++) {
                     resultFloat += this.matrix[j][i].floatValue() * result.matrix[i][0].floatValue();
                 }
-                Float diff = Math.abs(resultFloat - vector.matrix[j][0].floatValue());
-                System.out.printf("%26.8f\n", diff);
+                sum.add( new MyOwnPrecision(String.valueOf(Math.abs(resultFloat - vector.matrix[j][0].floatValue()))));
             }
         } else {
             if (classType.equals(Double.class)) {
@@ -490,8 +450,8 @@ public class MyMatrix<T extends Number> {
                     for (int i = 0; i < this.columns; i++) {
                         resultFloat += this.matrix[j][i].doubleValue() * result.matrix[i][0].doubleValue();
                     }
-                    Double diff = Math.abs(resultFloat - vector.matrix[j][0].doubleValue());
-                    System.out.printf("%26.16f\n", diff);
+                    sum.add( new MyOwnPrecision(String.valueOf(Math.abs(resultFloat - vector.matrix[j][0].doubleValue()))));
+
                 }
             } else {
 
@@ -506,9 +466,16 @@ public class MyMatrix<T extends Number> {
                     resultMyOwn.add(MyOwnPrecision.negate((MyOwnPrecision) vector.matrix[j][0]));
                     MyOwnPrecision diff = resultMyOwn;
                     diff.absConvert();
-                    System.out.println(diff.printAsDecimal());
+                    sum.add(diff);
                 }
             }
         }
+        int divider = rows*vector.columns;
+        MyOwnPrecision divide = new MyOwnPrecision(String.valueOf(divider)+".0");
+        divide = MyOwnPrecision.flip(divide);
+        sum.multiply(divide);
+        return sum;
+
+
     }
 }

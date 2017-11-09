@@ -52,21 +52,54 @@ public class Main {
         //   moze jednak lepiej w jednym pliku oba czasy i roznice srednich
         //--------------------------------------------------------------------------
 
-        CountStatsForAddAndMultiply();
+       // CountStatsForAddAndMultiply();
+        //CountStatsForAddAndMultiplyMyOwn();
+
+        countStatsForGauss();
 
         /*
         MyMatrix.calculateResult(Float.class,1,1);
         MyMatrix.calculateResult(Float.class,1,2);
         MyMatrix.calculateResult(Float.class,1,3);
+*/
+       // MyMatrix.calculateResult(Double.class,1,1);
+        //MyMatrix.calculateResult(Double.class,1,2);
+        //MyMatrix.calculateResult(Double.class,1,3);
 
-        MyMatrix.calculateResult(Double.class,1,1);
-        MyMatrix.calculateResult(Double.class,1,2);
-        MyMatrix.calculateResult(Double.class,1,3);
+        ///MyMatrix.calculateResult(MyOwnPrecision.class,1,1);
+        //MyMatrix.calculateResult(MyOwnPrecision.class,1,2);
+        //MyMatrix.calculateResult(MyOwnPrecision.class,1,3);
 
-        MyMatrix.calculateResult(MyOwnPrecision.class,1,1);
-        MyMatrix.calculateResult(MyOwnPrecision.class,1,2);
-        MyMatrix.calculateResult(MyOwnPrecision.class,1,3);
-        */
+    }
+
+    public static void countStatsForGauss() throws IOException {
+        long start;
+        long elapsedTimeMillis;
+        int size = MyMatrix.loadSize("1");
+        double sum = 0;
+        double iterations = 1;
+        double avgTime = 0;
+
+        MyMatrix<Double> vectorPartial = new MyMatrix(Double.class, size, 1);
+        MyMatrix<Double> vectorFull = new MyMatrix(Double.class, size, 1);
+
+        Double timePartial = 0.0;
+        Double timeFull = 0.0;
+
+        timePartial = vectorPartial.loadValuesWithTime("partial", timePartial);
+        timeFull = vectorFull.loadValuesWithTime("full", timeFull);
+
+        MyMatrix<Double> matrixA = new MyMatrix<Double>(Double.class, size);
+        MyMatrix<Double> vectorX = new MyMatrix<Double>(Double.class, size, 1);
+
+        matrixA.loadValues("1");
+        vectorX.loadValues("Vector");
+
+        MyMatrix<Double> resultBase = matrixA.gaussBase(matrixA,vectorX);
+
+       MyOwnPrecision averageDiff = matrixA.countAverageDiff(vectorX,resultBase);
+        System.out.println("test");
+        System.out.println(averageDiff.printAsDecimal());
     }
 
     private static void CountStatsForAddAndMultiply() throws IOException {
@@ -87,12 +120,12 @@ public class Main {
 
         timeAX = matrixResultsAX.loadValuesWithTime("AX", timeAX);
         timeABCX = matrixResultsABCX.loadValuesWithTime("ABCX", timeABCX);
-        timeABC = matrixResultsABC.loadValuesWithTime("ABC", timeABC);
+        //timeABC = matrixResultsABC.loadValuesWithTime("ABC", timeABC);
         System.out.println("Eigen results loaded...");
 
-        MyOwnPrecision averageAX = matrixResultsAX.countAverageValue();
-        MyOwnPrecision averageABCX = matrixResultsABCX.countAverageValue();
-        MyOwnPrecision averageABC = matrixResultsABC.countAverageValue();
+        //MyOwnPrecision averageAX = matrixResultsAX.countAverageValue();
+        //MyOwnPrecision averageABCX = matrixResultsABCX.countAverageValue();
+       // MyOwnPrecision averageABC = matrixResultsABC.countAverageValue();
 
         System.out.println("Counted average for eigen...");
         MyMatrix<Double> matrixA = new MyMatrix<Double>(Double.class, size);
@@ -102,11 +135,12 @@ public class Main {
         MyMatrix<Double> vectorX = new MyMatrix<Double>(Double.class, size, 1);
 
         matrixA.loadValues("1");
-        matrixA2.loadValues("1");
+        //matrixA2.loadValues("1");
         matrixB.loadValues("2");
         matrixC.loadValues("3");
         vectorX.loadValues("Vector");
         System.out.println("Values loaded to matrixs...");
+
         //----------------------------------------------------------------------------
         for (int i = 0; i < iterations; i++) {
             start = System.currentTimeMillis();
@@ -118,11 +152,12 @@ public class Main {
         }
         avgTime = sum / iterations;
         MyMatrix<Double> matrixAX = matrixA.multiply(vectorX);
-        MyOwnPrecision averageAXMy = matrixAX.countAverageValue();
-        writeToFile("AXResults", size, timeAX, avgTime, averageAX, averageAXMy);
+        //MyOwnPrecision averageAXMy = matrixAX.countAverageValue();
+        writeToFile("AXResults", size, timeAX, avgTime, new MyOwnPrecision("0.0"), new MyOwnPrecision("0.0"));
         System.out.println("A * X counted...");
         avgTime = 0;
         sum = 0;
+
         //----------------------------------------------------------------------------
         for (int i = 0; i < iterations; i++) {
             start = System.currentTimeMillis();
@@ -138,11 +173,13 @@ public class Main {
         MyMatrix<Double> tmp = matrixA.add(matrixB);
         tmp = tmp.add(matrixC);
         MyMatrix<Double> matrixABCX = tmp.multiply(vectorX);
+        matrixABCX.printMatrix();
         MyOwnPrecision averageABCXMy = matrixABCX.countAverageValue();
-        writeToFile("ABCXResults", size, timeABCX, avgTime, averageABCX, averageABCXMy);
+        writeToFile("ABCXResults", size, timeABCX, avgTime, new MyOwnPrecision("0.0"), new MyOwnPrecision("0.0"));
         System.out.println("A+B+C * X counted...");
         avgTime = 0;
         sum = 0;
+        /*
         //----------------------------------------------------------------------------
         for (int i = 0; i < iterations; i++) {
             start = System.currentTimeMillis();
@@ -158,6 +195,116 @@ public class Main {
         MyMatrix<Double> matrixABC = matrixAB.multiply(matrixC);
         MyOwnPrecision averageABCMy = matrixABC.countAverageValue();
         writeToFile("ABCResults", size, timeABC, avgTime, averageABC, averageABCMy);
+        System.out.println("A*B*C counted...");
+        */
+        System.out.println("the end");
+        avgTime = 0;
+        sum = 0;
+
+
+    }
+
+    private static void CountStatsForAddAndMultiplyMyOwn() throws IOException {
+        long start;
+        long elapsedTimeMillis;
+        int size = MyMatrix.loadSize("1");
+        double sum = 0;
+        double iterations = 1;
+        double avgTime = 0;
+
+        MyMatrix<MyOwnPrecision> matrixResultsAX = new MyMatrix(Double.class, size, 1);
+        MyMatrix<MyOwnPrecision> matrixResultsABCX = new MyMatrix(Double.class, size, 1);
+        MyMatrix<MyOwnPrecision> matrixResultsABC = new MyMatrix(Double.class, size);
+
+        Double timeAX = 0.0;
+        Double timeABCX = 0.0;
+        Double timeABC = 0.0;
+
+        timeAX = matrixResultsAX.loadValuesWithTime("AX", timeAX);
+        timeABCX = matrixResultsABCX.loadValuesWithTime("ABCX", timeABCX);
+        timeABC = matrixResultsABC.loadValuesWithTime("ABC", timeABC);
+        System.out.println("Eigen results loaded...");
+
+       // MyOwnPrecision averageAX = matrixResultsAX.countAverageValue();
+       // MyOwnPrecision averageABCX = matrixResultsABCX.countAverageValue();
+        //MyOwnPrecision averageABC = matrixResultsABC.countAverageValue();
+
+        System.out.println("Counted average for eigen...");
+        MyMatrix<MyOwnPrecision> matrixA = new MyMatrix<MyOwnPrecision>(MyOwnPrecision.class, size);
+        MyMatrix<MyOwnPrecision> matrixA2 = new MyMatrix<MyOwnPrecision>(MyOwnPrecision.class, size);
+        MyMatrix<MyOwnPrecision> matrixA3 = new MyMatrix<MyOwnPrecision>(MyOwnPrecision.class, size);
+        MyMatrix<MyOwnPrecision> matrixB = new MyMatrix<MyOwnPrecision>(MyOwnPrecision.class, size);
+        MyMatrix<MyOwnPrecision> matrixB2 = new MyMatrix<MyOwnPrecision>(MyOwnPrecision.class, size);
+        MyMatrix<MyOwnPrecision> matrixB3 = new MyMatrix<MyOwnPrecision>(MyOwnPrecision.class, size);
+        MyMatrix<MyOwnPrecision> matrixC = new MyMatrix<MyOwnPrecision>(MyOwnPrecision.class, size);
+        MyMatrix<MyOwnPrecision> matrixC2 = new MyMatrix<MyOwnPrecision>(MyOwnPrecision.class, size);
+        MyMatrix<MyOwnPrecision> matrixC3 = new MyMatrix<MyOwnPrecision>(MyOwnPrecision.class, size);
+        MyMatrix<MyOwnPrecision> vectorX = new MyMatrix<MyOwnPrecision>(MyOwnPrecision.class, size, 1);
+        MyMatrix<MyOwnPrecision> vectorX2 = new MyMatrix<MyOwnPrecision>(MyOwnPrecision.class, size, 1);
+
+        matrixA.loadValues("1");
+        matrixA2.loadValues("1");
+        matrixA3.loadValues("1");
+        matrixB.loadValues("2");
+        matrixB2.loadValues("2");
+        matrixB3.loadValues("2");
+        matrixC.loadValues("3");
+        matrixC2.loadValues("3");
+        matrixC3.loadValues("3");
+        vectorX.loadValues("Vector");
+        vectorX2.loadValues("Vector");
+        System.out.println("Values loaded to matrixs...");
+        //----------------------------------------------------------------------------
+        for (int i = 0; i < iterations; i++) {
+            start = System.currentTimeMillis();
+            MyMatrix<MyOwnPrecision> matrixAX = matrixA.multiply(vectorX);                 //A * X
+            elapsedTimeMillis = System.currentTimeMillis() - start;
+            Double timeTMp = elapsedTimeMillis / 1000.0;
+            System.out.println(timeTMp);
+            sum = sum + timeTMp;
+        }
+        avgTime = sum / iterations;
+        MyMatrix<MyOwnPrecision> matrixAX = matrixA.multiply(vectorX);
+        //MyOwnPrecision averageAXMy = matrixAX.countAverageValue();
+        writeToFile("AXResults", size, timeAX, avgTime, new MyOwnPrecision("0.0"), new MyOwnPrecision("0.0"));
+        System.out.println("A * X counted...");
+        avgTime = 0;
+        sum = 0;
+        //----------------------------------------------------------------------------
+        for (int i = 0; i < iterations; i++) {
+            start = System.currentTimeMillis();
+            MyMatrix<MyOwnPrecision> tmp = matrixA.add(matrixB);
+            tmp = tmp.add(matrixC);
+            MyMatrix<MyOwnPrecision> matrixABCX = tmp.multiply(vectorX);           //A+B+C * X
+            elapsedTimeMillis = System.currentTimeMillis() - start;
+            Double timeTMp = elapsedTimeMillis / 1000.0;
+            System.out.println(timeTMp);
+            sum = sum + timeTMp;
+        }
+        avgTime = sum / iterations;
+        MyMatrix<MyOwnPrecision> tmp = matrixA3.add(matrixB3);
+        tmp = tmp.add(matrixC3);
+        MyMatrix<MyOwnPrecision> matrixABCX = tmp.multiply(vectorX2);
+       // MyOwnPrecision averageABCXMy = matrixABCX.countAverageValue();
+        writeToFile("ABCXResults", size, timeABCX, avgTime, new MyOwnPrecision("0.0"), new MyOwnPrecision("0.0"));
+        System.out.println("A+B+C * X counted...");
+        avgTime = 0;
+        sum = 0;
+        //----------------------------------------------------------------------------
+        for (int i = 0; i < iterations; i++) {
+            start = System.currentTimeMillis();
+            MyMatrix<MyOwnPrecision> matrixAB = matrixA.multiply(matrixB);
+            MyMatrix<MyOwnPrecision> matrixABC = matrixAB.multiply(matrixC);           //A*B*C
+            elapsedTimeMillis = System.currentTimeMillis() - start;
+            Double timeTMp = elapsedTimeMillis / 1000.0;
+            System.out.println(timeTMp);
+            sum = sum + timeTMp;
+        }
+        avgTime = sum / iterations;
+        MyMatrix<MyOwnPrecision> matrixAB = matrixA2.multiply(matrixB2);
+        MyMatrix<MyOwnPrecision> matrixABC = matrixAB.multiply(matrixC2);
+        //MyOwnPrecision averageABCMy = matrixABC.countAverageValue();
+        writeToFile("ABCResults", size, timeABC, avgTime, new MyOwnPrecision("0.0"), new MyOwnPrecision("0.0"));
         System.out.println("A*B*C counted...");
         System.out.println("the end");
         avgTime = 0;
