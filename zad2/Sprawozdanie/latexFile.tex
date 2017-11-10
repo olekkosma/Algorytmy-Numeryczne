@@ -4,7 +4,7 @@
 %	classes include article, report, book, letter, thesis
 
 \usepackage[a4paper,bindingoffset=0.2in,%
-            left=0.6in,right=0.6in,top=0.0in,bottom=0.4in,%
+            left=0.5in,right=0.5in,top=0.3in,bottom=0.4in,%
             footskip=.15in]{geometry}
             
 \usepackage[T1]{fontenc}
@@ -27,64 +27,53 @@
 \section{Dodawanie i Mnożenie}
 
 Opracowanie prezentuje obliczenia na macierzach, przy użyciu języka java i wsparciu biblioteki eigen 
-wykorzystanego w C++.
+wykorzystanej w C++.
 Pierwsza część opisuje czas działania i błędy operacji dodawania i mnożenia.
-Obliczenia wygenerowane w javie porównywane były z wynikami wygenerowanymi z eigena.
+Obliczenia były generowane w javie porównywane były z wynikami wygenerowanymi z eigena.
 Testy zostały przeprowadzone na 3 wzorach:
 $$A * X\qquad \qquad \qquad  (A+B+C)*X \qquad \qquad \qquad A*B*C$$
 Gdzie litery A,B,C to macierze, X to wektor.
 Testy zostały przeprowadzone na 3 typach zmiennych. Double, Float i na własnym typie, który przechowuje
-liczbę w postaci ułamka. Typ ten ma bezstratną precyzję.
+liczbę w postaci ułamka. Typ ten ma bezstratną precyzję. Liczby które rozstały wykorzystane do obliczeń mieściły się w przedziale od 0 do 1, w postaci dziesiętnej, z wykorzystaniem precyzji double.\\
 
-Pierwszy wykres prezentuje czas potrzebny do obliczenia podanego wzoru. Os pionowa reprezentuje czas w sekundach, oś pozioma rozmiar macierzy. Pod koniec widać czasową przewagę własnych obliczeń nad Eigen.Podane wykresy utworzone na zmiennej double.\\
+Pierwsze dwa wykresy prezentują czas potrzebny do obliczenia podanego wzoru. Os pionowa reprezentuje czas w sekundach, oś pozioma rozmiar macierzy. Wraz ze wzrostem rozmiaru macierzy, we wszystkich przypadkach(odnotowane w opracowaniu tylko dwa) widać czasową przewagę własnych obliczeń nad eigen.Podane wykresy utworzone na zmiennej double.\\
 \begin{center}
- \makebox[\textwidth]{\includegraphics[width=20cm,height=7cm]{CzasRazem.png}}
+ \makebox[\textwidth]{\includegraphics[width=20cm,height=6cm]{CzasRazem.png}}
 \end{center}
 
-Drugi wykres prezentuje dla innego wzoru czas obliczeń. W pewnym momencie obliczenia javy stają się szybsze
-i tendencja ta się utrzymuje.
-
-
-Trzeci wykres prezentuje te same dane, tylko w kontekście precyzji. Widać ze wraz ze wzrostem wielkości macierzy, błędy przybierają na wartości.
+Kolejne dwa wykresy odnotowują uzyskaną precyzje. Wyznaczona ona była poprzez wyznaczenie sśredniej wartości dla końcowej macierzy i odjęcie od siebie wyniku z eigena i javy. Widać ze wraz ze wzrostem wielkości macierzy, błędy przybierają na wartości.Tym większa macierz tym większy błąd ostateczny. W przypadku mnożenia wynika to z faktu obliczania kolejnych miejsc po przecinku, które nie mieszczą się już w zakresie danej liczby zmiennoprzecinkowej. \\
 \begin{center}
  \makebox[\textwidth]{\includegraphics[width=20cm,height=7cm]{RoznicaRazem.png}}
-\end{center}
+\end{center}  
 
-Czwarty wykres prezentuje podobne wnioski jak w przypadku trzeciego. Tym większa macierz tym większy błąd ostateczny. W przypadku mnożenia wynika to z faktu obliczania kolejnych miejsc po przecinku, które nie miejszczą już się w zakresie danej liczby zmiennoprzecinkowej.  
-
-
-Obliczenia na Float wykazywały podobną tendencje, tyle że w mniejszej skali i wolniejszym tempie, więc pominę prezentacje dla tej zmiennoprzecinkowej.
-W przypadku własnej precyzji, w zakresie porównania do Double obliczonego przez Eigen wyniki pokrywały się idealnie. Główna różnica to dłuższy czas oczekiwania na wynik.
+Obliczenia na Float wykazywały podobną tendencje, tyle że w mniejszej skali i wolniejszym tempie, więc pominięto prezentacje dla tej zmiennoprzecinkowej.
+W przypadku własnej precyzji, w zakresie porównania do wyniku obliczonego przez Eigen, wyniki pokrywały się idealnie. Główna różnica to dłuższy czas oczekiwania na wynik.
 
 \begin{center}
- \makebox[\textwidth]{\includegraphics[width=12cm,height=6cm]{ABCCzasMy.png}}
+ \makebox[\textwidth]{\includegraphics[width=14cm,height=8cm]{ABCCzasMy.png}}
 \end{center}
-
-W przypadku jakiegokolwiek sumowania nie odnotowano jakiejkolwiek utraty wartości względem  Eigen.
-Wiąże się to prawdopodobnie z faktem działania operacji dodawania. W momencie dodania dwóch liczb ich 
-suma będzie potrzebować w najgorszym przypadku jednego miejsca więcej do zapisu. W przypadku mnożenia, ilość potrzebnych bitów rośnie zdecydowanie szybciej. W konsekwencji traci się precyzje która już się nie mieści w zakresie danej zmiennoprzecinkowej.
-
 
 \section{Rozwiązywanie układów równań liniowych}
 Druga część opisuje rozwiązywanie układu równań liniowych macierzy A i wektora B.
 W javie wykorzystane zostały 3 wersje metody eliminacji Gaussa:\\
+\\
 -bez wyboru elementu podstawowego\\
 -z częściowym wyborem elementu podstawowego\\
 -z pełnym wyborem elementu podstawowego\\
 \\
-Odnośnikiem jako poprawny wynik było podstawienie pod układ obliczonych niewiadomych.W eigen skorzystano z wyliczenia poprzez częściowy i pełny wybór.
+Odnośnikiem jako poprawny wynik było podstawienie pod układ obliczonych niewiadomych. W eigen skorzystano z wyliczenia poprzez częściowy i pełny wybór.\\
 
 Pierwszy wykres przedstawia różnice obliczonego układu dla wyliczonych niewiadomych i oryginalnego wektora.Tym niższa wartość w danym punkcie tym precyzyjniejszy wynik.Najlepszy okazuje się wynik wyliczony przez Eigen. Niewiele gorzej wypada Double dla pełnego wyboru elementu podstawowego.
 
-
 \begin{center}
- \makebox[\textwidth]{\includegraphics[width=13cm,height=8cm]{gaussPrecyzja2.png}}
+ \makebox[\textwidth]{\includegraphics[width=16cm,height=10cm]{gaussPrecyzja2.png}}
 \end{center}
 
-Drugi wykres przedstawia czas potrzebny do osiągnięcia rozwiązania.Chaotyczny rozkład i przenikanie przez siebie dolnych lini wynika z sytuacji, gdzie dana macierz może mieć odpowiedni układ nie wymagający jakiegokolwiek sortowania. Stąd tak zbliżone wyniki.\\
+.\\
+\\Drugi wykres przedstawia czas potrzebny do osiągnięcia rozwiązania. Chaotyczny rozkład i przenikanie przez siebie dolnych linii wynika z sytuacji, gdzie dana macierz może mieć odpowiedni układ nie wymagający jakiegokolwiek sortowania. Stąd tak zbliżone wyniki.\\
 
 \begin{center}
- \makebox[\textwidth]{\includegraphics[width=12cm,height=10cm]{GaussCzas.png}}
+ \makebox[\textwidth]{\includegraphics[width=13cm,height=10cm]{GaussCzas.png}}
 \end{center}
 
 
@@ -94,19 +83,19 @@ Ostatni wykres przedstawia czas potrzebny do wyliczenia wyników dla idealnej pr
  \makebox[\textwidth]{\includegraphics[width=13cm,height=7cm]{MyOwnTime.png}}
 \end{center}
 
-Większość obliczeń została uśredniona z 5-15 próbek na jeden rozmiar macierzy. Zazwyczaj tyle wystarczało by zauważyć tendencje wzrostowe.\\
+Większość obliczeń została uśredniona z 5-15 próbek na każdy rozmiar macierzy. Zazwyczaj tyle wystarczało by zauważyć tendencje wzrostowe.\\
 \\
-\begin{tabular}{ | p{8.2cm} | p{8.2cm} | }
+\begin{tabular}{ | p{8.3cm} | p{8.3cm} | }
   \hline
   \multicolumn{2}{|c|}{Podział obowiązków} \\
   \hline
   Aleksander Kosma & Tomasz Adamczyk \\
   \hline
-  -Klasa MyOwnPrecision & -Implementacja  Gaussa do Klasy MyMatrix \\\hline
-  -Szkielet klasy i zapewnienie generyczności & -Klasa do generowania losowych macierzy \\\hline
-  -Implementacja metod dodawania i mnożenia & -Generowanie wyniku poprzez bibliotekę Eigen w C++ \\\hline
-  -Testy i generowanie wyników & -Zautomatyzowanie generowania wyników \\\hline
-  -Obróbka wyników, wykresy i opracowanie & - \\\hline
+  - Klasa MyOwnPrecision & -Implementacja  Gaussa do Klasy MyMatrix \\\hline
+  - Szkielet klasy i zapewnienie generyczności & - Klasa do generowania losowych macierzy \\\hline
+  - Implementacja metod dodawania i mnożenia & - Generowanie wyniku z biblioteki Eigen w C++ \\\hline
+  - Testy i generowanie wyników & - Zautomatyzowanie generowania wyników \\\hline
+  - Obróbka wyników, wykresy i opracowanie & - \\\hline
   
   \hline
 \end{tabular}

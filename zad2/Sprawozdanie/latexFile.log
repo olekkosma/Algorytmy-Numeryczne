@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.11)  9 NOV 2017 23:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.11)  10 NOV 2017 01:13
 entering extended mode
 **./latexFile.tex
 (latexFile.tex
@@ -955,15 +955,15 @@ File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * bindingoffset: 14.45377pt
 * modes: 
-* h-part:(L,W,R)=(43.36243pt, 496.32925pt, 43.36243pt)
-* v-part:(T,H,B)=(0.0pt, 816.1393pt, 28.90755pt)
+* h-part:(L,W,R)=(36.135pt, 510.78412pt, 36.135pt)
+* v-part:(T,H,B)=(21.68121pt, 794.45808pt, 28.90755pt)
 * \paperwidth=597.50787pt
 * \paperheight=845.04684pt
-* \textwidth=496.32925pt
-* \textheight=816.1393pt
-* \oddsidemargin=-14.4538pt
-* \evensidemargin=-28.90756pt
-* \topmargin=-109.26999pt
+* \textwidth=510.78412pt
+* \textheight=794.45808pt
+* \oddsidemargin=-21.68123pt
+* \evensidemargin=-36.135pt
+* \topmargin=-87.58878pt
 * \headheight=12.0pt
 * \headsep=25.0pt
 * \topskip=10.0pt
@@ -1077,6 +1077,11 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 34.
 
+Underfull \hbox (badness 10000) in paragraph at lines 34--38
+
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 39--40
 
  []
@@ -1085,12 +1090,16 @@ Underfull \hbox (badness 10000) in paragraph at lines 39--40
 File: CzasRazem.png Graphic file (type png)
  <use CzasRazem.png>
 Package pdftex.def Info: CzasRazem.png used on input line 41.
-(pdftex.def)             Requested size: 569.05754pt x 199.16608pt.
+(pdftex.def)             Requested size: 569.05754pt x 170.71378pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 44--45
+
+ []
 
 <RoznicaRazem.png, id=6, 1789.68625pt x 546.04pt>
 File: RoznicaRazem.png Graphic file (type png)
  <use RoznicaRazem.png>
-Package pdftex.def Info: RoznicaRazem.png used on input line 50.
+Package pdftex.def Info: RoznicaRazem.png used on input line 46.
 (pdftex.def)             Requested size: 569.05199pt x 199.16547pt.
 
 [1
@@ -1100,10 +1109,20 @@ caRazem.png>] <ABCCzasMy.png, id=20, 1005.7575pt x 554.07pt>
 File: ABCCzasMy.png Graphic file (type png)
 
 <use ABCCzasMy.png>
-Package pdftex.def Info: ABCCzasMy.png used on input line 60.
-(pdftex.def)             Requested size: 341.43124pt x 170.71158pt.
+Package pdftex.def Info: ABCCzasMy.png used on input line 53.
+(pdftex.def)             Requested size: 398.33646pt x 227.61826pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 69--76
+Underfull \hbox (badness 10000) in paragraph at lines 57--65
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 57--65
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 57--65
 
  []
 
@@ -1111,31 +1130,32 @@ Underfull \hbox (badness 10000) in paragraph at lines 69--76
 File: gaussPrecyzja2.png Graphic file (type png)
 
 <use gaussPrecyzja2.png>
-Package pdftex.def Info: gaussPrecyzja2.png used on input line 81.
-(pdftex.def)             Requested size: 369.88744pt x 227.61655pt.
+Package pdftex.def Info: gaussPrecyzja2.png used on input line 69.
+(pdftex.def)             Requested size: 455.2425pt x 284.52866pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 84--85
+Underfull \hbox (badness 10000) in paragraph at lines 72--74
 
  []
 
-<GaussCzas.png, id=22, 706.64pt x 576.1525pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 72--74
+
+ []
+
+[2 <./ABCCzasMy.png> <./gaussPrecyzja2.png>]
+<GaussCzas.png, id=25, 706.64pt x 576.1525pt>
 File: GaussCzas.png Graphic file (type png)
  <use GaussCzas.png>
-Package pdftex.def Info: GaussCzas.png used on input line 87.
-(pdftex.def)             Requested size: 341.43687pt x 284.53261pt.
- [2 <./ABCCzasMy.png> <./gaussPrecyzja2.png>]
+Package pdftex.def Info: GaussCzas.png used on input line 76.
+(pdftex.def)             Requested size: 369.89175pt x 284.53261pt.
+
 <MyOwnTime.png, id=26, 765.86125pt x 463.7325pt>
 File: MyOwnTime.png Graphic file (type png)
  <use MyOwnTime.png>
-Package pdftex.def Info: MyOwnTime.png used on input line 94.
+Package pdftex.def Info: MyOwnTime.png used on input line 83.
 (pdftex.def)             Requested size: 369.888pt x 199.17465pt.
 
-Underfull \hbox (badness 1062) in paragraph at lines 107--107
-[]\T1/lmr/m/n/10 -Generowanie wy-niku po-przez bi-blio-tek¦ Eigen w
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 97--113
+Underfull \hbox (badness 10000) in paragraph at lines 86--102
 
  []
 
@@ -1143,7 +1163,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 97--113
 Here is how much of TeX's memory you used:
  22924 strings out of 493323
  587438 string characters out of 3139062
- 794882 words of memory out of 3000000
+ 794883 words of memory out of 3000000
  26036 multiletter control sequences out of 15000+200000
  41215 words of font info for 39 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1157,7 +1177,7 @@ ype1/public/lm/lmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lm
 r10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Progra
 m Files/MiKTeX 2.9/fonts/type1/public/lm/lmr17.pfb><C:/Program Files/MiKTeX 2.9
 /fonts/type1/public/lm/lmsy10.pfb>
-Output written on latexFile.pdf (3 pages, 395093 bytes).
+Output written on latexFile.pdf (3 pages, 395318 bytes).
 PDF statistics:
  54 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
