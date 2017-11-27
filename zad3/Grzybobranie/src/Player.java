@@ -6,13 +6,8 @@ public class Player {
     private String name;
     private Board board;
 
-
-    public Player(String name,int field,Board board) {
-        this.name  = name;
-        this.field = field;
-        this.board = board;
+    public Player() {
     }
-
 
     public void move(int move){
         if(this.field+move>=board.getFields()){
@@ -50,6 +45,14 @@ public class Player {
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
     }
 
     public void setField(int field) {

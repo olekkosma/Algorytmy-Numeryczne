@@ -8,11 +8,8 @@ public class Cube {
     private List<Integer> probability;
     private int sumOfProbability;
     private Random random;
-    public Cube(List<Integer> values, List<Integer> probability) {
-        this.probability = probability;
+    public Cube() {
         random = new Random();
-        this.values = values;
-        countSum();
     }
     public void countSum(){
         for(Integer value : probability){
@@ -32,5 +29,22 @@ public class Cube {
 
         }
         return 0;
+    }
+
+    public void setValues(List<Integer> values) {
+        this.values = values;
+    }
+
+    public void setProbability(List<Integer> probability) {
+        this.probability = probability;
+        countSum();
+    }
+
+    public void setSumOfProbability(int sumOfProbability) {
+        this.sumOfProbability = sumOfProbability;
+    }
+
+    public void setRandom(Random random) {
+        this.random = random;
     }
 }

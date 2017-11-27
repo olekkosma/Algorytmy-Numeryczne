@@ -10,9 +10,7 @@ public class Board {
     private boolean player1Turn = true;
     private Cube cube;
 
-    public Board(int fields, ArrayList<Integer> mushrooms) {
-        this.fields = fields;
-        this.mushrooms = mushrooms;
+    public Board() {
     }
 
     public boolean removeMushroomIfExists(int field) {
@@ -58,6 +56,10 @@ public class Board {
 
     }
 
+    public void setFields(int fields) {
+        this.fields = fields;
+    }
+
     public List<Integer> getMushrooms() {
         return mushrooms;
     }
@@ -68,6 +70,10 @@ public class Board {
 
     public void setPlayer2(Player player2) {
         this.player2 = player2;
+    }
+
+    public void setMushrooms(List<Integer> mushrooms) {
+        this.mushrooms = mushrooms;
     }
 
     public void setCube(Cube cube) {
