@@ -16,13 +16,18 @@ public class Loader {
         int mushroomsSize = scanner.nextInt();
         ArrayList<Integer> mushrooms = new ArrayList<>();
         for (int i = 0; i < mushroomsSize; i++) {
-            mushrooms.add(scanner.nextInt());
+            int mush = scanner.nextInt();
+            while (mush < 0) {
+                System.out.println("test");
+                mush += board.getFields();
+            }
+            mushrooms.add(mush);
         }
         board.setMushrooms(mushrooms);
-        player1.setField(scanner.nextInt());
-        player2.setField(scanner.nextInt());
         player1.setBoard(board);
         player2.setBoard(board);
+        player1.setField(scanner.nextInt());
+        player2.setField(scanner.nextInt());
         player1.setName("Olek");
         player2.setName("Tomek");
         player1.setMushrooms(0);

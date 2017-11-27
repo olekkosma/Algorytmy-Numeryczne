@@ -92,6 +92,6 @@ public class Board {
 
     @Override
     public String toString() {
-        return "Plansza ma " + fields + " pól, jest na niej " + mushrooms.size() + " grzybów.";
+        return "Plansza ma " + fields + " pól, jest na niej " + mushrooms + " grzybów.";
     }
 }

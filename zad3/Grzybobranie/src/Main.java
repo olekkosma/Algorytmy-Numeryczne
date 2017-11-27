@@ -8,13 +8,13 @@ public class Main {
 
 
         int counter = 0;
-        for (int i = 0; i < 1000; i++) {
+        int counter2 = 0;
+        for (int i = 0; i < 1; i++) {
             Cube cube = new Cube();
             Board board = new Board();
             Player player1 = new Player();
             Player player2 = new Player();
             Loader.readFile(board, cube, player1, player2, "input");
-
 
             int result = board.move();
             while (result == 0) {
@@ -23,7 +23,9 @@ public class Main {
             if (result == 1) {
                 counter++;
             }
+
         }
-        System.out.println(counter/10+"%");
+        System.out.printf("%2.2f ",(double) counter/1);
+
     }
 }

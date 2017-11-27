@@ -56,6 +56,9 @@ public class Player {
     }
 
     public void setField(int field) {
+        while(field<0){
+            field+=board.getFields();
+        }
         this.field = field;
     }
 
