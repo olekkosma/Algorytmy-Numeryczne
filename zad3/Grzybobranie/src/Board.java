@@ -25,7 +25,7 @@ public class Board {
         return fields;
     }
 
-    public boolean move() {
+    public int move() {
         int number = cube.nextRandomMove();
         Player currentPlayer;
 
@@ -42,17 +42,23 @@ public class Board {
         if (currentPlayer.getField() == 0) {
             if (player1.getMushrooms() > player2.getMushrooms()) {
                 System.out.println(player1.getName() + " wygrał");
+                return 1;
             } else {
                 if (player2.getMushrooms() > player1.getMushrooms()) {
                     System.out.println(player2.getName() + " wygrał");
+                    return 2;
                 } else {
                     System.out.println(currentPlayer.getName() + " wygrał");
+                    if(currentPlayer.equals(player1)){
+                        return 1;
+                    }else{
+                        return 2;
+                    }
                 }
             }
-            return false;
         }
 
-        return true;
+        return 0;
 
     }
 
@@ -78,6 +84,10 @@ public class Board {
 
     public void setCube(Cube cube) {
         this.cube = cube;
+    }
+
+    public void setPlayer1Turn(boolean player1Turn) {
+        this.player1Turn = player1Turn;
     }
 
     @Override

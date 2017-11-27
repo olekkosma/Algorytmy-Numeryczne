@@ -12,6 +12,7 @@ public class Loader {
 
         int boardSize = scanner.nextInt();
         board.setFields((boardSize * 2) + 1);
+        board.setPlayer1Turn(true);
         int mushroomsSize = scanner.nextInt();
         ArrayList<Integer> mushrooms = new ArrayList<>();
         for (int i = 0; i < mushroomsSize; i++) {
@@ -24,6 +25,8 @@ public class Loader {
         player2.setBoard(board);
         player1.setName("Olek");
         player2.setName("Tomek");
+        player1.setMushrooms(0);
+        player2.setMushrooms(0);
         board.setPlayer1(player1);
         board.setPlayer2(player2);
         int valuesSize = scanner.nextInt();
