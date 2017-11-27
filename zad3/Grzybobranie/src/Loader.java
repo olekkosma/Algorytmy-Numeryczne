@@ -18,7 +18,6 @@ public class Loader {
         for (int i = 0; i < mushroomsSize; i++) {
             int mush = scanner.nextInt();
             while (mush < 0) {
-                System.out.println("test");
                 mush += board.getFields();
             }
             mushrooms.add(mush);
