@@ -3,17 +3,18 @@
 public class Player {
     private int field;
     private int mushrooms;
+    private String name;
     private Board board;
 
 
-    public Player(int field,Board board) {
+    public Player(String name,int field,Board board) {
+        this.name  = name;
         this.field = field;
         this.board = board;
     }
 
 
-    public boolean Move(int move){
-        System.out.println("wylosowano: "+move);
+    public void move(int move){
         if(this.field+move>=board.getFields()){
             this.field-=board.getFields();
         }else{
@@ -25,17 +26,12 @@ public class Player {
         if(board.removeMushroomIfExists(this.field)){
             this.addMushroom();
         }
-        if(this.field==0){
-            System.out.println("koniec");
-            return true;
-        }
-        return false;
     }
 
 
     @Override
     public String toString() {
-       return "Gracz jest na polu "+field+" i posiada "+mushrooms+" grzybów.";
+       return getName()+" jest na polu "+field+" i posiada "+mushrooms+" grzybów.";
     }
 
 
@@ -50,6 +46,10 @@ public class Player {
     public int getField() {
 
         return field;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setField(int field) {

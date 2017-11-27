@@ -17,18 +17,20 @@ public class Main {
         Cube cube = new Cube(values,probability);
 
         ArrayList<Integer> list = new ArrayList<>();
-        list.add(0);
-        list.add(2);
-        list.add(4);
-        list.add(6);
-        Board board = new Board(7,list);
-        Player gracz1 = new Player(3,board);
+        list.add(12);
+        list.add(14);
+        list.add(11);
+        Board board = new Board(17,list);
+        board.setCube(cube);
+        Player gracz1 = new Player("Olek",3,board);
+        Player gracz2 = new Player("Szymon",5,board);
+        board.setPlayer1(gracz1);
+        board.setPlayer2(gracz2);
         System.out.println(gracz1);
-        int kolejki = 0;
-        while(!gracz1.Move(cube.nextRandomMove())){
-            kolejki++;
-            System.out.println(gracz1);
+        System.out.println(gracz2);
+
+        while(board.move()){
+
         }
-        System.out.println(++kolejki);
     }
 }
