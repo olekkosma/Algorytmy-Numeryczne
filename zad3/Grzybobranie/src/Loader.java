@@ -12,7 +12,7 @@ public class Loader {
 
     public static void readFile(Board board, Cube cube, Player player1, Player player2, String fileName) throws IOException {
         //Scanner scanner = new Scanner(new File("../Files/" + fileName + ".txt"));
-        File file = new File("C:\\Users\\Ukleja\\Desktop\\Algorytmy-Numeryczne\\zad3\\Grzybobranie\\Files\\input.txt");
+        File file = new File("..\\..\\zad3\\Grzybobranie\\Files\\"+fileName+".txt");
         //File file = new File("..\\Files\\input.txt");
         Scanner scanner = new Scanner(file);
 

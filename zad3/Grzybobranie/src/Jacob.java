@@ -6,19 +6,20 @@
 
 
 public class Jacob extends Matrix {
-    //warunek tego algorytmu : macierz przękotniowo dominująca
+    //warunek by bylo zbierzne dla tego algorytmu : macierz przękotniowo dominująca
     Matrix M;
     Matrix N;
     Matrix x1;
     Matrix x2;
+    public static int iter = 15;
 
 
     public Jacob(int length) {
         super(length);
         this.M = new Matrix(rows);
         this.N = new Matrix(rows);
-        this.x1 = new Matrix(rows);
-        this.x2 = new Matrix(rows);
+        this.x1 = new Matrix(rows, 1);
+        this.x2 = new Matrix(rows, 1);
     }
 
     public Jacob(int rows, int columns) {
@@ -27,7 +28,7 @@ public class Jacob extends Matrix {
 
 
     public Matrix countJacob(Matrix b) {
-        int num = rows, iter;
+        int num = rows;
         int i, j, k;
 
         for (i = 0; i < num; i++)
@@ -41,12 +42,8 @@ public class Jacob extends Matrix {
                     M.matrix[i][j] = -(matrix[i][j] * N.matrix[i][0]);
 
 
-        M.printMatrix();
-
         for (i = 0; i < num; i++)
             x1.matrix[i][0] = 0.0;
-
-        iter = 10;
 
 
         for (k = 0; k < iter; k++) {
@@ -59,6 +56,6 @@ public class Jacob extends Matrix {
                 x1.matrix[i][0] = x2.matrix[i][0];
         }
 
-       return x1;
+        return x1;
     }
 }
