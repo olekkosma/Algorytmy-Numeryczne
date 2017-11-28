@@ -1,4 +1,8 @@
-
+//Aleksander Kosma / Tomasz Adamczyk
+//Nr. indexu: 238193 / 243217
+//27.11.2017
+//Algorytmy Numeryczne
+//--------------------
 
 public class Player {
     private int field;

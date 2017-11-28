@@ -1,3 +1,10 @@
+//Aleksander Kosma / Tomasz Adamczyk
+//Nr. indexu: 238193 / 243217
+//27.11.2017
+//Algorytmy Numeryczne
+//--------------------
+
+
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
