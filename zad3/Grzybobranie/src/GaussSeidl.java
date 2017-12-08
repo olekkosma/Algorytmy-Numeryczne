@@ -3,7 +3,7 @@ public class GaussSeidl extends Matrix {
     Matrix L;
     Matrix D;
     Matrix U;
-    public static int iter = 150;
+    public static int iter = 90;
 
     Matrix x;
 
@@ -19,7 +19,8 @@ public class GaussSeidl extends Matrix {
         super(rows, columns);
     }
 
-    public Matrix countGaussSiedl(Matrix b) {
+    @Override
+    public Matrix countMatrix(Matrix b) {
         int n = rows;
         int i, j, k;
 

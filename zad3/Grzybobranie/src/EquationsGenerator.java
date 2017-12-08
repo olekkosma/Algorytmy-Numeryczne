@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class EquationsGenerator {
+
     Cube cube;
     ArrayList<State> allStates;
 
@@ -9,6 +10,16 @@ public class EquationsGenerator {
         this.allStates = allStates;
     }
 
+
+    public void generateMatrix(Player player1,Player player2){
+
+        State state1 = new State(1, player1.getField(), player2.getField());
+        state1.setIndex(0);
+        allStates.add(state1);
+
+        generate(state1);
+
+    }
     public void generate(State state) {
 
         if (state.positionOne == 0) {

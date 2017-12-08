@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 
 public class State {
-    public static int size = 15;
+    public static int size;
     int index;
     int tour;
     int positionOne;
     int positionTwo;
     ArrayList<State> equation;
-    int status = -1;
+    int status = 0;
 
     public State(int tour, int positionOne, int positionTwo) {
         this.tour = tour;
@@ -47,13 +47,8 @@ public class State {
         return status;
     }
 
-    public void checkStatus() {
-        if (positionOne == 0) {
-            status = 1;
-        }
-        if (positionTwo == 0) {
-            status = 0;
-        }
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public void addToEquation(State newState) {

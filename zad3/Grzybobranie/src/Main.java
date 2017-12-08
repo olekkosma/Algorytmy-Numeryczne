@@ -9,21 +9,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Main {
+    public static int counter = 1;
 
+    public static int MonteCarloCalculation(int repetition) throws IOException {
 
-    public static void main(String[] args) throws IOException {
-
-        Cube cube2 = null;
-        Player player1 = null;
-        Player player2 = null;
-        Board board = null;
         int counter = 0;
-        for (int i = 0; i < 10000; i++) {
-            cube2 = new Cube();
-            board = new Board();
-            player1 = new Player();
-            player2 = new Player();
-            Loader.readFile(board, cube2, player1, player2, "input");
+        for (int i = 0; i < repetition; i++) {
+            Cube cube = new Cube();
+            Board board = new Board();
+            Player player1 = new Player();
+            Player player2 = new Player();
+            Loader.readFile(board, cube, player1, player2, "input");
             int result3 = board.move();
             while (result3 == 0) {
                 result3 = board.move();
@@ -33,98 +29,88 @@ public class Main {
             }
 
         }
-        cube2 = new Cube();
-        board = new Board();
-        player1 = new Player();
-        player2 = new Player();
-        Loader.readFile(board, cube2, player1, player2, "input");
-        ArrayList<State> allStates = new ArrayList<>();
+        return counter;
+    }
 
-        int tour = 1;
-        int positionOne = 7;
-        int positionTwo = 8;
-
-        State state1 = new State(tour, player1.getField(), player2.getField());
-        state1.setIndex(0);
-        allStates.add(state1);
-        EquationsGenerator generator = new EquationsGenerator(cube2, allStates);
-        System.out.println(state1);
-        generator.generate(state1);
+    public static void printEquations(ArrayList<State> allStates) {
 
         for (int i = 0; i < allStates.size(); i++) {
             System.out.println(allStates.get(i).printEquation());
         }
+    }
 
-        Gauss matrix1 = new Gauss(allStates.size());
-        Jacob matrix2 = new Jacob(allStates.size());
-        GaussSeidl matrix3 = new GaussSeidl(allStates.size());
-        Matrix vector1 = new Matrix(allStates.size(),1);
-        Matrix vector2 = new Matrix(allStates.size(),1);
-        Matrix vector3 = new Matrix(allStates.size(),1);
-
+    public static double countMatrix(Matrix matrix1, ArrayList<State> allStates, Cube cube) throws IOException {
+        int size = allStates.size();
+        Matrix vector1 = new Matrix(size, 1);
         matrix1.fillWithZero();
-        matrix2.fillWithZero();
-        matrix3.fillWithZero();
         matrix1.fillDiagonalOne();
-        matrix2.fillDiagonalOne();
-        matrix3.fillDiagonalOne();
-        for(State state : allStates){
-            if(state.equation.size()==cube2.getValues().size()) {
+
+        for (State state : allStates) {
+            if (state.equation.size() == cube.getValues().size()) {
                 for (State stateTmp : state.getEquation()) {
-                    matrix1.matrix[state.getIndex()][stateTmp.getIndex()] = 1 / (double) cube2.getSumOfProbability();
-                    matrix2.matrix[state.getIndex()][stateTmp.getIndex()] = 1 / (double) cube2.getSumOfProbability();
-                    matrix3.matrix[state.getIndex()][stateTmp.getIndex()] = 1 / (double) cube2.getSumOfProbability();
+                    matrix1.matrix[state.getIndex()][stateTmp.getIndex()] = 1 / (double) cube.getSumOfProbability();
+
                 }
             }
         }
-        for(State state : allStates){
-            if(state.getEquation().size()==1) {
+        for (State state : allStates) {
+            if (state.getEquation().size() == 1) {
                 vector1.matrix[state.getIndex()][0] = 1.0;
-                vector2.matrix[state.getIndex()][0] = 1.0;
-                vector3.matrix[state.getIndex()][0] = 1.0;
-            }else{
+            } else {
                 vector1.matrix[state.getIndex()][0] = 0.0;
-                vector2.matrix[state.getIndex()][0] = 0.0;
-                vector3.matrix[state.getIndex()][0] = 0.0;
 
             }
         }
-        matrix1.printMatrix();
-        vector1.printMatrix();
-        Generator.writeToFile(vector1,"vector");
-        Generator.writeToFile(matrix1,"matrix");
-
-        Matrix resultMatrix1 = matrix1.partialChoiseGauss(vector1);
-        Matrix resultMatrix2 = matrix2.countJacob(vector2);
-        Matrix resultMatrix3 = matrix3.countGaussSiedl(vector3);
-
-        //resultMatrix.printMatrix();
-
-        double chanceToWin1 = resultMatrix1.matrix[state1.getIndex()][0];
-        double chanceToWin2 = resultMatrix2.matrix[state1.getIndex()][0];
-        double chanceToWin3 = resultMatrix3.matrix[state1.getIndex()][0];
-
+        if (counter == 1) {
+            Generator.writeToFile(vector1, "vector");
+            Generator.writeToFile(matrix1, "matrix");
+        }
+        counter=2;
+        Matrix resultMatrix1 = matrix1.countMatrix(vector1);
+        double chanceToWin1 = resultMatrix1.matrix[0][0];
         chanceToWin1 = Math.abs(chanceToWin1);
-        chanceToWin2 = Math.abs(chanceToWin2);
-        chanceToWin3 = Math.abs(chanceToWin3);
-        chanceToWin1= chanceToWin1*100;
-        chanceToWin2= chanceToWin2*100;
-        chanceToWin3= chanceToWin3*100;
-        String win1 = String.valueOf(chanceToWin1);
-        String win2 = String.valueOf(chanceToWin2);
-        String win3 = String.valueOf(chanceToWin3);
-        win1 = win1.substring(0,4);
-        win2 = win2.substring(0,4);
-        win3 = win3.substring(0,4);
-        System.out.println("Partial: "+win1+"%");
-        System.out.println("Jacobie: "+win2+"%");
-        System.out.println("Gauss Siedl: "+win3+"%");
+        return chanceToWin1;
 
+        //chanceToWin1 = chanceToWin1 * 100;
+        //String win1 = String.valueOf(chanceToWin1);
+        //win1 = win1.substring(0, 4);
+    }
 
+    public static void main(String[] args) throws IOException {
+        int repetition = 100000;
+        Cube cube = new Cube();
+        Board board = new Board();
+        Player player1 = new Player();
+        Player player2 = new Player();
+        Loader.readFile(board, cube, player1, player2, "input");
+        ArrayList<State> allStates = new ArrayList<>();
+        State.size = board.getFields();
 
+        //----------------------generate equations to arrayList-----------------------
+        System.out.println("generate equations...");
+        EquationsGeneratorIterate eGenerator = new EquationsGeneratorIterate(cube, allStates);
+        eGenerator.generateMatrix(player1, player2);
+        printEquations(allStates);
+        System.out.println("Done");
+        //----------------------Counting player one percentage win--------------------
 
-        System.out.printf("%2.2f ",(double) counter/10000);
+        int size = allStates.size();
+        System.out.println("Cointing gauss...");
+        double resultGauss = countMatrix(new Gauss(size), allStates, cube);
+        System.out.println("Gauss:" + resultGauss);
+        System.out.println("Cointing gauss siedl...");
 
+        double resultGaussSiedl = countMatrix(new GaussSeidl(size), allStates, cube);
+        System.out.println("Gauss Siedl:" + resultGaussSiedl);
+        System.out.println("Cointing jacobie...");
+
+        double resultJacobie = countMatrix(new Jacob(size), allStates, cube);
+        System.out.println("Jacobie:" + resultJacobie);
+
+        //---------------------Calculating wins by Monce Carlo method-----------------
+
+        int counter = MonteCarloCalculation(repetition);
+        System.out.printf("%2.2f ", (double) counter / repetition);
 
     }
 }

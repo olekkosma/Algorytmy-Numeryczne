@@ -42,12 +42,12 @@ int main()
   cout.precision(precision);
   MatrixXd matrix1 = loadMatrix("matrix.txt");
   printf("Matrix A : \n");
-  cout << matrix1 << endl;
+  //cout << matrix1 << endl;
 
 
   VectorXd vector = loadMatrix("vector.txt");
   printf("\nVector X : \n");
-  cout << vector << endl;
+  //cout << vector << endl;
 
   VectorXd resultVector = matrix1.partialPivLu().solve(vector);
   

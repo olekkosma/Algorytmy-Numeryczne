@@ -11,7 +11,7 @@ public class Jacob extends Matrix {
     Matrix N;
     Matrix x1;
     Matrix x2;
-    public static int iter = 150;
+    public static int iter = 170;
 
 
     public Jacob(int length) {
@@ -26,8 +26,8 @@ public class Jacob extends Matrix {
         super(rows, columns);
     }
 
-
-    public Matrix countJacob(Matrix b) {
+    @Override
+    public Matrix countMatrix(Matrix b) {
         int num = rows;
         int i, j, k;
 

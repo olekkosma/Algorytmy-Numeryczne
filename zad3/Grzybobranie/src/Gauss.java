@@ -17,7 +17,8 @@ public class Gauss extends Matrix{
         super(rows, columns);
     }
 
-    public Matrix partialChoiseGauss( Matrix vector) {
+    @Override
+    public Matrix countMatrix( Matrix vector) {
 
         int n = vector.rows;
         for (int p = 0; p < n; p++) {
