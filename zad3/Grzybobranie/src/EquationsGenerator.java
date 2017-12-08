@@ -13,10 +13,6 @@ public class EquationsGenerator {
 
         if (state.positionOne == 0) {
             state.addToEquation(new State(0, 0, 0));
-        } else if (state.positionTwo == 0) {
-            state.addToEquation(new State(0, 0, 0));
-            state.addToEquation(new State(0, 0, 0));
-            state.addToEquation(new State(0, 0, 0));
         } else {
             if (!(state.positionOne == 0 || state.positionTwo == 0)) {
                 ArrayList<State> tmpList = new ArrayList<>();

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class State {
-    public static int size = 11;
+    public static int size = 15;
     int index;
     int tour;
     int positionOne;
@@ -64,11 +64,13 @@ public class State {
         String line = "X" + index + " = ";
         if (equation.size() == 1) {
             return line +"1";
-        } else if (equation.size() == 3) {
-            return line + "0";
         } else {
-            for (State state : equation) {
-                line += "X" + state.index + " ";
+            if(!equation.isEmpty()) {
+                for (State state : equation) {
+                    line += "X" + state.index + " ";
+                }
+            }else{
+                line+="0";
             }
             return line;
         }

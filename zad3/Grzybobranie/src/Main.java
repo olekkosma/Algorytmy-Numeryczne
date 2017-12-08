@@ -13,115 +13,17 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-
-        Cube cube = new Cube();
-        ArrayList<Integer> values = new ArrayList<>();
-        values.add(-5);
-        values.add(-4);
-        values.add(-3);
-        values.add(-2);
-        values.add(-1);
-        values.add(1);
-        values.add(2);
-        values.add(3);
-        values.add(4);
-        values.add(5);
-        ArrayList<Integer> probability = new ArrayList<>();
-        probability.add(1);
-        probability.add(1);
-        probability.add(1);
-        probability.add(1);
-        probability.add(1);
-        cube.setValues(values);
-        cube.setProbability(probability);
-
-
-        ArrayList<State> allStates = new ArrayList<>();
-
-        int tour = 1;
-        int positionOne = 1;
-        int positionTwo = 4;
-
-        State state1 = new State(tour, positionOne, positionTwo);
-        state1.setIndex(0);
-        allStates.add(state1);
-        EquationsGenerator generator = new EquationsGenerator(cube, allStates);
-        System.out.println(state1);
-        generator.generate(state1);
-
-        for (int i = 0; i < allStates.size(); i++) {
-            System.out.println(allStates.get(i).printEquation());
-        }
-
-        Gauss matrix = new Gauss(allStates.size());
-        Matrix vector = new Matrix(allStates.size(),1);
-
-        matrix.fillWithZero();
-        matrix.fillDiagonalOne();
-        for(State state : allStates){
-            if(state.equation.size()==cube.getValues().size()) {
-                for (State stateTmp : state.getEquation()) {
-                    matrix.matrix[state.getIndex()][stateTmp.getIndex()] = 1 / (double) cube.getSumOfProbability();
-                }
-            }
-        }
-        for(State state : allStates){
-            if(state.getEquation().size()==1) {
-                vector.matrix[state.getIndex()][0] = 1.0;
-            }else{
-                vector.matrix[state.getIndex()][0] = 0.0;
-
-            }
-        }
-        matrix.printMatrix();
-        vector.printMatrix();
-
-        Matrix resultMatrix = matrix.partialChoiseGauss(vector);
-        resultMatrix.printMatrix();
-        double chanceToWin = resultMatrix.matrix[state1.getIndex()][0];
-        chanceToWin = Math.abs(chanceToWin);
-        chanceToWin= chanceToWin*100;
-        String win = String.valueOf(chanceToWin);
-        win = win.substring(0,4);
-        System.out.println("Szanse na wygraną pierwszego gracza to: "+win+"%");
-
-        /*
-        int size = 12;
-
-        Jacob matrixA = new Jacob(size);
-        Matrix vectorB = new Matrix(size, 1);
-        matrixA.loadValues("1");
-        vectorB.loadValues("2");
-        Matrix result2 = matrixA.countJacob(vectorB);
-        result2.printMatrix();
-
-        GaussSeidl matrixAAA = new GaussSeidl(size);
-        Matrix vectorBBB = new Matrix(size, 1);
-        matrixAAA.loadValues("1");
-        vectorBBB.loadValues("2");
-        Matrix result3 = matrixAAA.countGaussSiedl(vectorBBB);
-        result3.printMatrix();
-
-
-        Gauss matrixAA = new Gauss(size);
-        Matrix vectorBB = new Matrix(size, 1);
-        matrixAA.loadValues("1");
-        vectorBB.loadValues("2");
-        Matrix result = matrixAA.partialChoiseGauss(vectorBB);
-        result.printMatrix();
-        */
-
-
-
+        Cube cube2 = null;
+        Player player1 = null;
+        Player player2 = null;
+        Board board = null;
         int counter = 0;
-        int counter2 = 0;
         for (int i = 0; i < 10000; i++) {
-            Cube cube2 = new Cube();
-            Board board = new Board();
-            Player player1 = new Player();
-            Player player2 = new Player();
+            cube2 = new Cube();
+            board = new Board();
+            player1 = new Player();
+            player2 = new Player();
             Loader.readFile(board, cube2, player1, player2, "input");
-
             int result3 = board.move();
             while (result3 == 0) {
                 result3 = board.move();
@@ -131,6 +33,96 @@ public class Main {
             }
 
         }
+        cube2 = new Cube();
+        board = new Board();
+        player1 = new Player();
+        player2 = new Player();
+        Loader.readFile(board, cube2, player1, player2, "input");
+        ArrayList<State> allStates = new ArrayList<>();
+
+        int tour = 1;
+        int positionOne = 7;
+        int positionTwo = 8;
+
+        State state1 = new State(tour, player1.getField(), player2.getField());
+        state1.setIndex(0);
+        allStates.add(state1);
+        EquationsGenerator generator = new EquationsGenerator(cube2, allStates);
+        System.out.println(state1);
+        generator.generate(state1);
+
+        for (int i = 0; i < allStates.size(); i++) {
+            System.out.println(allStates.get(i).printEquation());
+        }
+
+        Gauss matrix1 = new Gauss(allStates.size());
+        Jacob matrix2 = new Jacob(allStates.size());
+        GaussSeidl matrix3 = new GaussSeidl(allStates.size());
+        Matrix vector1 = new Matrix(allStates.size(),1);
+        Matrix vector2 = new Matrix(allStates.size(),1);
+        Matrix vector3 = new Matrix(allStates.size(),1);
+
+        matrix1.fillWithZero();
+        matrix2.fillWithZero();
+        matrix3.fillWithZero();
+        matrix1.fillDiagonalOne();
+        matrix2.fillDiagonalOne();
+        matrix3.fillDiagonalOne();
+        for(State state : allStates){
+            if(state.equation.size()==cube2.getValues().size()) {
+                for (State stateTmp : state.getEquation()) {
+                    matrix1.matrix[state.getIndex()][stateTmp.getIndex()] = 1 / (double) cube2.getSumOfProbability();
+                    matrix2.matrix[state.getIndex()][stateTmp.getIndex()] = 1 / (double) cube2.getSumOfProbability();
+                    matrix3.matrix[state.getIndex()][stateTmp.getIndex()] = 1 / (double) cube2.getSumOfProbability();
+                }
+            }
+        }
+        for(State state : allStates){
+            if(state.getEquation().size()==1) {
+                vector1.matrix[state.getIndex()][0] = 1.0;
+                vector2.matrix[state.getIndex()][0] = 1.0;
+                vector3.matrix[state.getIndex()][0] = 1.0;
+            }else{
+                vector1.matrix[state.getIndex()][0] = 0.0;
+                vector2.matrix[state.getIndex()][0] = 0.0;
+                vector3.matrix[state.getIndex()][0] = 0.0;
+
+            }
+        }
+        matrix1.printMatrix();
+        vector1.printMatrix();
+        Generator.writeToFile(vector1,"vector");
+        Generator.writeToFile(matrix1,"matrix");
+
+        Matrix resultMatrix1 = matrix1.partialChoiseGauss(vector1);
+        Matrix resultMatrix2 = matrix2.countJacob(vector2);
+        Matrix resultMatrix3 = matrix3.countGaussSiedl(vector3);
+
+        //resultMatrix.printMatrix();
+
+        double chanceToWin1 = resultMatrix1.matrix[state1.getIndex()][0];
+        double chanceToWin2 = resultMatrix2.matrix[state1.getIndex()][0];
+        double chanceToWin3 = resultMatrix3.matrix[state1.getIndex()][0];
+
+        chanceToWin1 = Math.abs(chanceToWin1);
+        chanceToWin2 = Math.abs(chanceToWin2);
+        chanceToWin3 = Math.abs(chanceToWin3);
+        chanceToWin1= chanceToWin1*100;
+        chanceToWin2= chanceToWin2*100;
+        chanceToWin3= chanceToWin3*100;
+        String win1 = String.valueOf(chanceToWin1);
+        String win2 = String.valueOf(chanceToWin2);
+        String win3 = String.valueOf(chanceToWin3);
+        win1 = win1.substring(0,4);
+        win2 = win2.substring(0,4);
+        win3 = win3.substring(0,4);
+        System.out.println("Partial: "+win1+"%");
+        System.out.println("Jacobie: "+win2+"%");
+        System.out.println("Gauss Siedl: "+win3+"%");
+
+
+
+
         System.out.printf("%2.2f ",(double) counter/10000);
 
 

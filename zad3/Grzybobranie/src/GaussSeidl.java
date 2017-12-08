@@ -3,7 +3,7 @@ public class GaussSeidl extends Matrix {
     Matrix L;
     Matrix D;
     Matrix U;
-    public static int iter = 15;
+    public static int iter = 150;
 
     Matrix x;
 
@@ -32,7 +32,6 @@ public class GaussSeidl extends Matrix {
                     L.matrix[i][j] = this.matrix[i][j];
                 } else {
                     D.matrix[i][j] = this.matrix[i][j];
-                    System.out.println("test");
                 }
             }
 

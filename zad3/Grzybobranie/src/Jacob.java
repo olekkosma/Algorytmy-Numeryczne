@@ -11,7 +11,7 @@ public class Jacob extends Matrix {
     Matrix N;
     Matrix x1;
     Matrix x2;
-    public static int iter = 15;
+    public static int iter = 150;
 
 
     public Jacob(int length) {
