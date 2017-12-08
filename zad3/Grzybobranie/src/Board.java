@@ -42,19 +42,19 @@ public class Board {
             currentPlayer = player2;
             player1Turn=true;
         }
-        System.out.println("wylosowano: "+number);
+        //System.out.println("wylosowano: "+number);
         currentPlayer.move(number);
-        System.out.println(currentPlayer);
+        //System.out.println(currentPlayer);
         if (currentPlayer.getField() == 0) {
             if (player1.getMushrooms() > player2.getMushrooms()) {
-                System.out.println(player1.getName() + " wygrał");
+                //System.out.println(player1.getName() + " wygrał");
                 return 1;
             } else {
                 if (player2.getMushrooms() > player1.getMushrooms()) {
-                    System.out.println(player2.getName() + " wygrał");
+                    //System.out.println(player2.getName() + " wygrał");
                     return 2;
                 } else {
-                    System.out.println(currentPlayer.getName() + " wygrał");
+                    //System.out.println(currentPlayer.getName() + " wygrał");
                     if(currentPlayer.equals(player1)){
                         return 1;
                     }else{

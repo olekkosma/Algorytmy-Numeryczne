@@ -18,7 +18,15 @@ public class Main {
 
         //CountStatsForAddAndMultiply();                      //stats for Double
         //CountStatsForAddAndMultiplyMyOwn();               //stats for My own precision
-        countStatsForGauss();                            //stats for gauss
+        //countStatsForGauss();                            //stats for gauss
+
+        MyMatrix<Double> matrix = new MyMatrix<>(Double.class, 12);
+        MyMatrix<Double> vector = new MyMatrix<>(Double.class, 12, 1);
+        matrix.loadValues("1");
+        vector.loadValues("Vector");
+        matrix.printMatrix();
+        MyMatrix<Double> resultMatrix = matrix.partialChoiseGauss(matrix,vector);
+        resultMatrix.printMatrix();
     }
 
     public static void countStatsForGauss() throws IOException {

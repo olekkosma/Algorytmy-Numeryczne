@@ -47,6 +47,18 @@ public class Cube {
         countSum();
     }
 
+    public List<Integer> getValues() {
+        return values;
+    }
+
+    public List<Integer> getProbability() {
+        return probability;
+    }
+
+    public int getSumOfProbability() {
+        return sumOfProbability;
+    }
+
     public void setSumOfProbability(int sumOfProbability) {
         this.sumOfProbability = sumOfProbability;
     }
