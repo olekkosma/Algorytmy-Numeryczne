@@ -39,6 +39,16 @@ public class Main {
         }
     }
 
+    public static int countStates(ArrayList<State> equations, State state){
+        int counter = 0;
+        for(State stateTmp : equations){
+            if(stateTmp.equals(state)){
+                counter++;
+            }
+        }
+        return counter;
+    }
+
     public static double countMatrix(Matrix matrix1, ArrayList<State> allStates, Cube cube) throws IOException {
         int size = allStates.size();
         Matrix vector1 = new Matrix(size, 1);
@@ -48,7 +58,7 @@ public class Main {
         for (State state : allStates) {
             if (state.equation.size() == cube.getValues().size()) {
                 for (State stateTmp : state.getEquation()) {
-                    matrix1.matrix[state.getIndex()][stateTmp.getIndex()] = 1 / (double) cube.getSumOfProbability();
+                    matrix1.matrix[state.getIndex()][stateTmp.getIndex()] = countStates(state.getEquation(),stateTmp) / (double) cube.getSumOfProbability();
 
                 }
             }
@@ -64,6 +74,8 @@ public class Main {
         if (counter == 1) {
             Generator.writeToFile(vector1, "vector");
             Generator.writeToFile(matrix1, "matrix");
+
+            matrix1.printMatrix();
         }
         counter=2;
         Matrix resultMatrix1 = matrix1.countMatrix(vector1);
