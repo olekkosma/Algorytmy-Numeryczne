@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class EquationsGenerator {
-
+/*
     Cube cube;
     ArrayList<State> allStates;
 
@@ -52,5 +52,5 @@ public class EquationsGenerator {
             int founded = allStates.indexOf(tmp);
             state.addToEquation(allStates.get(founded));
         }
-    }
+    }*/
 }

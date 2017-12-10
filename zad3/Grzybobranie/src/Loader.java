@@ -12,7 +12,7 @@ public class Loader {
 
     public static void readFile(Board board, Cube cube, Player player1, Player player2, String fileName) throws IOException {
         //Scanner scanner = new Scanner(new File("../Files/" + fileName + ".txt"));
-        File file = new File("..\\..\\zad3\\Grzybobranie\\files\\"+fileName+".txt");
+        File file = new File("..\\..\\zad3\\Grzybobranie\\files\\" + fileName + ".txt");
         //File file = new File("..\\Files\\input.txt");
         Scanner scanner = new Scanner(file);
 
@@ -23,9 +23,7 @@ public class Loader {
         ArrayList<Integer> mushrooms = new ArrayList<>();
         for (int i = 0; i < mushroomsSize; i++) {
             int mush = scanner.nextInt();
-            while (mush < 0) {
-                mush += board.getFields();
-            }
+            mush = Math.floorMod(mush, board.getFields());
             mushrooms.add(mush);
         }
         board.setMushrooms(mushrooms);

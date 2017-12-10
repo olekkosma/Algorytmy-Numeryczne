@@ -7,11 +7,13 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Main {
     public static int counter = 1;
 
     public static int MonteCarloCalculation(int repetition) throws IOException {
+
 
         int counter = 0;
         for (int i = 0; i < repetition; i++) {
@@ -76,6 +78,7 @@ public class Main {
             Generator.writeToFile(matrix1, "matrix");
 
             matrix1.printMatrix();
+            vector1.printMatrix();
         }
         counter=2;
         Matrix resultMatrix1 = matrix1.countMatrix(vector1);
@@ -89,19 +92,21 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
+
         int repetition = 100000;
         Cube cube = new Cube();
         Board board = new Board();
         Player player1 = new Player();
         Player player2 = new Player();
+        System.out.println("loading input data...");
         Loader.readFile(board, cube, player1, player2, "input");
         ArrayList<State> allStates = new ArrayList<>();
         State.size = board.getFields();
-
+        System.out.println("Done");
         //----------------------generate equations to arrayList-----------------------
         System.out.println("generate equations...");
         EquationsGeneratorIterate eGenerator = new EquationsGeneratorIterate(cube, allStates);
-        eGenerator.generateMatrix(player1, player2);
+        eGenerator.generateMatrix(player1, player2,board);
         printEquations(allStates);
         System.out.println("Done");
         //----------------------Counting player one percentage win--------------------
@@ -122,7 +127,8 @@ public class Main {
         //---------------------Calculating wins by Monce Carlo method-----------------
 
         int counter = MonteCarloCalculation(repetition);
-        System.out.printf("%2.2f ", (double) counter / repetition);
+        System.out.printf("%2.12f ", (double) counter / repetition);
 
     }
+
 }

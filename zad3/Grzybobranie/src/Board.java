@@ -45,6 +45,13 @@ public class Board {
         //System.out.println("wylosowano: "+number);
         currentPlayer.move(number);
         //System.out.println(currentPlayer);
+
+        if(player1.getMushrooms()> player2.getMushrooms()+mushrooms.size()){
+            return 1;
+        }
+        if(player2.getMushrooms()> player1.getMushrooms()+mushrooms.size()){
+            return 2;
+        }
         if (currentPlayer.getField() == 0) {
             if (player1.getMushrooms() > player2.getMushrooms()) {
                 //System.out.println(player1.getName() + " wygrał");

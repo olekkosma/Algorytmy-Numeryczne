@@ -14,14 +14,8 @@ public class Player {
     }
 
     public void move(int move){
-        if(this.field+move>=board.getFields()){
-            this.field-=board.getFields();
-        }else{
-            if(this.field+move<0){
-                this.field+=board.getFields();
-            }
-        }
-        this.field +=move;
+        this.field+=move;
+        this.field=Math.floorMod(this.field,board.getFields());
         if(board.removeMushroomIfExists(this.field)){
             this.addMushroom();
         }
