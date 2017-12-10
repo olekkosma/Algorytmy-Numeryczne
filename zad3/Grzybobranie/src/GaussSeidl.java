@@ -3,7 +3,7 @@ public class GaussSeidl extends Matrix {
     Matrix L;
     Matrix D;
     Matrix U;
-    public static int iter = 90;
+    public static int iter = 170;
 
     Matrix x;
 

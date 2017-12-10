@@ -76,7 +76,7 @@ public class Main {
         long start;
         long elapsedTimeMillis;
         double timeTmp = 0;
-        start = System.currentTimeMillis();
+
 
         System.out.println("loading input data...");
         Data data = new Data("input");
@@ -93,11 +93,17 @@ public class Main {
 
         //----------------------Counting player one percentage win--------------------
 
+        start = System.currentTimeMillis();
         int size = allStates.size();
         System.out.println("Counting Gauss...");
         double resultGauss = countMatrix(new Gauss(size), allStates, data);
         System.out.println("Gauss:" + resultGauss);
+        elapsedTimeMillis = System.currentTimeMillis() - start;
+        timeTmp = elapsedTimeMillis / 1000.0;
+        System.out.println("\nTime: " + timeTmp);
         System.out.println("Done\nCounting Gauss Siedl...");
+
+
 
         double resultGaussSiedl = countMatrix(new GaussSeidl(size), allStates, data);
         System.out.println("Gauss Siedl:" + resultGaussSiedl);
@@ -107,9 +113,7 @@ public class Main {
         System.out.println("Jacobie:" + resultJacobie + "\nDone");
 
 
-        elapsedTimeMillis = System.currentTimeMillis() - start;
-        timeTmp = elapsedTimeMillis / 1000.0;
-        System.out.println("\nTime: " + timeTmp);
+
 
     }
 

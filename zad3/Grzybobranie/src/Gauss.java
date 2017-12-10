@@ -50,10 +50,13 @@ public class Gauss extends Matrix{
     private void CleanMatrix(Matrix matrix, Matrix vector, int n, int p, int i) {
 
         double alpha = matrix.matrix[i][p] / matrix.matrix[p][p];
-        vector.matrix[i][0] = vector.matrix[i][0] - alpha * vector.matrix[p][0];
-        for (int j = p; j < n; j++) {
+        if(alpha!=0.0) {
+            vector.matrix[i][0] = vector.matrix[i][0] - alpha * vector.matrix[p][0];
+            for (int j = p; j < n; j++) {
+               //System.out.println(matrix.matrix[i][j] + " = " + matrix.matrix[i][j] + " - " + alpha + " * " + matrix.matrix[p][j]);
                 matrix.matrix[i][j] = matrix.matrix[i][j] - alpha * matrix.matrix[p][j];
 
+            }
         }
     }
 
