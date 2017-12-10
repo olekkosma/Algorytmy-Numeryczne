@@ -56,7 +56,6 @@ public class Main {
         if (counter == 1) {
             Writer.writeToFile(vector1, "vector");
             Writer.writeToFile(matrix1, "matrix");
-
             //matrix1.printMatrix();
             //vector1.printMatrix();
         }
@@ -69,9 +68,6 @@ public class Main {
         chanceToWin1 = Math.abs(chanceToWin1);
         return chanceToWin1;
 
-        //chanceToWin1 = chanceToWin1 * 100;
-        //String win1 = String.valueOf(chanceToWin1);
-        //win1 = win1.substring(0, 4);
     }
 
     public static void main(String[] args) throws IOException {

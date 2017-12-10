@@ -39,16 +39,8 @@ public class EquationsGeneratorIterate {
             for (int i = lowerBound; i < higherBound; i++) {
                 State tmpState = allStates.get(i);
 
-                if (tmpState.getMushOne() > (tmpState.getMushroomsCount()+tmpState.getMushTwo())) {
-                    tmpState.setStatus(1);
-                }else if(!(tmpState.getMushTwo() > (tmpState.getMushroomsCount()+tmpState.getMushOne()))){
-
-                    if (tmpState.positionOne == 0) {
-                        if(tmpState.getMushOne()>=tmpState.getMushTwo()) {
-                            tmpState.setStatus(1);
-
-                        }
-                    } else if (!(tmpState.positionTwo == 0)) {
+                if (tmpState.getMushOne() <= (tmpState.getMushroomsCount() + tmpState.getMushTwo()) && tmpState.getMushTwo() <= (tmpState.getMushroomsCount() + tmpState.getMushOne())) {
+                    if (tmpState.positionOne != 0 && tmpState.positionTwo != 0) {
 
                         for (int j = 0; j < cubeValues.length; j++) {
 
@@ -59,16 +51,28 @@ public class EquationsGeneratorIterate {
                             } else if (tmpState.tour == 0) {
                                 Two += cubeValues[j];
                             }
-                            State tmp = new State(tmpState.reverseTour(),One, Two, tmpState.getMushOne(), tmpState.getMushTwo(), tmpState.getMushrooms().clone());
+                            State tmp = new State(tmpState.reverseTour(), One, Two, tmpState.getMushOne(), tmpState.getMushTwo(), tmpState.getMushrooms().clone());
                             isContains(tmpState, tmp);
                         }
-                    }else{
-                        if(tmpState.getMushOne() > (tmpState.getMushTwo())){
-                            tmpState.setStatus(1);
+                    } else {
+                        if (tmpState.positionOne == 0) {
+                            if (tmpState.getMushOne() >= tmpState.getMushTwo()) {
+                                tmpState.setStatus(1);
+                            }
+                        } else {
+                            if (tmpState.positionTwo == 0) {
+                                if (tmpState.getMushOne() > tmpState.getMushTwo()) {
+                                    tmpState.setStatus(1);
+                                }
+                            }
                         }
                     }
+                } else {
+                    if (tmpState.getMushOne() > (tmpState.getMushroomsCount() + tmpState.getMushTwo())) {
+                        tmpState.setStatus(1);
+                    }
                 }
-                allStates.get(i).setReadStatus(1);
+                tmpState.setReadStatus(1);
             }
             lowerBound = higherBound;
         }
