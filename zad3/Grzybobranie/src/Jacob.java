@@ -11,7 +11,6 @@ public class Jacob extends Matrix {
     Matrix N;
     Matrix x1;
     Matrix x2;
-    public static int iter = 170;
 
 
     public Jacob(int length) {
@@ -46,7 +45,7 @@ public class Jacob extends Matrix {
             x1.matrix[i][0] = 0.0;
 
 
-        for (k = 0; k < iter; k++) {
+        for (k = 0; k < Main.iterations; k++) {
             for (i = 0; i < num; i++) {
                 x2.matrix[i][0] = N.matrix[i][0] * b.matrix[i][0];
                 for (j = 0; j < num; j++)

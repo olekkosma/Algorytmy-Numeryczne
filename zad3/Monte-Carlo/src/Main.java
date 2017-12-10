@@ -42,7 +42,7 @@ public class Main {
         double value = ((double) counter) / ((double) repetition);
         String result = changePointToComma(value);
         System.out.println(result);
-        LoaderWriter.writeToFile(changePointToComma(value),"moneCarloResult");
+        LoaderWriter.writeToFile(changePointToComma(value),"Result");
 
     }
 

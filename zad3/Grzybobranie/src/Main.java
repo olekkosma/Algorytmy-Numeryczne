@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static int counter = 1;
+    public static int iterations = 50;
 
     public static void printEquations(ArrayList<State> allStates) {
 
@@ -93,23 +94,54 @@ public class Main {
 
         //----------------------Counting player one percentage win--------------------
 
-        start = System.currentTimeMillis();
+        ArrayList<Double> times = new ArrayList<>();
+        ArrayList<Double> results = new ArrayList<>();
+
         int size = allStates.size();
         System.out.println("Counting Gauss...");
+        start = System.currentTimeMillis();
+
         double resultGauss = countMatrix(new Gauss(size), allStates, data);
-        System.out.println("Gauss:" + resultGauss);
+
         elapsedTimeMillis = System.currentTimeMillis() - start;
         timeTmp = elapsedTimeMillis / 1000.0;
-        System.out.println("\nTime: " + timeTmp);
+        times.add(timeTmp);
+        results.add(resultGauss);
+        System.out.println("Gauss:" + resultGauss);
+
+        System.out.println("Counting Parse Gauss...");
+        start = System.currentTimeMillis();
+
+        double resultGaussParse = countMatrix(new GaussParse(size), allStates, data);
+
+        elapsedTimeMillis = System.currentTimeMillis() - start;
+        timeTmp = elapsedTimeMillis / 1000.0;
+        times.add(timeTmp);
+        System.out.println("Gauss Parse:" + resultGauss);
+
         System.out.println("Done\nCounting Gauss Siedl...");
-
-
+        start = System.currentTimeMillis();
 
         double resultGaussSiedl = countMatrix(new GaussSeidl(size), allStates, data);
+
+        elapsedTimeMillis = System.currentTimeMillis() - start;
+        timeTmp = elapsedTimeMillis / 1000.0;
+        results.add(resultGaussSiedl);
+        times.add(timeTmp);
+
         System.out.println("Gauss Siedl:" + resultGaussSiedl);
         System.out.println("Done\nCounting Jacobie...");
+        start = System.currentTimeMillis();
 
         double resultJacobie = countMatrix(new Jacob(size), allStates, data);
+
+        elapsedTimeMillis = System.currentTimeMillis() - start;
+        timeTmp = elapsedTimeMillis / 1000.0;
+        results.add(resultJacobie);
+        times.add(timeTmp);
+        Writer.writeToFileResults(results,"Result");
+        Writer.writeToFileResults(times,"Result");
+
         System.out.println("Jacobie:" + resultJacobie + "\nDone");
 
 

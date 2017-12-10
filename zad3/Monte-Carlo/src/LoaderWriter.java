@@ -53,6 +53,8 @@ public class LoaderWriter {
     public static void writeToFile(String value, String suffix) throws IOException {
         FileOutputStream fstream = new FileOutputStream("..\\output\\" + suffix + ".txt");
         BufferedWriter br = new BufferedWriter(new OutputStreamWriter(fstream, "utf-8"));
+        br.write("MonteCarlo;Gauss;Gauss Siedl; Jacobie;Gauss Time;Gauss Parse Time;Gauss Siedl Time;Jacobie Time;Eigen;Eigen Time;Eigen Parse Time;");
+        br.newLine();
         br.write(String.valueOf(value));
 
         br.close();

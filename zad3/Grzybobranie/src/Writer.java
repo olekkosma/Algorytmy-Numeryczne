@@ -4,6 +4,7 @@
 //Algorytmy Numeryczne
 //--------------------
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Writer {
@@ -24,4 +25,15 @@ public class Writer {
     br.close();
     fstream.close();
   }
+
+  public static void writeToFileResults(ArrayList<Double> results, String suffix) throws IOException {
+    FileOutputStream fstream = new FileOutputStream("..\\output\\" + suffix + ".txt",true);
+    BufferedWriter br = new BufferedWriter(new OutputStreamWriter(fstream, "utf-8"));
+    for(Double value : results){
+        br.append(";"+String.valueOf(value).replace(".",","));
+    }
+    br.close();
+    fstream.close();
+  }
+
 }

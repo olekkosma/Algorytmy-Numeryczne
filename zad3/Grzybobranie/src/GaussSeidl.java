@@ -3,7 +3,7 @@ public class GaussSeidl extends Matrix {
     Matrix L;
     Matrix D;
     Matrix U;
-    public static int iter = 170;
+
 
     Matrix x;
 
@@ -57,7 +57,7 @@ public class GaussSeidl extends Matrix {
         for (i = 0; i < n; i++)
             x.matrix[i][0] = 0.0;
 
-        for (k = 0; k < iter; k++)
+        for (k = 0; k < Main.iterations; k++)
             for (i = 0; i < n; i++) {
                 x.matrix[i][0] = b.matrix[i][0];
                 for (j = 0; j < i; j++)
