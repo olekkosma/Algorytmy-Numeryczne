@@ -6,10 +6,10 @@
 import java.io.*;
 import java.util.Random;
 
-public class Generator {
+public class Writer {
 
   public static void writeToFile(Matrix matrix, String suffix) throws IOException {
-    FileOutputStream fstream = new FileOutputStream("..\\..\\zad3\\Grzybobranie\\files\\" + suffix + ".txt");
+    FileOutputStream fstream = new FileOutputStream("..\\output\\" + suffix + ".txt");
     BufferedWriter br = new BufferedWriter(new OutputStreamWriter(fstream, "utf-8"));
     br.write(String.valueOf(matrix.rows));
     br.newLine();

@@ -52,7 +52,8 @@ public class Gauss extends Matrix{
         double alpha = matrix.matrix[i][p] / matrix.matrix[p][p];
         vector.matrix[i][0] = vector.matrix[i][0] - alpha * vector.matrix[p][0];
         for (int j = p; j < n; j++) {
-            matrix.matrix[i][j] = matrix.matrix[i][j] - alpha * matrix.matrix[p][j];
+                matrix.matrix[i][j] = matrix.matrix[i][j] - alpha * matrix.matrix[p][j];
+
         }
     }
 

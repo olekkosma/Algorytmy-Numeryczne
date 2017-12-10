@@ -8,12 +8,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Loader {
+public class LoaderWriter {
 
     public static void readFile(Board board, Cube cube, Player player1, Player player2, String fileName) throws IOException {
-        //Scanner scanner = new Scanner(new File("../Files/" + fileName + ".txt"));
-        File file = new File("..\\..\\zad3\\Grzybobranie\\files\\" + fileName + ".txt");
-        //File file = new File("..\\Files\\input.txt");
+        File file = new File("..\\" + fileName + ".txt");
         Scanner scanner = new Scanner(file);
 
         int boardSize = scanner.nextInt();
@@ -50,5 +48,14 @@ public class Loader {
         cube.setProbability(probability);
         board.setCube(cube);
         scanner.close();
+    }
+
+    public static void writeToFile(String value, String suffix) throws IOException {
+        FileOutputStream fstream = new FileOutputStream("..\\output\\" + suffix + ".txt");
+        BufferedWriter br = new BufferedWriter(new OutputStreamWriter(fstream, "utf-8"));
+        br.write(String.valueOf(value));
+
+        br.close();
+        fstream.close();
     }
 }

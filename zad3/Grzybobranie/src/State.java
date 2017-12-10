@@ -11,9 +11,18 @@ public class State {
     int mushTwo;
     int[] mushrooms;
     ArrayList<State> equation;
-    int status = 0;
+    int status = 0;  // 1-wygrana -1 = przegrana albo nic
+    int readStatus = 0;
 
-    public State(int tour, int positionOne, int positionTwo,int mushOne,int mushTwo,int[] mushrooms) {
+    public int getReadStatus() {
+        return readStatus;
+    }
+
+    public void setReadStatus(int readStatus) {
+        this.readStatus = readStatus;
+    }
+
+    public State(int tour, int positionOne, int positionTwo, int mushOne, int mushTwo, int[] mushrooms) {
         this.tour = tour;
         this.positionOne = Math.floorMod(positionOne,size);
         this.positionTwo = Math.floorMod(positionTwo, size);
