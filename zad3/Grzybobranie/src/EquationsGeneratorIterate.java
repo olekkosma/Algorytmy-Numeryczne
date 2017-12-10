@@ -22,14 +22,16 @@ public class EquationsGeneratorIterate {
             }
         }
 
-            //State state1 = new State(1, player1.getField(), player2.getField(),0,0);
-            State state1 = new State(1, player1.getField(), player2.getField(),0,0,mushrooms);
-            state1.setIndex(0);
-            allStates.add(state1);
-            System.out.println(state1);
-            generate();
 
-        }
+
+        //State state1 = new State(1, player1.getField(), player2.getField(),0,0);
+        State state1 = new State(1, player1.getField(), player2.getField(), 0, 0, mushrooms);
+        state1.setIndex(0);
+        allStates.add(state1);
+        System.out.println(state1);
+        generate();
+
+    }
 
     public boolean isStillUncountedEquation() {
         for (State state : allStates) {
@@ -52,34 +54,32 @@ public class EquationsGeneratorIterate {
                 State tmpMainState = allStates.get(i);
 
 
-
-
                 if (tmpMainState.getMushOne() > (tmpMainState.getMushroomsCount()+tmpMainState.getMushTwo())) {
                     tmpMainState.addToEquation(new State(2, 0, 0, 0, 0, null));
                 }else if(!(tmpMainState.getMushTwo() > (tmpMainState.getMushroomsCount()+tmpMainState.getMushOne()))){
 
-                if (tmpMainState.positionOne == 0) {
-                    if(tmpMainState.getMushOne()>=tmpMainState.getMushTwo()) {
-                        tmpMainState.addToEquation(new State(2, 0, 0, 0, 0, null));
-                    }
-                } else if (!(tmpMainState.positionTwo == 0)) {
+                    if (tmpMainState.positionOne == 0) {
+                        if(tmpMainState.getMushOne()>=tmpMainState.getMushTwo()) {
+                            tmpMainState.addToEquation(new State(2, 0, 0, 0, 0, null));
+                        }
+                    } else if (!(tmpMainState.positionTwo == 0)) {
 
-                    for (int j = 0; j < cube.getValues().size(); j++) {
-                        if (tmpMainState.tour == 1) {
-                            State tmp = new State(tmpMainState.reverseTour(), tmpMainState.getPositionOne() + cube.getValues().get(j), tmpMainState.getPositionTwo(), tmpMainState.getMushOne(), tmpMainState.getMushTwo(), tmpMainState.getMushrooms().clone());
-                            isContains(tmpMainState, tmp);
+                        for (int j = 0; j < cube.getValues().size(); j++) {
+                            if (tmpMainState.tour == 1) {
+                                State tmp = new State(tmpMainState.reverseTour(), tmpMainState.getPositionOne() + cube.getValues().get(j), tmpMainState.getPositionTwo(), tmpMainState.getMushOne(), tmpMainState.getMushTwo(), tmpMainState.getMushrooms().clone());
+                                isContains(tmpMainState, tmp);
 
-                        } else if (tmpMainState.tour == 0) {
-                            State tmp = new State(tmpMainState.reverseTour(), tmpMainState.getPositionOne(), tmpMainState.getPositionTwo() + cube.getValues().get(j), tmpMainState.getMushOne(), tmpMainState.getMushTwo(), tmpMainState.getMushrooms().clone());
-                            isContains(tmpMainState, tmp);
+                            } else if (tmpMainState.tour == 0) {
+                                State tmp = new State(tmpMainState.reverseTour(), tmpMainState.getPositionOne(), tmpMainState.getPositionTwo() + cube.getValues().get(j), tmpMainState.getMushOne(), tmpMainState.getMushTwo(), tmpMainState.getMushrooms().clone());
+                                isContains(tmpMainState, tmp);
+                            }
+                        }
+                    }else{
+                        if(tmpMainState.getMushOne() > (tmpMainState.getMushTwo())){
+                            tmpMainState.addToEquation(new State(2, 0, 0, 0, 0, null));
                         }
                     }
-                }else{
-                    if(tmpMainState.getMushOne() > ((tmpMainState.getMushroomsCount()+tmpMainState.getMushTwo()))){
-                        tmpMainState.addToEquation(new State(2, 0, 0, 0, 0, null));
-                    }
                 }
-            }
                 allStates.get(i).setStatus(1);
             }
             lowerBound = higherBound;

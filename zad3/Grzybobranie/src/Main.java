@@ -70,6 +70,7 @@ public class Main {
                 vector1.matrix[state.getIndex()][0] = 1.0;
             } else {
                 vector1.matrix[state.getIndex()][0] = 0.0;
+                matrix1.matrix[state.getIndex()][state.getIndex()] =-1.0;
 
             }
         }
@@ -77,11 +78,14 @@ public class Main {
             Generator.writeToFile(vector1, "vector");
             Generator.writeToFile(matrix1, "matrix");
 
-            matrix1.printMatrix();
-            vector1.printMatrix();
+            //matrix1.printMatrix();
+            //vector1.printMatrix();
+        }
+        Matrix resultMatrix1 = matrix1.countMatrix(vector1);
+        if(counter==1){
+            resultMatrix1.printMatrix();
         }
         counter=2;
-        Matrix resultMatrix1 = matrix1.countMatrix(vector1);
         double chanceToWin1 = resultMatrix1.matrix[0][0];
         chanceToWin1 = Math.abs(chanceToWin1);
         return chanceToWin1;
@@ -93,7 +97,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        int repetition = 100000;
+        int repetition = 50000;
         Cube cube = new Cube();
         Board board = new Board();
         Player player1 = new Player();
