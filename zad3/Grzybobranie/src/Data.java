@@ -17,7 +17,8 @@ public class Data {
 
     public Data(String fileName) throws FileNotFoundException {
 
-        File file = new File("..\\" + fileName + ".txt");
+        //File file = new File("..\\" + fileName + ".txt");
+        File file = new File("..\\..\\"+fileName + ".txt");
         Scanner scanner = new Scanner(file);
 
         this.size = ((scanner.nextInt() * 2) + 1);

@@ -11,6 +11,7 @@
 #include <chrono>
 #include <fstream>
 #include <iomanip>
+#include<Eigen/SparseLU>
 
 using namespace std;
 using namespace Eigen;
@@ -30,13 +31,62 @@ MatrixXd loadMatrix(string fileName) {
   return matrix;
 }
 
-void writeMatrixToFile(double time1,double time2, double result, string fileName) {
-	fstream myfile("../output/" + fileName, ios_base::out);
-	cout << "aa";
-	myfile << fixed << result;
-	myfile << fixed << time1;
-	myfile << fixed << time2;
+SparseMatrix<double> loadMatrixSparse(string fileName,VectorXi vector) {
+	fstream myfile("../output/" + fileName, ios_base::in);
+	int rows;
+	int columns;
+	myfile >> rows;
+	myfile >> columns;
+	SparseMatrix<double> matrix(rows, columns);
+	matrix.reserve(vector);
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < columns; j++) {
+			double tmp;
+			myfile >> tmp;
+			if (tmp != 0) {
+				matrix.insert(i, j) = tmp;
+			}
+		}
+		
+	}
+	return matrix;
+}
 
+VectorXi loadMatrixColsDens(string fileName) {
+	fstream myfile("../output/" + fileName, ios_base::in);
+	int rows;
+	int columns;
+	myfile >> columns;
+	VectorXi matrix(columns);
+		for (int j = 0; j < columns; j++) {
+			int tmp;
+			myfile >> tmp;
+			matrix(j) = tmp;
+		}
+	
+	return matrix;
+}
+
+void writeMatrixToFile(double time1,double time2, double result, string fileName) {
+	fstream myfile("../output/" + fileName, ios_base::app);
+	int precision = std::numeric_limits<double>::max_digits10;
+	ostringstream oss;
+	oss.precision(precision);
+	oss << fixed << result;
+	string str = oss.str();
+	replace(str.begin(), str.end(), '.', ',');
+	str = ";"+str ;
+	myfile << fixed << str;
+
+	str = to_string(time1);
+	replace(str.begin(), str.end(), '.', ',');
+	str = ";" + str;
+	myfile << fixed << str;
+	str = to_string(time2);
+	replace(str.begin(), str.end(), '.', ',');
+	str = ";" + str;
+	myfile << fixed << str;
+	cout << "finish";
 	
 }
 
@@ -53,17 +103,22 @@ int main()
 
 
   MatrixXd matrix1 = loadMatrix("matrix.txt");
-  printf("Matrix A : \n");
+  printf("Matrix normal loaded: \n");
 
-  MatrixXd matrix1Parse = loadMatrix("matrix.txt");
-  printf("Matrix A : \n");
+  VectorXi vector2 = loadMatrixColsDens("Densematrix.txt");
+  SparseMatrix<double> matrixSparse = loadMatrixSparse("matrix.txt",vector2);
+  SparseLU<Eigen::SparseMatrix<double> > solverA;
+  matrixSparse.makeCompressed();
+  solverA.analyzePattern(matrixSparse);
+  solverA.factorize(matrixSparse);
+  printf("Matrix sparse loaded : \n");
 
 
   VectorXd vector = loadMatrix("vector.txt");
-  printf("\nVector X : \n");
+  printf("\nVector normal loaded : \n");
 
   VectorXd vectorParse = loadMatrix("vector.txt");
-  printf("\nVector X : \n");
+  printf("\nVector sparse loaded : \n");
 
   begin = clock();
   VectorXd resultVector = matrix1.partialPivLu().solve(vector);
@@ -71,12 +126,13 @@ int main()
   elapsed_secs1 = double(end - begin) / CLOCKS_PER_SEC;
 
   begin = clock();
-  //VectorXd resultVector2 = matrix1.SparseLU().solve(vector);
+  VectorXd solnew = solverA.solve(vectorParse);
   end = clock();
   elapsed_secs2 = double(end - begin) / CLOCKS_PER_SEC;
 
+  cout << resultVector[0] << endl;
   writeMatrixToFile(elapsed_secs1, elapsed_secs2, resultVector[0], "Result.txt");
-  //cout << resultVector << endl;
+ 
   int pause;
   cin >> pause;
   return 0;

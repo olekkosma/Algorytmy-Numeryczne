@@ -10,20 +10,20 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Matrix {
-    Double[][] matrix;
+    double[][] matrix;
     public int rows;
     public int columns;
 
     public Matrix(int length) {
         this.rows = length;
         this.columns = length;
-        this.matrix = new Double[rows][columns];
+        this.matrix = new double[rows][columns];
     }
 
     public Matrix(int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
-        this.matrix = new Double[rows][columns];
+        this.matrix = new double[rows][columns];
     }
 
     public void printMatrix() {

@@ -55,8 +55,8 @@ public class Main {
 
         }
         if (counter == 1) {
-            Writer.writeToFile(vector1, "vector");
             Writer.writeToFile(matrix1, "matrix");
+            Writer.writeToFile(vector1, "vector");
             //matrix1.printMatrix();
             //vector1.printMatrix();
         }
@@ -98,7 +98,7 @@ public class Main {
         ArrayList<Double> results = new ArrayList<>();
 
         int size = allStates.size();
-        System.out.println("Counting Gauss...");
+        /*System.out.println("Counting Gauss...");
         start = System.currentTimeMillis();
 
         double resultGauss = countMatrix(new Gauss(size), allStates, data);
@@ -108,8 +108,8 @@ public class Main {
         times.add(timeTmp);
         results.add(resultGauss);
         System.out.println("Gauss:" + resultGauss);
-
-        System.out.println("Counting Parse Gauss...");
+*/
+       /* System.out.println("Counting Parse Gauss...");
         start = System.currentTimeMillis();
 
         double resultGaussParse = countMatrix(new GaussParse(size), allStates, data);
@@ -117,8 +117,8 @@ public class Main {
         elapsedTimeMillis = System.currentTimeMillis() - start;
         timeTmp = elapsedTimeMillis / 1000.0;
         times.add(timeTmp);
-        System.out.println("Gauss Parse:" + resultGauss);
-
+        System.out.println("Gauss Parse:" + resultGaussParse);
+*/
         System.out.println("Done\nCounting Gauss Siedl...");
         start = System.currentTimeMillis();
 
