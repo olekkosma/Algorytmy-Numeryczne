@@ -13,8 +13,8 @@ public class Writer {
     public static int value = 1;
 
     public static void writeToFile(Matrix matrix, String suffix) throws IOException {
-        //FileOutputStream fstream = new FileOutputStream("..\\output\\" + suffix + ".txt");
-        FileOutputStream fstream = new FileOutputStream("..\\..\\output\\" + suffix + ".txt");
+        FileOutputStream fstream = new FileOutputStream("..\\output\\" + suffix + ".txt");
+        //FileOutputStream fstream = new FileOutputStream("..\\..\\output\\" + suffix + ".txt");
         BufferedWriter br = new BufferedWriter(new OutputStreamWriter(fstream, "utf-8"));
         br.write(String.valueOf(matrix.rows));
         br.newLine();
@@ -36,8 +36,8 @@ public class Writer {
         br.close();
         fstream.close();
         if (value == 1) {
-            //FileOutputStream fstream2 = new FileOutputStream("..\\output\\Dense" + suffix + ".txt");
-            FileOutputStream fstream2 = new FileOutputStream("..\\..\\output\\Dense" + suffix + ".txt");
+            FileOutputStream fstream2 = new FileOutputStream("..\\output\\Dense" + suffix + ".txt");
+            //FileOutputStream fstream2 = new FileOutputStream("..\\..\\output\\Dense" + suffix + ".txt");
             BufferedWriter br2 = new BufferedWriter(new OutputStreamWriter(fstream2, "utf-8"));
             br2.write(String.valueOf(colsDens.length));
             br2.newLine();
@@ -53,8 +53,8 @@ public class Writer {
     }
 
     public static void writeToFileResults(ArrayList<Double> results, String suffix) throws IOException {
-        //FileOutputStream fstream = new FileOutputStream("..\\output\\" + suffix + ".txt", true);
-        FileOutputStream fstream = new FileOutputStream("..\\..\\output\\" + suffix + ".txt", true);
+        FileOutputStream fstream = new FileOutputStream("..\\output\\" + suffix + ".txt", true);
+        //FileOutputStream fstream = new FileOutputStream("..\\..\\output\\" + suffix + ".txt", true);
         BufferedWriter br = new BufferedWriter(new OutputStreamWriter(fstream, "utf-8"));
         for (Double value : results) {
             br.append(";" + String.valueOf(value).replace(".", ","));

@@ -20,11 +20,15 @@ public class Main {
         //CountStatsForAddAndMultiplyMyOwn();               //stats for My own precision
         //countStatsForGauss();                            //stats for gauss
 
-        MyMatrix<Double> matrix = new MyMatrix<>(Double.class, 12);
-        MyMatrix<Double> vector = new MyMatrix<>(Double.class, 12, 1);
+        MyMatrix<Double> matrix = new MyMatrix<>(Double.class, 10000);
+        MyMatrix<Double> matrix2 = new MyMatrix<>(Double.class, 10000);
+        MyMatrix<Double> matrix3 = new MyMatrix<>(Double.class, 10000);
+        MyMatrix<Double> vector = new MyMatrix<>(Double.class, 10000, 1);
         matrix.loadValues("1");
+        matrix2.loadValues("1");
+        matrix3.loadValues("1");
         vector.loadValues("Vector");
-        matrix.printMatrix();
+        //matrix.printMatrix();
         MyMatrix<Double> resultMatrix = matrix.partialChoiseGauss(matrix,vector);
         resultMatrix.printMatrix();
     }

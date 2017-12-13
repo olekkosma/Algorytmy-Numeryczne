@@ -60,10 +60,10 @@ public class Generator {
   }
 
   public static void main(String[] args) throws IOException {
-    int size = 330;
+    int size = 10000;
     writeToFile(size, size, "1");
-    writeToFile(size, size, "2");
-    writeToFile(size, size, "3");
+    //writeToFile(size, size, "2");
+    //writeToFile(size, size, "3");
     writeToFile(size, 1, "Vector");
   }
 }

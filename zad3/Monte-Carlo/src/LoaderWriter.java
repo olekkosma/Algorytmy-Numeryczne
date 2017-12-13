@@ -57,7 +57,6 @@ public class LoaderWriter {
         //FileOutputStream fstream = new FileOutputStream("..\\output\\" + suffix + ".txt",true);
         FileOutputStream fstream = new FileOutputStream("..\\..\\output\\" + suffix + ".txt",true);
         BufferedWriter br = new BufferedWriter(new OutputStreamWriter(fstream, "utf-8"));
-        //Data data = new Data("..\\..\\input");
         Data data = new Data("..\\..\\input");
         br.newLine();
         br.append(String.valueOf(data.size));

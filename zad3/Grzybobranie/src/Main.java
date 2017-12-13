@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static int counter = 1;
-    public static int iterations = 50;
+    public static int iterations = 230;
 
     public static void printEquations(ArrayList<State> allStates) {
 
@@ -98,7 +98,8 @@ public class Main {
         ArrayList<Double> results = new ArrayList<>();
 
         int size = allStates.size();
-        /*System.out.println("Counting Gauss...");
+
+        System.out.println("Counting Gauss...");
         start = System.currentTimeMillis();
 
         double resultGauss = countMatrix(new Gauss(size), allStates, data);
@@ -108,8 +109,8 @@ public class Main {
         times.add(timeTmp);
         results.add(resultGauss);
         System.out.println("Gauss:" + resultGauss);
-*/
-       /* System.out.println("Counting Parse Gauss...");
+
+        System.out.println("Counting Parse Gauss...");
         start = System.currentTimeMillis();
 
         double resultGaussParse = countMatrix(new GaussParse(size), allStates, data);
@@ -118,7 +119,7 @@ public class Main {
         timeTmp = elapsedTimeMillis / 1000.0;
         times.add(timeTmp);
         System.out.println("Gauss Parse:" + resultGaussParse);
-*/
+
         System.out.println("Done\nCounting Gauss Siedl...");
         start = System.currentTimeMillis();
 
@@ -141,11 +142,8 @@ public class Main {
         times.add(timeTmp);
         Writer.writeToFileResults(results,"Result");
         Writer.writeToFileResults(times,"Result");
-
+        System.out.println("jacobie time:"+timeTmp);
         System.out.println("Jacobie:" + resultJacobie + "\nDone");
-
-
-
 
     }
 

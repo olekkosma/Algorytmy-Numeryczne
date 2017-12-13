@@ -1,11 +1,11 @@
 javac .\Monte-Carlo\src\*.java
 cd Monte-Carlo\src
-java -cp . Main
+java  -cp . Main
 cd ..
 cd ..
 cd .\Grzybobranie\src
 javac *.java
-java -cp . Main
+java  -cp . Main
 cd..
 cd..
 cd Eigen
