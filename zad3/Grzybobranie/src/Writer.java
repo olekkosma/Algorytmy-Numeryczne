@@ -1,6 +1,6 @@
 //Aleksander Kosma / Tomasz Adamczyk
 //Nr. indexu: 238193 / 243217
-//09.11.2017
+//13.12.2017
 //Algorytmy Numeryczne
 //--------------------
 
@@ -49,7 +49,7 @@ public class Writer {
             br2.close();
             fstream.close();
         }
-        value=2;
+        value = 2;
     }
 
     public static void writeToFileResults(ArrayList<Double> results, String suffix) throws IOException {

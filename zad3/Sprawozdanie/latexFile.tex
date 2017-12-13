@@ -19,25 +19,33 @@
 
 \title{Algorytmy numeryczne}
 \author{Zadanie 3 \\ Tomasz Adamczyk | Aleksander Kosma\\243217 | 238193\\grupa 1 tester-programista}
-\date{8 Listopad 2017}
+\date{13 Grudzień 2017}
 
 \begin{document}
 \maketitle 
 
-\section*{Dane wejściowe}
-Większość testów została przeprowadzona dla:\\
+\section*{Informacje wstępne}
+Większość testów została przeprowadzona dla danych wejściowych:\\
 
 \begin{center}
 \begin{tabular}{  | c | c | c | }
   \hline
   rozmiar planszy & ilość grzybów & wartości kostki \\\hline
   7 &4& -4 -3 -2 -1 0 1 2 3 4\\\hline
+   pozycje graczy & pozycje grzybów & prawdopodobieństwo kostki \\\hline
+   3 4& 1 2 5 6& 1 1 1 1 1 1 1 1 1\\\hline
   \hline
 \end{tabular} 
 \end{center}
 
+
+Weryfikacja poprawnego działania metody Monte Carlo. Tym więcej iteracji symulacji gry, tym wynik staje się precyzyjniejszy. W tym przypadku, wynik powinien zbiegać do wartości 0,6.
+\begin{center}
+ \makebox[\textwidth]{\includegraphics[width=10.5cm,height=6cm]{monte.png}}
+\end{center}
+
 \section*{Implementacja metod iteracyjnych}
-W pierwszej części sprawozdania zbadamy poprawność metod iteracyjnych do rozwiązywania układów liniowych.\\
+W pierwszej części sprawozdania zbadamy poprawność metod iteracyjnych do rozwiązywania układów liniowych. Wyniki metod porównamy z wynikami Monte Carlo.\\
 \begin{center}
 \begin{tabular}{| p{3.2cm} | p{1.2cm}| p{2.2cm} | p{2.5cm} | p{2.5cm} | }
   \hline
@@ -75,7 +83,7 @@ Poniższy wykres prezentuje czas potrzebny do rozwiązania równania. Eigen spra
 \end{center}
 Precyzja wyników obliczona przez każdą z powyższych metod była praktycznie ta sama. W lwiej części sytuacji wyniki pokrywały się idealnie. Ma to związek z bardzo małą ilością wartości niezerowych. W konsekwencji komputer nie ma szansy zgubić gdzieś precyzji obliczeń. Prawdopodobnie wraz ze wzrostem macierzy, mogłyby się pojawić pewne różnice w wynikach.\\
 
-Obliczenia wraz ze wzrostem rozmiaru macierzy były liczone od 10 do 2 próbek. Zazwyczaj tyle wystarczało by zauważyć tendencje wzrostowe.Wynik metody Monte Carlo był obliczany każdorazowo dla miliona próbek.\\
+Obliczenia wraz ze wzrostem rozmiaru macierzy były liczone od 10 do 2 próbek. Zazwyczaj tyle wystarczało by zauważyć tendencje. Wynik metody Monte Carlo do weryfikacji wyników, był obliczany każdorazowo dla miliona próbek.\\
 \\
 \begin{tabular}{ | p{8.2cm} | p{8.2cm} | }
   \hline
@@ -85,14 +93,31 @@ Obliczenia wraz ze wzrostem rozmiaru macierzy były liczone od 10 do 2 próbek. 
   \hline
   -Implementacja Monte Carlo & -Implementacja metod iteracyjnych \\\hline
    -Iteracyjne generowanie układu równań & -Ustalenie i implementacja warunków wygranej \\\hline
-    -XXOptymalizacja na HashTreeXX & -Wprowadzanie układu równań do macierzy \\\hline
-  -Optymalizacja metod iteracyjnych i Gaussa & -Generowanie wyniku poprzez bibliotekę Eigen w C++ \\\hline
+    -Szukanie gry bliskiej 50\% & -Wprowadzanie układu równań do macierzy \\\hline
+  -Optymalizacja metod iteracyjnych i Gaussa & -Generowanie wyniku poprzez bibliotekę Eigen\\\hline
   -Testy i generowanie wyników & -Napisanie skryptów do generowania wyników \\\hline
   -Obróbka wyników, wykresy i opracowanie & - \\\hline
   
   \hline
 \end{tabular}
 
+\subsection*{Dodatkowo}
 
+W momencie kiedy chcemy osiągnąć wynik jak najbardziej zbliżony do 50\% szans na wygraną, naszą intencją jest wydłużanie i  odwlekanie wygranej przez któregoś z graczy. W tym celu należy:\\
+$\bullet$  \quad pozbyć się grzybów. Grzyby są ścieżką na skróty do wygrania. Określona ilość grzybów w rozgrywce, zdobyta wcześniej, od razu premiuje nas wygraną.\\
+$\bullet$  \quad zmniejszyć kostkę do najmniejszych przeskoków. Najbardziej optymalna wersja to kostka ze ściankami o wartościach \{-1, 0 ,1\}. Zero na kostce jest kolejną szansą dla przeciwnika by odwrócić losy rozgrywki.\\
+$\bullet$  \quad prawdopodobieństwo kostki powinno być jak największe dla zera.  W momencie kiedy zero wypada najczęściej, dynamika rozgrywki spada. Dzięki temu, któremuś z graczy trudniej stworzyć sobie szybką przewagę. \\
+$\bullet$  \quad Ostatnią zmienną na którą mamy wpływ to pozycje startowe graczy. Znów chcemy by opóźnić wygraną, więc stawiamy obu graczy możliwie daleko od mety.\\
+Najlepszy uzyskany wynik:  \textbf{0.5000000034688313}\\
+\begin{center}
+dane wejściowe: \\
+
+\begin{tabular}{  | c | c | c | c | }
+  \hline
+  rozmiar planszy &pozycje startowe& wartości kostki & prawdopodobieństwo \\\hline
+   101 & 50, 51  & -1, 0, 1& 1, 100000, 1\\\hline
+  \hline
+\end{tabular} 
+\end{center}
 
 \end{document}

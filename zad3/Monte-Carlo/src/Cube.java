@@ -1,6 +1,6 @@
 //Aleksander Kosma / Tomasz Adamczyk
 //Nr. indexu: 238193 / 243217
-//27.11.2017
+//13.12.2017
 //Algorytmy Numeryczne
 //--------------------
 

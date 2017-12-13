@@ -1,10 +1,10 @@
 //Aleksander Kosma / Tomasz Adamczyk
 //Nr. indexu: 238193 / 243217
-//27.11.2017
+//13.12.2017
 //Algorytmy Numeryczne
 //--------------------
 
-public class GaussParse extends Matrix{
+public class GaussParse extends Matrix {
 
 
     public GaussParse(int length) {
@@ -16,7 +16,7 @@ public class GaussParse extends Matrix{
     }
 
     @Override
-    public Matrix countMatrix( Matrix vector) {
+    public Matrix countMatrix(Matrix vector) {
 
         int n = vector.rows;
         for (int p = 0; p < n; p++) {
@@ -48,7 +48,7 @@ public class GaussParse extends Matrix{
     private void CleanMatrix(Matrix matrix, Matrix vector, int n, int p, int i) {
 
         double alpha = matrix.matrix[i][p] / matrix.matrix[p][p];
-        if(alpha!=0.0) {
+        if (alpha != 0.0) {
             vector.matrix[i][0] = vector.matrix[i][0] - alpha * vector.matrix[p][0];
             for (int j = p; j < n; j++) {
                 matrix.matrix[i][j] = matrix.matrix[i][j] - alpha * matrix.matrix[p][j];

@@ -1,3 +1,9 @@
+//Aleksander Kosma / Tomasz Adamczyk
+//Nr. indexu: 238193 / 243217
+//13.12.2017
+//Algorytmy Numeryczne
+//--------------------
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -24,22 +30,22 @@ public class State {
 
     public State(int tour, int positionOne, int positionTwo, int mushOne, int mushTwo, int[] mushrooms) {
         this.tour = tour;
-        this.positionOne = Math.floorMod(positionOne,size);
+        this.positionOne = Math.floorMod(positionOne, size);
         this.positionTwo = Math.floorMod(positionTwo, size);
-        this.mushOne=mushOne;
-        this.mushTwo=mushTwo;
-        if(this.tour==0){
-            if(mushrooms[this.positionOne]==1){
+        this.mushOne = mushOne;
+        this.mushTwo = mushTwo;
+        if (this.tour == 0) {
+            if (mushrooms[this.positionOne] == 1) {
                 this.mushOne++;
-                mushrooms[this.positionOne]=0;
+                mushrooms[this.positionOne] = 0;
             }
-        }else if(this.tour ==1){
-            if(mushrooms[this.positionTwo]==1){
+        } else if (this.tour == 1) {
+            if (mushrooms[this.positionTwo] == 1) {
                 this.mushTwo++;
-                mushrooms[this.positionTwo]=0;
+                mushrooms[this.positionTwo] = 0;
             }
         }
-        this.mushrooms=mushrooms;
+        this.mushrooms = mushrooms;
         equation = new ArrayList<>();
     }
 
@@ -51,10 +57,11 @@ public class State {
     public int[] getMushrooms() {
         return mushrooms;
     }
+
     public int getMushroomsCount() {
         int counter = 0;
-        for(int i=0;i<mushrooms.length;i++){
-            counter+=mushrooms[i];
+        for (int i = 0; i < mushrooms.length; i++) {
+            counter += mushrooms[i];
         }
         return counter;
     }
@@ -105,14 +112,14 @@ public class State {
     public String printEquation() {
         String line = "X" + index + " = ";
         if (equation.size() == 1) {
-            return line +"1";
+            return line + "1";
         } else {
-            if(!equation.isEmpty()) {
+            if (!equation.isEmpty()) {
                 for (State state : equation) {
                     line += "X" + state.index + " ";
                 }
-            }else{
-                line+="0";
+            } else {
+                line += "0";
             }
             return line;
         }

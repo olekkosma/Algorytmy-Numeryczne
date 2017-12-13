@@ -1,6 +1,6 @@
 //Aleksander Kosma / Tomasz Adamczyk
 //Nr. indexu: 238193 / 243217
-//27.11.2017
+//13.12.2017
 //Algorytmy Numeryczne
 //--------------------
 
@@ -12,8 +12,8 @@ import java.util.Scanner;
 public class LoaderWriter {
 
     public static void readFile(Board board, Cube cube, Player player1, Player player2, String fileName) throws IOException {
-        //File file = new File("..\\" + fileName + ".txt");
-        File file = new File("..\\..\\"+fileName + ".txt");
+        File file = new File("..\\" + fileName + ".txt");
+        //File file = new File("..\\..\\"+fileName + ".txt");
         Scanner scanner = new Scanner(file);
 
         int boardSize = scanner.nextInt();
@@ -54,10 +54,10 @@ public class LoaderWriter {
 //rozmiar;ilosc grzybow;grzyby;pole gracz 1; pole gracz 2; kostka; wartosci kostki; prawdop. kostki;MonteCarlo;Gauss;Gauss Siedl; Jacobie;
 // Gauss Time;Gauss Parse Time;Gauss Siedl Time;Jacobie Time;Eigen;Eigen Time;Eigen Parse Time;
     public static void writeToFile(String value, String suffix) throws IOException {
-        //FileOutputStream fstream = new FileOutputStream("..\\output\\" + suffix + ".txt",true);
-        FileOutputStream fstream = new FileOutputStream("..\\..\\output\\" + suffix + ".txt",true);
+        FileOutputStream fstream = new FileOutputStream("..\\output\\" + suffix + ".txt",true);
+        //FileOutputStream fstream = new FileOutputStream("..\\..\\output\\" + suffix + ".txt",true);
         BufferedWriter br = new BufferedWriter(new OutputStreamWriter(fstream, "utf-8"));
-        Data data = new Data("..\\..\\input");
+        Data data = new Data("..\\input");
         br.newLine();
         br.append(String.valueOf(data.size));
         br.append(String.valueOf(";"+data.mushroomsSize));

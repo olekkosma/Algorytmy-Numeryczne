@@ -1,6 +1,6 @@
 //Aleksander Kosma / Tomasz Adamczyk
 //Nr. indexu: 238193 / 243217
-//27.11.2017
+//13.12.2017
 //Algorytmy Numeryczne
 //--------------------
 
@@ -58,11 +58,12 @@ public class Matrix {
             matrix[i][i] = 1.0;
         }
     }
-    public double findFirstNegative(){
+
+    public double findFirstNegative() {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                if(matrix[i][j] <0.0){
-                    return  matrix[i][j];
+                if (matrix[i][j] < 0.0) {
+                    return matrix[i][j];
                 }
             }
 
@@ -70,12 +71,12 @@ public class Matrix {
         return 0.0;
     }
 
-    public double countSum(){
+    public double countSum() {
         double sum = -2.0;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
 
-                    sum+=  matrix[i][j];
+                sum += matrix[i][j];
 
             }
 
@@ -83,7 +84,12 @@ public class Matrix {
         return sum;
     }
 
-    public Matrix countMatrix(Matrix b) {return null;};
+    public Matrix countMatrix(Matrix b) {
+        return null;
+    }
+
+    ;
+
     private void loadData(BufferedReader br) throws IOException {
         String strLine;
         rows = Integer.valueOf(br.readLine());

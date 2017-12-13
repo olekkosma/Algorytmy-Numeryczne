@@ -1,6 +1,6 @@
 //Aleksander Kosma / Tomasz Adamczyk
 //Nr. indexu: 238193 / 243217
-//27.11.2017
+//13.12.2017
 //Algorytmy Numeryczne
 //--------------------
 
@@ -50,18 +50,18 @@ public class Jacob extends Matrix {
             tmpMatrix.matrix[w][0] = 0.0;
         }
         boolean stillCount = true;
-        double tmp = x1.matrix[0][0],tmp2 = x1.matrix[0][0];
-        int counter = 0,z = 0,iterator =0;
+        double tmp = x1.matrix[0][0], tmp2 = x1.matrix[0][0];
+        int counter = 0, z = 0, iterator = 0;
         //for(k=0;k<Main.iterations;k++){
         while (stillCount) {
             for (i = 0; i < num; i++) {
-                if(!(N.matrix[i][0]==0.0 && b.matrix[i][0]==0.0)) {
+                if (!(N.matrix[i][0] == 0.0 && b.matrix[i][0] == 0.0)) {
                     x2.matrix[i][0] = N.matrix[i][0] * b.matrix[i][0];
-                }else{
-                    x2.matrix[i][0]=0.0;
+                } else {
+                    x2.matrix[i][0] = 0.0;
                 }
                 for (j = 0; j < num; j++)
-                    if(!(N.matrix[i][0]==0.0 && x1.matrix[j][0]==0.0)) {
+                    if (!(N.matrix[i][0] == 0.0 && x1.matrix[j][0] == 0.0)) {
                         x2.matrix[i][0] += M.matrix[i][j] * x1.matrix[j][0];
                     }
             }
@@ -80,9 +80,9 @@ public class Jacob extends Matrix {
 
                     tmp = tmp2;
                     counter++;
-                    iterator =0;
+                    iterator = 0;
                 } else {
-                    if(iterator==1) {
+                    if (iterator == 1) {
                         stillCount = false;
                     }
                     iterator++;
