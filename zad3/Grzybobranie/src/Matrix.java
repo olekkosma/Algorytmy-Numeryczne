@@ -88,8 +88,6 @@ public class Matrix {
         return null;
     }
 
-    ;
-
     private void loadData(BufferedReader br) throws IOException {
         String strLine;
         rows = Integer.valueOf(br.readLine());

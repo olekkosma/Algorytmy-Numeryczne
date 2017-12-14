@@ -21,7 +21,6 @@ public class Player {
         }
     }
 
-
     @Override
     public String toString() {
        return getName()+" jest na polu "+field+" i posiada "+mushrooms+" grzybów.";

@@ -4,14 +4,12 @@
 //Algorytmy Numeryczne
 //--------------------
 
-
 public class Jacob extends Matrix {
-    //warunek by bylo zbierzne dla tego algorytmu : macierz przękotniowo dominująca
+    //warunek by bylo zbiezne dla tego algorytmu : macierz przękotniowo dominująca
     Matrix M;
     Matrix N;
     Matrix x1;
     Matrix x2;
-
 
     public Jacob(int length) {
         super(length);
@@ -44,7 +42,6 @@ public class Jacob extends Matrix {
         for (i = 0; i < num; i++)
             x1.matrix[i][0] = 0.0;
 
-
         Matrix tmpMatrix = new Matrix(rows, 1);
         for (int w = 0; w < rows; w++) {
             tmpMatrix.matrix[w][0] = 0.0;
@@ -52,8 +49,8 @@ public class Jacob extends Matrix {
         boolean stillCount = true;
         double tmp = x1.matrix[0][0], tmp2 = x1.matrix[0][0];
         int counter = 0, z = 0, iterator = 0;
-        //for(k=0;k<Main.iterations;k++){
-        while (stillCount) {
+        for(k=0;k<Main.iterations;k++){
+        //while (stillCount) {
             for (i = 0; i < num; i++) {
                 if (!(N.matrix[i][0] == 0.0 && b.matrix[i][0] == 0.0)) {
                     x2.matrix[i][0] = N.matrix[i][0] * b.matrix[i][0];
@@ -70,6 +67,7 @@ public class Jacob extends Matrix {
 
             }
 
+            /*
             if (z != 0) {
                 for (int g = 0; g < x1.matrix.length; g++) {
                     tmp2 += tmpMatrix.matrix[g][0] - x1.matrix[g][0];
@@ -90,7 +88,7 @@ public class Jacob extends Matrix {
                     counter++;
                 }
             }
-            z = 1;
+            z = 1;*/
         }
         System.out.println("needed iterations: " + counter);
 

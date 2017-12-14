@@ -17,7 +17,7 @@ public class State {
     int mushTwo;
     int[] mushrooms;
     ArrayList<State> equation;
-    int status = 0;  // 1-wygrana -1 = przegrana albo nic
+    int status = 0;
     int readStatus = 0;
 
     public int getReadStatus() {

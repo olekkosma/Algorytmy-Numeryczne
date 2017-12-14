@@ -37,7 +37,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        int repetition = 10000000;
+        int repetition = 10000;
         int counter = MonteCarloCalculation(repetition);
         double value = ((double) counter) / ((double) repetition);
         String result = changePointToComma(value);

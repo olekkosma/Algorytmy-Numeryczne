@@ -59,12 +59,5 @@ public class Data {
             sumOfProbabilty+=tmp;
         }
         scanner.close();
-        //printInfo();
-    }
-
-    public void printInfo(){
-        System.out.println(size);
-        System.out.println(mushroomsSize);
-        System.out.println(Arrays.toString(mushrooms));
     }
 }

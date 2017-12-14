@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static int counter = 1;
-    public static int iterations = 230;
+    public static int iterations = 750;
 
     public static void printEquations(ArrayList<State> allStates) {
 
@@ -98,7 +98,7 @@ public class Main {
         ArrayList<Double> results = new ArrayList<>();
 
         int size = allStates.size();
-
+/*
         System.out.println("Counting Gauss...");
         start = System.currentTimeMillis();
 
@@ -119,7 +119,7 @@ public class Main {
         timeTmp = elapsedTimeMillis / 1000.0;
         times.add(timeTmp);
         System.out.println("Gauss Parse:" + resultGaussParse);
-
+*/
         System.out.println("Done\nCounting Gauss Siedl...");
         start = System.currentTimeMillis();
 
@@ -130,6 +130,7 @@ public class Main {
         results.add(resultGaussSiedl);
         times.add(timeTmp);
 
+        System.out.println("time: "+timeTmp);
         System.out.println("Gauss Siedl:" + resultGaussSiedl);
         System.out.println("Done\nCounting Jacobie...");
         start = System.currentTimeMillis();

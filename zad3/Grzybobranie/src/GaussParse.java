@@ -6,7 +6,6 @@
 
 public class GaussParse extends Matrix {
 
-
     public GaussParse(int length) {
         super(length);
     }
