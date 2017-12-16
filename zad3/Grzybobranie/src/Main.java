@@ -10,6 +10,8 @@ import java.util.ArrayList;
 public class Main {
     public static int counter = 1;
     public static int iterations = 750;
+    public static double epsylon = 0.0000000000000001;
+    public static double epsylonNew = 0.000000000000001;
 
     public static void printEquations(ArrayList<State> allStates) {
 
@@ -17,7 +19,6 @@ public class Main {
             System.out.println(allStates.get(i).printEquation());
         }
     }
-
     public static int countStates(ArrayList<State> equations, State state, Data data) {
         int counter = 0;
         int i = 0;
@@ -31,7 +32,7 @@ public class Main {
         return counter;
     }
 
-    public static double countMatrix(Matrix matrix1, ArrayList<State> allStates, Data data) throws IOException {
+    public static Matrix countMatrix(Matrix matrix1, ArrayList<State> allStates, Data data) throws IOException {
         int size = allStates.size();
         Matrix vector1 = new Matrix(size, 1);
         matrix1.fillWithZero();
@@ -48,7 +49,7 @@ public class Main {
             vector1.matrix[state.getIndex()][0] = (double) state.getStatus();
             if (state.getStatus() == 0) {
                 matrix1.matrix[state.getIndex()][state.getIndex()] = -1.0;
-            }else if(state.getStatus()==1){
+            } else if (state.getStatus() == 1) {
                 matrix1.matrix[state.getIndex()][state.getIndex()] = 1.0;
 
             }
@@ -57,27 +58,15 @@ public class Main {
         if (counter == 1) {
             Writer.writeToFile(matrix1, "matrix");
             Writer.writeToFile(vector1, "vector");
-            //matrix1.printMatrix();
-            //vector1.printMatrix();
-        }
-        Matrix resultMatrix1 = matrix1.countMatrix(vector1);
-        if (counter == 1) {
-            //resultMatrix1.printMatrix();
         }
         counter = 2;
-        double chanceToWin1 = resultMatrix1.matrix[0][0];
-        chanceToWin1 = Math.abs(chanceToWin1);
-        return chanceToWin1;
-
+        return vector1;
     }
 
     public static void main(String[] args) throws IOException {
-
-
         long start;
         long elapsedTimeMillis;
         double timeTmp = 0;
-
 
         System.out.println("loading input data...");
         Data data = new Data("input");
@@ -93,59 +82,84 @@ public class Main {
         System.out.println("Done");
 
         //----------------------Counting player one percentage win--------------------
-
         ArrayList<Double> times = new ArrayList<>();
         ArrayList<Double> results = new ArrayList<>();
-
         int size = allStates.size();
-/*
-        System.out.println("Counting Gauss...");
+        //------------------------------------------------------GAUSS
+       /* System.out.println("Counting Gauss...");
+        Gauss matrix = new Gauss(size);
+        Matrix vector = countMatrix(matrix, allStates, data);
         start = System.currentTimeMillis();
-
-        double resultGauss = countMatrix(new Gauss(size), allStates, data);
-
+        Matrix result = matrix.countMatrix(vector);
         elapsedTimeMillis = System.currentTimeMillis() - start;
         timeTmp = elapsedTimeMillis / 1000.0;
         times.add(timeTmp);
-        results.add(resultGauss);
-        System.out.println("Gauss:" + resultGauss);
+        System.out.println("Time: "+timeTmp);
+        results.add(result.matrix[0][0]);
 
-        System.out.println("Counting Parse Gauss...");
+        //------------------------------------------------------GAUSS SPARSE
+        System.out.println("Counting GaussParse...");
+        GaussParse matrix2 = new GaussParse(size);
+        Matrix vector2 = countMatrix(matrix2, allStates, data);
         start = System.currentTimeMillis();
-
-        double resultGaussParse = countMatrix(new GaussParse(size), allStates, data);
-
+        Matrix result2 = matrix2.countMatrix(vector2);
         elapsedTimeMillis = System.currentTimeMillis() - start;
         timeTmp = elapsedTimeMillis / 1000.0;
         times.add(timeTmp);
-        System.out.println("Gauss Parse:" + resultGaussParse);
+        System.out.println("Time: "+timeTmp);
+        results.add(result2.matrix[0][0]);
+
+        //------------------------------------------------------Jacobie
+        System.out.println("Counting Jacob...");
+        Jacob matrix3 = new Jacob(size);
+        Matrix vector3 = countMatrix(matrix3, allStates, data);
+        start = System.currentTimeMillis();
+        Matrix result3 = matrix3.countMatrix(vector3);
+        elapsedTimeMillis = System.currentTimeMillis() - start;
+        timeTmp = elapsedTimeMillis / 1000.0;
+        times.add(timeTmp);
+        System.out.println("Time: "+timeTmp);
+        results.add(result3.matrix[0][0]);
 */
-        System.out.println("Done\nCounting Gauss Siedl...");
+        //------------------------------------------------------Jacobie New
+        System.out.println("Counting JacobNew...");
+        JacobNew matrix4 = new JacobNew(size);
+        Matrix vector4 = countMatrix(matrix4, allStates, data);
         start = System.currentTimeMillis();
-
-        double resultGaussSiedl = countMatrix(new GaussSeidl(size), allStates, data);
-
+        Matrix result4 = matrix4.countMatrix(vector4);
         elapsedTimeMillis = System.currentTimeMillis() - start;
         timeTmp = elapsedTimeMillis / 1000.0;
-        results.add(resultGaussSiedl);
         times.add(timeTmp);
-
-        System.out.println("time: "+timeTmp);
-        System.out.println("Gauss Siedl:" + resultGaussSiedl);
-        System.out.println("Done\nCounting Jacobie...");
+        System.out.println("Time: "+timeTmp);
+        System.out.println("Result:"+result4.matrix[0][0]);
+        results.add(result4.matrix[0][0]);
+/*
+        //------------------------------------------------------Seidel
+        System.out.println("Counting GaussSeidl...");
+        GaussSeidl matrix5 = new GaussSeidl(size);
+        Matrix vector5 = countMatrix(matrix5, allStates, data);
         start = System.currentTimeMillis();
-
-        double resultJacobie = countMatrix(new Jacob(size), allStates, data);
-
+        Matrix result5 = matrix5.countMatrix(vector5);
         elapsedTimeMillis = System.currentTimeMillis() - start;
         timeTmp = elapsedTimeMillis / 1000.0;
-        results.add(resultJacobie);
         times.add(timeTmp);
+        System.out.println("Time: "+timeTmp);
+        results.add(result5.matrix[0][0]);
+*/
+        //------------------------------------------------------Seidel New
+        System.out.println("Counting GaussSeidlNew...");
+        GaussSeidlNew matrix6 = new GaussSeidlNew(size);
+        Matrix vector6 = countMatrix(matrix6, allStates, data);
+        start = System.currentTimeMillis();
+        Matrix result6 = matrix6.countMatrix(vector6);
+        elapsedTimeMillis = System.currentTimeMillis() - start;
+        timeTmp = elapsedTimeMillis / 1000.0;
+        times.add(timeTmp);
+        System.out.println("Time: "+timeTmp);
+        System.out.println("Result:"+result6.matrix[0][0]);
+        results.add(result6.matrix[0][0]);
+
         Writer.writeToFileResults(results,"Result");
         Writer.writeToFileResults(times,"Result");
-        System.out.println("jacobie time:"+timeTmp);
-        System.out.println("Jacobie:" + resultJacobie + "\nDone");
-
     }
-
 }

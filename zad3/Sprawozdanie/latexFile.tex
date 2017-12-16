@@ -44,8 +44,8 @@ Weryfikacja poprawnego działania metody Monte Carlo. Im więcej iteracji symula
 \end{center}
 
 \section*{Implementacja metod iteracyjnych}
-W pierwszej części sprawozdania zbadamy poprawność metod iteracyjnych do rozwiązywania układów liniowych. Wyniki metod porównamy z wynikami z Eigen metodą gaussa.\\ Lewy wykres prezentuje różnicę wyniku z metod iteracyjnych i wyniku Eigena. Widać że wyniki te wraz ze wzrostem liczby iteracji zbiegają do zera. Seidel już w około 130 iteracji osiągnął wartość równą Eigenowi. Jacobie potrzebował do tego  ponad 250 iteracji. Te wyniki dowodzą, ze metody iteracyjne liczą równie precyzyjnie co metoda gaussa.\\
-Prawy wykres prezentuje czas potrzebny do obliczenia wyniku dla podanych na osi poziomej iteracji. Jacobie zdaje się być szybszy, lecz jak ukazuje poprzedni wykres, ma on dla danej iteracji mniejszą precyzję.
+W pierwszej części sprawozdania zbadamy poprawność metod iteracyjnych do rozwiązywania układów liniowych. Wyniki metod porównamy z wynikami z Eigen metodą Gaussa.\\ Lewy wykres prezentuje różnicę wyniku z metod iteracyjnych i wyniku Eigena. Widać że wyniki te wraz ze wzrostem liczby iteracji zbiegają do zera. Seidel już w około 130 iteracji osiągnął wartość równą Eigenowi. Jacobie potrzebował do tego  ponad 250 iteracji. Te wyniki dowodzą, ze metody iteracyjne liczą równie precyzyjnie co metoda Gaussa.\\
+Prawy wykres prezentuje czas potrzebny do obliczenia wyniku dla podanych na osi poziomej iteracji.\\
 
 \begin{center}
  \makebox[\textwidth]{\includegraphics[width=20cm,height=6cm]{cmp2.png}}
@@ -54,7 +54,7 @@ Prawy wykres prezentuje czas potrzebny do obliczenia wyniku dla podanych na osi 
 
 \subsection*{Optymalna ilość iteracji w przypadku metod iteracyjnych}
 Aby zoptymalizować czas potrzebny od wyliczenia wyniku przez metody iteracyjne, warto wiedzieć ile danych iteracji potrzebujemy. Za duża ilość iteracji może przeważyć na końcowych rezultatach i wnioskach.\\
-Zastosowany został przez nas prosty algorytm, liczący średnią różnice sum wektora poprzedniego i aktualnego. Jeśli dana różnica jest mniejsza niż podany epsilon, kończymy kolejne iteracje. Dodatkowym zabezpieczeniem jest kontynuacja dopóki podana różnica jest mniejsza od epsilon określoną ilość razy.\\
+Zastosowany został przez nas algorytm, wyliczający normę wektora poprzedniego i aktualnego. Jeśli ułamek tych norm jest mniejszy niż podany epsilon, kończymy kolejne iteracje. \\
 Wykres pokazuje mniejszą potrzebę iteracji dla Gaussa-Seidela. Gdzie oś pionowa to ilość iteracji, a oś pozioma to rozmiar macierzy. Jacobie potrzebuje więcej iteracji, jak i szybciej przyspiesza z kolejnymi wymaganymi iteracjami. Więc wraz ze wzrostem macierzy potrzeba w obu przypadkach więcej iteracji.
 \begin{center}
  \makebox[\textwidth]{\includegraphics[width=12.5cm,height=7cm]{iteracje.png}}

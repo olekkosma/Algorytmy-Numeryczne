@@ -56,8 +56,9 @@ public class Writer {
         FileOutputStream fstream = new FileOutputStream("..\\output\\" + suffix + ".txt", true);
         //FileOutputStream fstream = new FileOutputStream("..\\..\\output\\" + suffix + ".txt", true);
         BufferedWriter br = new BufferedWriter(new OutputStreamWriter(fstream, "utf-8"));
+        br.newLine();
         for (Double value : results) {
-            br.append(";" + String.valueOf(value).replace(".", ","));
+            br.append(";   " + String.valueOf(value).replace(".", ","));
         }
         br.close();
         fstream.close();
