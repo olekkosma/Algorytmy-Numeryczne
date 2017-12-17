@@ -1,3 +1,9 @@
+//Aleksander Kosma / Tomasz Adamczyk
+//Nr. indexu: 238193 / 243217
+//17.12.2017
+//Algorytmy Numeryczne
+//--------------------
+
 public class JacobNew extends Matrix {
 
     public JacobNew(int length) {
@@ -7,14 +13,12 @@ public class JacobNew extends Matrix {
 
     @Override
     public Matrix countMatrix(Matrix b) {
-        double epsilon = 0.000000000000001;
-
-        Matrix X1 = new Matrix(this.rows, 1); //X new
-        Matrix X2 = new Matrix(this.rows, 1); //X new
+        Matrix X1 = new Matrix(this.rows, 1);
+        Matrix X2 = new Matrix(this.rows, 1);
         double norm2 = b.countNorm();
         double sum = 0.0;
         int iterations = 0;
-        while (iterations!=750) {
+        while (iterations!=Main.iterations) {
             for (int i = 0; i < this.rows; i++) {
                 for (int j = 0; j < this.rows; j++) {
                     if (i != j) {
@@ -31,10 +35,10 @@ public class JacobNew extends Matrix {
                 sum = 0.0;
 
             }
-            //double norm1 = substract(b,multiply(this, X1)).countNorm();
-            //if (norm1 / norm2 < Main.epsylonNew) {
-            //    break;
-            //}
+            double norm1 = substract(b,multiply(this, X1)).countNorm();
+            if (norm1 / norm2 < Main.epsylonNew) {
+                break;
+            }
             for(int i=0;i<this.rows;i++){
                 X2.matrix[i][0]=X1.matrix[i][0];
             }

@@ -1,3 +1,8 @@
+//Aleksander Kosma / Tomasz Adamczyk
+//Nr. indexu: 238193 / 243217
+//17.12.2017
+//Algorytmy Numeryczne
+//--------------------
 public class GaussSeidlNew extends Matrix {
 
     public GaussSeidlNew(int length) {
@@ -10,7 +15,7 @@ public class GaussSeidlNew extends Matrix {
         double sum = 0.0;
         int iterations = 0;
         double norm2 = b.countNorm();
-        while (iterations!=750) {
+        while (iterations!=Main.iterations) {
             for (int i = 0; i < this.rows; i++) {
                 for (int j = 0; j < i; j++) {
                     sum -= this.matrix[i][j] * X.matrix[j][0];
@@ -27,10 +32,10 @@ public class GaussSeidlNew extends Matrix {
                 sum = 0.0;
             }
 
-            //double norm1 = substract(b, multiply(this, X)).countNorm();
-            //if ((norm1 / norm2) < Main.epsylonNew) {
-//                break;
-  //          }
+            double norm1 = substract(b, multiply(this, X)).countNorm();
+            if ((norm1 / norm2) < Main.epsylonNew) {
+                break;
+            }
             iterations++;
 
         }

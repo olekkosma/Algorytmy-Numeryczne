@@ -1,6 +1,6 @@
 //Aleksander Kosma / Tomasz Adamczyk
 //Nr. indexu: 238193 / 243217
-//13.12.2017
+//17.12.2017
 //Algorytmy Numeryczne
 //--------------------
 
@@ -25,7 +25,6 @@ public class GaussSeidl extends Matrix {
         int n = rows;
         int i, j;
 
-
         for (i = 0; i < n; i++)
             for (j = 0; j < n; j++) {
                 if (i < j) {
@@ -48,8 +47,6 @@ public class GaussSeidl extends Matrix {
 
         for (i = 0; i < n; i++)
             x.matrix[i][0] = 0.0;
-
-        double norm2 = b.countNorm();
 
         boolean stillCount = true;
         double tmp = x.matrix[0][0],tmp2 = x.matrix[0][0];

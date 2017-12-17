@@ -1,6 +1,6 @@
 //Aleksander Kosma / Tomasz Adamczyk
 //Nr. indexu: 238193 / 243217
-//13.12.2017
+//17.12.2017
 //Algorytmy Numeryczne
 //--------------------
 
@@ -108,7 +108,7 @@ public class Main {
         times.add(timeTmp);
         System.out.println("Time: "+timeTmp);
         results.add(result2.matrix[0][0]);
-
+*/
         //------------------------------------------------------Jacobie
         System.out.println("Counting Jacob...");
         Jacob matrix3 = new Jacob(size);
@@ -119,8 +119,9 @@ public class Main {
         timeTmp = elapsedTimeMillis / 1000.0;
         times.add(timeTmp);
         System.out.println("Time: "+timeTmp);
+        System.out.println("Result:"+result3.matrix[0][0]);
         results.add(result3.matrix[0][0]);
-*/
+
         //------------------------------------------------------Jacobie New
         System.out.println("Counting JacobNew...");
         JacobNew matrix4 = new JacobNew(size);
@@ -133,7 +134,7 @@ public class Main {
         System.out.println("Time: "+timeTmp);
         System.out.println("Result:"+result4.matrix[0][0]);
         results.add(result4.matrix[0][0]);
-/*
+
         //------------------------------------------------------Seidel
         System.out.println("Counting GaussSeidl...");
         GaussSeidl matrix5 = new GaussSeidl(size);
@@ -144,8 +145,9 @@ public class Main {
         timeTmp = elapsedTimeMillis / 1000.0;
         times.add(timeTmp);
         System.out.println("Time: "+timeTmp);
+        System.out.println("Result:"+result5.matrix[0][0]);
         results.add(result5.matrix[0][0]);
-*/
+
         //------------------------------------------------------Seidel New
         System.out.println("Counting GaussSeidlNew...");
         GaussSeidlNew matrix6 = new GaussSeidlNew(size);
