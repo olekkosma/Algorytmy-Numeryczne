@@ -18,6 +18,10 @@ public class JacobNew extends Matrix {
         double norm2 = b.countNorm();
         double sum = 0.0;
         int iterations = 0;
+        int z=0;
+        boolean stillCount = true;
+        double tmp = 0, tmp2 = 0;
+        int counter = 0, iterator = 0;
         while (iterations!=Main.iterations) {
             for (int i = 0; i < this.rows; i++) {
                 for (int j = 0; j < this.rows; j++) {
@@ -35,13 +39,23 @@ public class JacobNew extends Matrix {
                 sum = 0.0;
 
             }
-            double norm1 = substract(b,multiply(this, X1)).countNorm();
-            if (norm1 / norm2 < Main.epsylonNew) {
-                break;
+            if (z != 0) {
+                for (int g = 0; g < X1.matrix.length; g++) {
+                    tmp2 += Math.abs(X1.matrix[g][0]);
+                }
+                tmp2 = tmp2 / X1.matrix.length;
+                if (Math.abs(tmp - tmp2) > Main.epsylon) {
+                    iterator = 0;
+                } else {
+                    if (iterator == 4) {
+                        stillCount = false;
+                    }
+                    iterator++;
+                }
+                tmp = tmp2;
+                counter++;
             }
-            for(int i=0;i<this.rows;i++){
-                X2.matrix[i][0]=X1.matrix[i][0];
-            }
+            z = 1;
             iterations++;
         }
         System.out.println("needed iterations: "+iterations);

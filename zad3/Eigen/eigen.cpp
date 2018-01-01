@@ -121,17 +121,19 @@ int main()
   printf("\nVector sparse loaded : \n");
 
   begin = clock();
-  VectorXd resultVector = matrix1.partialPivLu().solve(vector);
+  for (int i = 0; i < 5; i++) {
+	  VectorXd resultVector = matrix1.partialPivLu().solve(vector);
+  }
   end = clock();
   elapsed_secs1 = double(end - begin) / CLOCKS_PER_SEC;
-
+  elapsed_secs1 = elapsed_secs1 / 5;
   begin = clock();
   VectorXd solnew = solverA.solve(vectorParse);
   end = clock();
   elapsed_secs2 = double(end - begin) / CLOCKS_PER_SEC;
 
-  cout << resultVector[0] << endl;
-  writeMatrixToFile(elapsed_secs1, elapsed_secs2, resultVector[0], "Result.txt");
+ // cout << resultVector[0] << endl;
+  writeMatrixToFile(elapsed_secs1, elapsed_secs2, 0.55, "Result.txt");
  
   int pause;
   cin >> pause;

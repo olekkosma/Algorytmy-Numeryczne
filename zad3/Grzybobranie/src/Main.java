@@ -86,7 +86,7 @@ public class Main {
         ArrayList<Double> results = new ArrayList<>();
         int size = allStates.size();
         //------------------------------------------------------GAUSS
-       /* System.out.println("Counting Gauss...");
+        System.out.println("Counting Gauss...");
         Gauss matrix = new Gauss(size);
         Matrix vector = countMatrix(matrix, allStates, data);
         start = System.currentTimeMillis();
@@ -96,7 +96,7 @@ public class Main {
         times.add(timeTmp);
         System.out.println("Time: "+timeTmp);
         results.add(result.matrix[0][0]);
-
+/*
         //------------------------------------------------------GAUSS SPARSE
         System.out.println("Counting GaussParse...");
         GaussParse matrix2 = new GaussParse(size);
@@ -110,7 +110,7 @@ public class Main {
         results.add(result2.matrix[0][0]);
 */
         //------------------------------------------------------Jacobie
-        System.out.println("Counting Jacob...");
+       /* System.out.println("Counting Jacob...");
         Jacob matrix3 = new Jacob(size);
         Matrix vector3 = countMatrix(matrix3, allStates, data);
         start = System.currentTimeMillis();
@@ -134,7 +134,7 @@ public class Main {
         System.out.println("Time: "+timeTmp);
         System.out.println("Result:"+result4.matrix[0][0]);
         results.add(result4.matrix[0][0]);
-
+*/
         //------------------------------------------------------Seidel
         System.out.println("Counting GaussSeidl...");
         GaussSeidl matrix5 = new GaussSeidl(size);
