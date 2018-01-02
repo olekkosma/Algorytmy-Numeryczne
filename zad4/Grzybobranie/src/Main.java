@@ -139,5 +139,23 @@ public class Main {
         System.out.println("Time: " + timeTmp);
 
         Writer.writeToFileResults(times, "Result");
+
+        int size22 =1632;
+        double sum=0.0;
+        start = System.currentTimeMillis();
+
+        for (int k = 0; k < 200; k++) {
+            for (int i = 0; i < size22; i++) {
+                for (int j = 0; j < i; j++) {
+                    sum += 1;
+                }
+                for (int j = i + 1; j < size22; j++) {
+                    sum += 1;
+                }
+            }
+        }
+        elapsedTimeMillis = System.currentTimeMillis() - start;
+        timeTmp = elapsedTimeMillis / 1000.0;
+        System.out.println("Czas : "+timeTmp);
     }
 }

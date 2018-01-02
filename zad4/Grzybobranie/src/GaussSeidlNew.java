@@ -57,7 +57,7 @@ boolean oko=true;
             z = 1;
             iterations++;
         }
-        System.out.println("needed iterations: "+counter);
+        System.out.println("needed iterations: "+iterations);
         return X;
     }
 }

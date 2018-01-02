@@ -97,7 +97,7 @@ int main()
   int iterations = 1;
   int precision = std::numeric_limits<double>::max_digits10;
   cout.precision(precision);
-
+  /*
   VectorXi vectorDens = loadMatrixColsDens("Densematrix.txt");
   SparseMatrix<double> matrixSparse = loadMatrixSparse("matrix.txt",vectorDens);
   SparseLU<Eigen::SparseMatrix<double> > solverA;
@@ -108,7 +108,7 @@ int main()
 
   VectorXd vectorParse = loadMatrix("vector.txt");
   printf("\nVector sparse loaded : \n");
-
+  */
 
   VectorXi vectorDens2 = loadMatrixColsDens("Densematrix.txt");
   SparseMatrix<double> matrixSparseSeidl = loadMatrixSparse("matrix.txt", vectorDens2);
@@ -118,33 +118,27 @@ int main()
   VectorXd vectorParseSeidl = loadMatrix("vector.txt");
   printf("\nVector sparse loaded : \n");
   VectorXd X(matrixSparseSeidl.rows(), 1);
-  begin = clock();
   int size = matrixSparseSeidl.rows();
+  sum = 0.0;
 
-	  for (int k = 0; k < 179; k++) {
+  begin = clock();
+
+	  for (int k = 0; k < 200; k++) {
 		  for (int i = 0; i < size; i++) {
 			  for (int j = 0; j < i; j++) {
-				  sum += 1;
+				  sum -= matrixSparseSeidl.coeff(i,j) * X(j);
 			  }
 			  for (int j = i + 1; j < size; j++) {
 				  sum += 1;
 			  }
-			 // if (matrixSparseSeidl.coeff(i, i) == 0.0) {
-				  //int row = findBiggestRowInColumn(this, i);
-				  //swapRows(this, i, row);
-				  //swapRows(b, i, row);
-			 // }
-			  //X(i) = (vectorParseSeidl(i) + sum) / matrixSparseSeidl.coeff(i, i);
 		  }
 	}
-	  cout << sum << endl;
   end = clock();
+  cout << sum << endl;
   elapsed_secs1 = double(end - begin) / CLOCKS_PER_SEC;
-
-  //elapsed_secs1 = elapsed_secs1 / iterations;
   cout<<"time= ";
   cout << elapsed_secs1 << endl;
-
+  /*
   begin = clock();
   for (int i = 0; i < iterations; i++) {
 	  VectorXd solnew = solverA.solve(vectorParse);
@@ -156,7 +150,7 @@ int main()
   cout << elapsed_secs2 << endl;
   
   writeMatrixToFile(elapsed_secs1, elapsed_secs2, "Result.txt");
- 
+ */
   int pause;
   cin >> pause;
   return 0;
