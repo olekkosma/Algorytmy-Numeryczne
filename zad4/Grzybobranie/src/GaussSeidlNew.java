@@ -19,15 +19,14 @@ public class GaussSeidlNew extends Matrix {
         double tmp = 0, tmp2 = 0;
         int counter = 0, iterator = 0;
 boolean oko=true;
+       // for(int w=0;w<47;w++){
         while (stillCount) {
             for (int i = 0; i < this.rows; i++) {
                 for (int j = 0; j < i; j++) {
                     sum -= this.matrix[i][j] * X.matrix[j][0];
-                    counter++;
                 }
                 for (int j = i + 1; j < this.rows; j++) {
                     sum -= this.matrix[i][j] * X.matrix[j][0];
-                    counter++;
 
                 }
                 if (this.matrix[i][i] == 0.0) {
@@ -52,7 +51,6 @@ boolean oko=true;
                     iterator++;
                 }
                 tmp = tmp2;
-                counter++;
             }
             z = 1;
             iterations++;

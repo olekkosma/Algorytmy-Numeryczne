@@ -36,23 +36,10 @@ public class GaussSeidlNew extends Matrix {
                 X.matrix[i][0] = (b.matrix[i][0] + sum) / this.matrix[i][i];
                 sum = 0.0;
             }
-            if (z != 0) {
-                for (int g = 0; g < X.matrix.length; g++) {
-                    tmp2 += Math.abs(X.matrix[g][0]);
-                }
-                tmp2 = tmp2 / X.matrix.length;
-                if (Math.abs(tmp - tmp2) > Main.epsylon) {
-                    iterator = 0;
-                } else {
-                    if (iterator == 4) {
-                        stillCount = false;
-                    }
-                    iterator++;
-                }
-                tmp = tmp2;
-                counter++;
+            double norm1 = substract(b, multiply(this, X)).countNorm();
+            if ((norm1 / norm2) < Main.epsylonNew) {
+                break;
             }
-            z = 1;
             iterations++;
 
         }

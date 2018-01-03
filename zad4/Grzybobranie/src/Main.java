@@ -8,9 +8,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Main {
-    public static int counter = 1;
     public static int iterations = 750;
-    public static double epsylon = 0.0000000001;
+    public static double epsylon = 0.00000000001;
 
     public static void printEquations(ArrayList<State> allStates) {
 
@@ -55,11 +54,6 @@ public class Main {
             }
 
         }
-        if (counter == 1) {
-            Writer.writeToFile(matrix1, "matrix");
-            Writer.writeToFile(vector1, "vector");
-        }
-        counter = 2;
         return vector1;
     }
 
@@ -96,7 +90,7 @@ public class Main {
         System.out.println("Counting Gauss...");
         start = System.currentTimeMillis();
         for (int i = 0; i < rep; i++) {
-            Gauss matrix = new Gauss(size);
+            Gauss  matrix= new Gauss(size);
             Matrix vector = countMatrix(matrix, allStates, data);
             Matrix result = matrix.countMatrix(vector);
         }
@@ -106,6 +100,11 @@ public class Main {
         timeTmp = elapsedTimeMillis / 1000.0;
         times.add(timeTmp);
         System.out.println("Time: " + timeTmp);
+        Gauss  matrixT= new Gauss(size);
+        Matrix vectorT = countMatrix(matrixT, allStates, data);
+        Matrix result = matrixT.countMatrix(vectorT);
+        Writer.writeToFileSparse(matrixT, "matrix");
+        Writer.writeToFile(vectorT, "vector");
 
         //------------------------------------------------------GAUSS SPARSE
         System.out.println("Counting GaussParse...");
@@ -114,6 +113,7 @@ public class Main {
             GaussParse matrix2 = new GaussParse(size);
             Matrix vector2 = countMatrix(matrix2, allStates, data);
             Matrix result2 = matrix2.countMatrix(vector2);
+            System.out.println(result2.matrix[0][0]);
         }
         elapsedTimeMillis = System.currentTimeMillis() - start;
         elapsedTimeMillis = elapsedTimeMillis / rep;
@@ -139,23 +139,5 @@ public class Main {
         System.out.println("Time: " + timeTmp);
 
         Writer.writeToFileResults(times, "Result");
-
-        int size22 =1632;
-        double sum=0.0;
-        start = System.currentTimeMillis();
-
-        for (int k = 0; k < 200; k++) {
-            for (int i = 0; i < size22; i++) {
-                for (int j = 0; j < i; j++) {
-                    sum += 1;
-                }
-                for (int j = i + 1; j < size22; j++) {
-                    sum += 1;
-                }
-            }
-        }
-        elapsedTimeMillis = System.currentTimeMillis() - start;
-        timeTmp = elapsedTimeMillis / 1000.0;
-        System.out.println("Czas : "+timeTmp);
     }
 }
