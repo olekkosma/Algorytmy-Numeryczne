@@ -191,24 +191,10 @@ int main() {
 				sum2 = 0.0;
 				iter++;
 			}
-			if (z != 0) {
-				for (int g = 0; g < X.rows(); g++) {
-					tmp2 += abs(X(g));
-				}
-				tmp2 = tmp2 / X.rows();
-				if (abs(tmp - tmp2) > epsylon) {
-					iterator = 0;
-				}
-				else {
-					if (iterator == 4) {
-						stillCount = false;
-					}
-					iterator++;
-				}
-				tmp = tmp2;
-				counter++;
+			double norm1 = countNorm((vectorParseSeidl - (matrixSparseSeidl* X)));
+			if ((norm1 / norm2) < epsylon) {
+				break;
 			}
-			z = 1;
 			iterations++;
 	}
 	end = clock();
