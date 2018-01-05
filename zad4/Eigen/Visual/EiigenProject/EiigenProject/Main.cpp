@@ -141,37 +141,27 @@ void swapRowsVector(VectorXd matrix, int row1, int row2) {
 		matrix(row2) = tmp;
 }
 int main() {
-	clock_t begin;
-	clock_t end;
-	double elapsed_secs1, elapsed_secs2;
-	double sum = 0;
-	double avgTime = 0;
-	//int iterations = 1;
-	int precision = std::numeric_limits<double>::max_digits10;
+	clock_t begin,end;
+	double elapsed_secs1, elapsed_secs2, sum2 = 0, tmp = 0, tmp2 = 0, epsylon = 0.000000000000001,avgTime = 0;
+	int precision = std::numeric_limits<double>::max_digits10,z=0,counter=0,iterator=0,iter=0,iterations=10;
+	bool stillCount = true;
 	cout.precision(precision);
-
+	printf("Gauss Seidel Sprase counting...\n");
 	VectorXi vectorDens2 = loadMatrixColsDens("Densematrix.txt");
 	SparseMatrix<double, RowMajor> matrixSparseSeidl = loadMatrixSparse("matrix.txt", vectorDens2);
-	matrixSparseSeidl.makeCompressed();
+	//matrixSparseSeidl.makeCompressed();
 	printf("Matrix sparse loaded : \n");
 	VectorXd vectorParseSeidl = loadMatrix("vector.txt");
 	printf("\nVector sparse loaded : \n");
-	VectorXd X(matrixSparseSeidl.rows(), 1);
-
-	int size = matrixSparseSeidl.rows();
-	sum = 0;
-	double sum2 = 0;
-	int iterations = 0;
-	int z = 0;
-	bool stillCount = true;
-	double tmp = 0, tmp2 = 0;
-	int counter = 0, iterator = 0;
-	double epsylon = 0.0000000001;
-	int iter = 0;
+	
+	bool tmp3 = true;
 	double norm2 = countNorm(vectorParseSeidl);
 	begin = clock();
-	while (stillCount) {
-		iter = 0;
+	for (int i = 0; i < iterations; i++) {
+		VectorXd X(matrixSparseSeidl.rows(), 1);
+		stillCount = true;
+		while (stillCount) {
+			iter = 0;
 			for (int k = 0; k < matrixSparseSeidl.outerSize(); ++k) {
 				for (SparseMatrix<double, RowMajor>::InnerIterator it(matrixSparseSeidl, k); it; ++it) {
 					if (it.col() != it.row()) {
@@ -179,13 +169,11 @@ int main() {
 					}
 					else {
 						if (it.value() == 0.0) {
-						
 							int row = findBiggestRowInColumn(matrixSparseSeidl, it.row());
 							swapRows(matrixSparseSeidl, it.row(), row);
 							swapRowsVector(vectorParseSeidl, it.row(), row);
 						}
 					}
-					
 				}
 				X(iter) = (vectorParseSeidl(iter) + sum2) / matrixSparseSeidl.coeff(iter, iter);
 				sum2 = 0.0;
@@ -195,80 +183,49 @@ int main() {
 			if ((norm1 / norm2) < epsylon) {
 				break;
 			}
-			iterations++;
+		}
+		if (tmp3) {
+			cout << X(0) << endl;
+		}
+		tmp3 = false;
 	}
 	end = clock();
 	elapsed_secs2 = double(end - begin) / CLOCKS_PER_SEC;
+	elapsed_secs2 = elapsed_secs2 / iterations;
 	cout << "time= ";
 	cout << elapsed_secs2 << endl;
 	cout << "Result= ";
-	cout << X(0) << endl;
-	cout << "iterations= ";
-	cout << iterations << endl;
+	//cout << X(0) << endl;
 	cout << "=================== " << endl;
 
-	z = 0,iterations = 0, tmp = 0, tmp2 = 0, counter = 0, iterator = 0, stillCount = true;
-	VectorXd X2(matrixSparseSeidl.rows(), 1);
+	printf("Gauss Sparse counting...\n");
+
+	VectorXi vector2 = loadMatrixColsDens("Densematrix.txt");
+	SparseMatrix<double> matrixSparse = loadMatrixSparse("matrix.txt", vector2);
+	SparseLU<Eigen::SparseMatrix<double> > solverA;
+	matrixSparse.makeCompressed();
+	solverA.analyzePattern(matrixSparse);
+	solverA.factorize(matrixSparse);
+	printf("Matrix sparse loaded : \n");
+
+	VectorXd vectorParse = loadMatrix("vector.txt");
+	printf("\nVector sparse loaded : \n");
+
 	begin = clock();
-
-	while (stillCount) {
-		for (int i = 0; i < matrixSparseSeidl.rows(); i++) {
-			/*for (int j = 0; j < matrixSparseSeidl.rows(); j++) {           //Alternative
-				if (i != j) {
-					sum -= matrixSparseSeidl.coeff(i, j) * X2(j);
-				}
-				else {
-					if (matrixSparseSeidl.coeff(i, i) == 0.0) {
-						int row = findBiggestRowInColumn(matrixSparseSeidl, i);
-						swapRows(matrixSparseSeidl, i, row);
-						swapRowsVector(vectorParseSeidl, i, row);
-					}
-				}
-			}*/
-			for (int j = 0; j < i; j++) {
-				sum -= matrixSparseSeidl.coeff(i, j) * X2(j);
-			}
-			for (int j = i + 1; j < size; j++) {
-				sum -= matrixSparseSeidl.coeff(i, j) * X2(j);
-			}
-			if (matrixSparseSeidl.coeff(i, i) == 0.0) {
-				int row = findBiggestRowInColumn(matrixSparseSeidl, i);
-				swapRows(matrixSparseSeidl, i, row);
-				swapRowsVector(vectorParseSeidl, i, row);
-			}
-			X2(i) = (vectorParseSeidl(i) + sum) / matrixSparseSeidl.coeff(i, i);
-			sum = 0.0;
-		}
-		if (z != 0) {
-			for (int g = 0; g < X2.rows(); g++) {
-				tmp2 += abs(X2(g));
-			}
-			tmp2 = tmp2 / X2.rows();
-			if (abs(tmp - tmp2) > epsylon) {
-				iterator = 0;
-			}
-			else {
-				if (iterator == 4) {
-					stillCount = false;
-				}
-				iterator++;
-			}
-			tmp = tmp2;
-			counter++;
-		}
-		z = 1;
-		iterations++;
+	for (int i = 0; i < iterations; i++) {
+		VectorXd solnew = solverA.solve(vectorParse);
 	}
-
 	end = clock();
 	elapsed_secs1 = double(end - begin) / CLOCKS_PER_SEC;
+	elapsed_secs1 = elapsed_secs1 / iterations;
+	VectorXd solnew2 = solverA.solve(vectorParse);
 	cout << "time= ";
 	cout << elapsed_secs1 << endl;
 	cout << "Result= ";
-	cout << X2(0) << endl;
-	cout << "iterations= ";
-	cout << iterations << endl;
-	
+	cout << solnew2(0) << endl;
+
+	writeMatrixToFile(elapsed_secs1, elapsed_secs2, "Result.txt");
+
 	cin.get();
 	return 0;
 }

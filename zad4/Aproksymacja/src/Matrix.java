@@ -30,7 +30,7 @@ public class Matrix {
         System.out.println("\n" + " matrix values:");
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                System.out.printf("%10.10s  ", matrix[i][j]);
+                System.out.printf("%10.16f  ", matrix[i][j]);
             }
             System.out.println("");
         }

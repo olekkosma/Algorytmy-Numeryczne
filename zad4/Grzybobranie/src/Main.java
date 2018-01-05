@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static int iterations = 750;
-    public static double epsylon = 0.00000000001;
+    public static double epsylon = 0.0000000000000001;
 
     public static void printEquations(ArrayList<State> allStates) {
 
@@ -67,7 +67,7 @@ public class Main {
         Data data = new Data("input");
         System.out.println("Done");
 
-        //----------------------generate equations to arrayList-----------------------
+        //----------------------generate equations to arrayList---------------------
 
         System.out.println("generate equations...");
         ArrayList<Double> times = new ArrayList<>();
@@ -109,11 +109,15 @@ public class Main {
         //------------------------------------------------------GAUSS SPARSE
         System.out.println("Counting GaussParse...");
         start = System.currentTimeMillis();
+        boolean tmp =true;
         for (int i = 0; i < rep; i++) {
             GaussParse matrix2 = new GaussParse(size);
             Matrix vector2 = countMatrix(matrix2, allStates, data);
             Matrix result2 = matrix2.countMatrix(vector2);
-            System.out.println(result2.matrix[0][0]);
+            if(tmp) {
+                 System.out.println(result2.matrix[0][0]);
+            }
+            tmp=false;
         }
         elapsedTimeMillis = System.currentTimeMillis() - start;
         elapsedTimeMillis = elapsedTimeMillis / rep;

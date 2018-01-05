@@ -45,7 +45,7 @@ boolean oko=true;
                 if (Math.abs(tmp - tmp2) > Main.epsylon) {
                     iterator = 0;
                 } else {
-                    if (iterator == 4) {
+                    if (iterator == 15) {
                         stillCount = false;
                     }
                     iterator++;
@@ -55,7 +55,7 @@ boolean oko=true;
             z = 1;
             iterations++;
         }
-        System.out.println("needed iterations: "+iterations);
+       // System.out.println("needed iterations: "+iterations);
         return X;
     }
 }
