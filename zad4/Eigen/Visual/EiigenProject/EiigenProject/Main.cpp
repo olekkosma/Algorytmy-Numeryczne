@@ -145,7 +145,7 @@ void swapRowsVector(VectorXd matrix, int row1, int row2) {
 int main() {
 	clock_t begin,end;
 	double elapsed_secs1, elapsed_secs2, sum2 = 0, tmp = 0, tmp2 = 0, epsylon = 0.0000000001,avgTime = 0;
-	int precision = std::numeric_limits<double>::max_digits10,z=0,counter=0,iterator=0,iter=0,iterations=1;
+	int precision = std::numeric_limits<double>::max_digits10,z=0,counter=0,iterator=0,iter=0,iterations=2;
 	bool stillCount = true;
 	cout.precision(precision);
 	printf("Gauss Seidel Sprase counting...\n");

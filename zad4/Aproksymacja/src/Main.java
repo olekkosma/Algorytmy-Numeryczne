@@ -26,7 +26,7 @@ public class Main {
         double[] values = loadData("values.txt",dataSize);
         double[] keys = loadData("keys.txt",dataSize);
 
-        int function = 1;
+        int function = 3;
         int unknowns = function + 1;
         int sUnknowns = function * 2 + 1;
         int tUnknowns = function + 1;

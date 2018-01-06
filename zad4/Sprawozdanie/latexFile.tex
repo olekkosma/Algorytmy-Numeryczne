@@ -64,9 +64,9 @@ Zgodnie z nałożonymi z góry stopniami wielomianów, stosując aproksymację �
  \rowcolor{Lightcc}
    Gauss-Seidel & $F(x)=1,9597-0,005339x+0,000002728x^2$\\\hline
     \rowcolor{Lightccc}
- Gauss Sprase Eigen &$F(x)=-0.000609+0.00000108x$\\\hline
+ Gauss Sprase Eigen &$F(x)=-0,00034709+0,00000071252x$\\\hline
  \rowcolor{Lightcccc}
-  Gauss-Seidel Eigen & $F(x)=-0,017882+0,0000207193x$\\\hline
+  Gauss-Seidel Eigen & $F(x)=-0,031699+0,000049174x$\\\hline
   \hline
 \end{tabular}
 .\\ \\
@@ -82,24 +82,36 @@ Wybrane 3 funkcje nałożone na swoje odpowiedniki wyników z metod. Oś pionowa
 Nałożenie na siebie funkcji obrazuje dobre odwzorowanie wyliczonych funkcji aproksymacyjnych. Można stwierdzić więc, że wartości wyliczone przez funkcje aproksymacyjne dobrze przybliżają nas do oczekiwanego czasu.
 
 \section*{Extrapolacja}
+Należy teraz zweryfikować wyliczone funkcje dla punktów mocno oddalonych od naszego znanego obszaru wartości. Wybrano rozmiar macierzy 100k+ jako odpowiedni.
 \begin{center}
 \begin{tabular}{ | c | c | c | c | c | }
   \hline
-  \multicolumn{5}{|c|}{\textbf{Oczekiwany czas dla rozmiaru macierzy 100 000}} \\
+  \multicolumn{5}{|c|}{\textbf{Oczekiwany czas dla rozmiaru macierzy 104 424}} \\
   \hline
   Gauss & Gauss z optymalizacją & Gauss-Seidel &Gauss Sprase Eigen &Gauss-Seidel Eigen \\\hline
-  76h & 40min & 7h &0.1sec &2sec \\\hline
+  87h & 42min & 8h &0.085sec &6sec \\\hline
+  
+  \hline
+   \hline
+\end{tabular}
+.\\. \\
+
+Wygenerowany układ możliwy był tylko do obliczenia dla Gaussa Sparse Eigen i Gauss-Seidel Eigen. Wynika to z natury trzymania macierzy w pamięci komputera. Rezultaty obliczeń:\\
+.\\
+\begin{tabular}{ | c | c | c | c | }
+\hline
+\hline
+  Metoda & Czas oczekiwany & Czas wyliczony & Przeszacowanie\\\hline
+   \rowcolor{Lightc}
+  Gauss Sparse Eigen & .085sec & 0.171sec & 201\% \\\hline
+   \rowcolor{Lightccc}
+  Gauss-Seidel Eigen & 6sec & 96sec & 1600\% \\\hline
   
   \hline
 \end{tabular}
-
 \end{center}
-
-
-
-
-
-
+Można wywnioskować, że funkcja opisująca Gauss Sparse Eigen bardzo dobrze oszacowala nam oczekiwany czas. Funkcja Gaussa-Seidela Eigen już tak dobrze tego nie wyliczyła. Przeszacowanie jest zdecydowanie większe. Błąd może leżeć w za małej ilości próbek, albo złego doboru wielomianu do opisanej metody.\\
+.\\
 
 \renewcommand{\arraystretch}{1}
 \begin{tabular}{ | p{8.2cm} | p{8.2cm} | }
@@ -108,11 +120,9 @@ Nałożenie na siebie funkcji obrazuje dobre odwzorowanie wyliczonych funkcji ap
   \hline
   \multicolumn{1}{|c|}{\textbf{Aleksander Kosma} }& \multicolumn{1}{|c|}{\textbf{Tomasz Adamczyk}} \\
   \hline
-  -Implementacja Monte Carlo & -Implementacja metod iteracyjnych \\\hline
-   -Iteracyjne generowanie układu równań & -Ustalenie i implementacja warunków wygranej \\\hline
-    -Szukanie gry bliskiej 50\% & -Wprowadzanie układu równań do macierzy \\\hline
-  -Optymalizacja metod iteracyjnych i Gaussa & -Generowanie wyniku poprzez bibliotekę Eigen\\\hline
-  -Testy i generowanie wyników & -Napisanie skryptów do generowania wyników \\\hline
+  -Implementacja Sparse Seidel Eigen & -Implementacja aproksymacji \\\hline
+   -Drukowanie macierzy rzadkich do pliku & -Obliczenie funkcji aproksymacyjnych \\\hline
+  -Testy i generowanie wyników & Testy i generowanie wyników \\\hline
   -Obróbka wyników, wykresy i opracowanie & - \\\hline
   
   \hline

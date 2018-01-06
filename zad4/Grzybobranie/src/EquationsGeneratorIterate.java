@@ -41,8 +41,9 @@ public class EquationsGeneratorIterate {
         int higherBound;
         while (isStillUncountedEquation()) {
             higherBound = allStates.size();
-
+            System.out.println("higher: "+ higherBound);
             for (int i = lowerBound; i < higherBound; i++) {
+
                 State tmpState = allStates.get(i);
 
                 if (tmpState.getMushOne() <= (tmpState.getMushroomsCount() + tmpState.getMushTwo()) && tmpState.getMushTwo() <= (tmpState.getMushroomsCount() + tmpState.getMushOne())) {
