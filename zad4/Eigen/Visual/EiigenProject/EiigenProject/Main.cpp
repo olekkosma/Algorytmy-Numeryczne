@@ -12,6 +12,7 @@
 using namespace std;
 using namespace Eigen;
 
+int densSize;
 MatrixXd loadMatrix(string fileName) {
 	fstream myfile("../../../../output/" + fileName, ios_base::in);
 	int rows;
@@ -30,15 +31,15 @@ MatrixXd loadMatrix(string fileName) {
 SparseMatrix<double> loadMatrixSparse(string fileName, VectorXi vector) {
 	fstream myfile("../../../../output/" + fileName, ios_base::in);
 	int rows;
-	int values;
+	//int values;
 	int columns;
-	myfile >> values;
+	//myfile >> values;
 	myfile >> rows;
-	myfile >> columns;
+	//myfile >> columns;
 	double tmp, x, y;
-	SparseMatrix<double> matrix(rows, columns);
+	SparseMatrix<double> matrix(rows, rows);
 	matrix.reserve(vector);
-	for (int i = 0; i < values; i++) {
+	for (int i = 0; i < densSize; i++) {
 		myfile >> x;
 		myfile >> y;
 		myfile >> tmp;
@@ -51,6 +52,7 @@ VectorXi loadMatrixColsDens(string fileName) {
 	fstream myfile("../../../../output/" + fileName, ios_base::in);
 	int rows=0;
 	int columns;
+	myfile>>densSize;
 	myfile >> columns;
 	VectorXi matrix(columns);
 	for (int j = 0; j < columns; j++) {
@@ -142,16 +144,16 @@ void swapRowsVector(VectorXd matrix, int row1, int row2) {
 }
 int main() {
 	clock_t begin,end;
-	double elapsed_secs1, elapsed_secs2, sum2 = 0, tmp = 0, tmp2 = 0, epsylon = 0.000000000000001,avgTime = 0;
-	int precision = std::numeric_limits<double>::max_digits10,z=0,counter=0,iterator=0,iter=0,iterations=10;
+	double elapsed_secs1, elapsed_secs2, sum2 = 0, tmp = 0, tmp2 = 0, epsylon = 0.0000000001,avgTime = 0;
+	int precision = std::numeric_limits<double>::max_digits10,z=0,counter=0,iterator=0,iter=0,iterations=1;
 	bool stillCount = true;
 	cout.precision(precision);
 	printf("Gauss Seidel Sprase counting...\n");
-	VectorXi vectorDens2 = loadMatrixColsDens("Densematrix.txt");
-	SparseMatrix<double, RowMajor> matrixSparseSeidl = loadMatrixSparse("matrix.txt", vectorDens2);
-	//matrixSparseSeidl.makeCompressed();
+	VectorXi vectorDens2 = loadMatrixColsDens("sparseDensematrix.txt");
+	SparseMatrix<double, RowMajor> matrixSparseSeidl = loadMatrixSparse("sparseMatrix.txt", vectorDens2);
+	matrixSparseSeidl.makeCompressed();
 	printf("Matrix sparse loaded : \n");
-	VectorXd vectorParseSeidl = loadMatrix("vector.txt");
+	VectorXd vectorParseSeidl = loadMatrix("SparseVector.txt");
 	printf("\nVector sparse loaded : \n");
 	
 	bool tmp3 = true;
@@ -200,15 +202,15 @@ int main() {
 
 	printf("Gauss Sparse counting...\n");
 
-	VectorXi vector2 = loadMatrixColsDens("Densematrix.txt");
-	SparseMatrix<double> matrixSparse = loadMatrixSparse("matrix.txt", vector2);
+	VectorXi vector2 = loadMatrixColsDens("sparseDensematrix.txt");
+	SparseMatrix<double> matrixSparse = loadMatrixSparse("sparseMatrix.txt", vector2);
 	SparseLU<Eigen::SparseMatrix<double> > solverA;
 	matrixSparse.makeCompressed();
 	solverA.analyzePattern(matrixSparse);
 	solverA.factorize(matrixSparse);
 	printf("Matrix sparse loaded : \n");
 
-	VectorXd vectorParse = loadMatrix("vector.txt");
+	VectorXd vectorParse = loadMatrix("SparseVector.txt");
 	printf("\nVector sparse loaded : \n");
 
 	begin = clock();
@@ -225,7 +227,7 @@ int main() {
 	cout << solnew2(0) << endl;
 
 	writeMatrixToFile(elapsed_secs1, elapsed_secs2, "Result.txt");
-
+	
 	cin.get();
 	return 0;
 }
