@@ -16,6 +16,13 @@
 \usepackage{pgfplots}
 \usepackage{graphicx}
 \usepackage{color,colortbl}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
 
 \definecolor{LightCyan}{rgb}{0.97,1,1}
 \definecolor{Lightc}{rgb}{1,0.97,1}
@@ -25,7 +32,7 @@
 
 \title{Algorytmy numeryczne}
 \author{Zadanie 4 \\ Tomasz Adamczyk | Aleksander Kosma\\243217 | 238193\\grupa 1 tester-programista}
-\date{6 Styczeń 2018}
+\date{7 Styczeń 2018}
 
 \begin{document}
 \maketitle 
@@ -76,7 +83,7 @@ Wybrane 3 funkcje nałożone na swoje odpowiedniki wyników z metod. Oś pionowa
 
 
 \begin{center}
- \makebox[\textwidth]{\includegraphics[width=21cm,height=7.5cm]{funkcje.png}}
+ \makebox[\textwidth]{\includegraphics[width=21cm,height=7.1cm]{funkcje.png}}
 \end{center}
 
 Nałożenie na siebie funkcji obrazuje dobre odwzorowanie wyliczonych funkcji aproksymacyjnych. Można stwierdzić więc, że wartości wyliczone przez funkcje aproksymacyjne dobrze przybliżają nas do oczekiwanego czasu.
@@ -122,10 +129,14 @@ Można wywnioskować, że funkcja opisująca Gauss Sparse Eigen bardzo dobrze os
   \hline
   -Implementacja Sparse Seidel Eigen & -Implementacja aproksymacji \\\hline
    -Drukowanie macierzy rzadkich do pliku & -Obliczenie funkcji aproksymacyjnych \\\hline
-  -Testy i generowanie wyników & Testy i generowanie wyników \\\hline
+  -Testy i generowanie wyników & -Testy i generowanie wyników \\\hline
   -Obróbka wyników, wykresy i opracowanie & - \\\hline
   
   \hline
 \end{tabular}
+\subsection*{Źródła}
+Norma: \url{http://web.cecs.pdx.edu/~gerry/class/ME448/notes_2012/pdf/stoppingCriteria.pdf}\\
+Aproksymacja: \url{https://eti.pg.edu.pl/documents/176593/26763380/Wykl_AlgorOblicz_3.pdf}\\
+Iterowanie macierzy rzadkiej:\\ \url{https://stackoverflow.com/questions/22421244/eigen-package-iterate-over-row-major-sparse-matrix}
 
 \end{document}
