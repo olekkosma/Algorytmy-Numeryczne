@@ -1,6 +1,6 @@
 //Aleksander Kosma / Tomasz Adamczyk
 //Nr. indexu: 238193 / 243217
-//13.12.2017
+//07.01.2018
 //Algorytmy Numeryczne
 //--------------------
 
@@ -36,14 +36,6 @@ public class Matrix {
         }
     }
 
-    public void loadValues(String suffix) throws IOException {
-        FileInputStream fstream = new FileInputStream("..\\..\\zad3\\Grzybobranie\\Files\\values" + suffix + ".txt");
-        BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
-        loadData(br);
-        br.close();
-        fstream.close();
-    }
-
     public void fillWithZero() {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
@@ -53,61 +45,15 @@ public class Matrix {
         }
     }
 
-    public void fillDiagonalOne() {
-        for (int i = 0; i < rows; i++) {
-            matrix[i][i] = 1.0;
-        }
-    }
-
-    public double findFirstNegative() {
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                if (matrix[i][j] < 0.0) {
-                    return matrix[i][j];
-                }
-            }
-
-        }
-        return 0.0;
-    }
-
-    public double countSum() {
-        double sum = -2.0;
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-
-                sum += matrix[i][j];
-
-            }
-
-        }
-        return sum;
-    }
-
     public double countNorm() {
         double normValue = 0.0;
         for (int i = 0; i < this.rows; i++) {
-    normValue += this.matrix[i][0]* this.matrix[i][0];
+            normValue += this.matrix[i][0] * this.matrix[i][0];
         }
         normValue = Math.sqrt(normValue);
-        return  normValue;
+        return normValue;
     }
 
-    public static Matrix add(Matrix firstMatrix, Matrix secondMatrix) {
-
-        Matrix resultMatrix = new Matrix(firstMatrix.rows, secondMatrix.columns);
-
-
-        for (int i = 0; i < firstMatrix.rows; i++) {
-            for (int j = 0; j < firstMatrix.columns; j++) {
-
-                double sum = firstMatrix.matrix[i][j] + secondMatrix.matrix[i][j];
-                resultMatrix.matrix[i][j] = sum;
-
-            }
-        }
-        return resultMatrix;
-    }
     public static Matrix substract(Matrix firstMatrix, Matrix secondMatrix) {
 
         Matrix resultMatrix = new Matrix(firstMatrix.rows, secondMatrix.columns);
@@ -129,10 +75,10 @@ public class Matrix {
 
         for (int i = 0; i < firstMatrix.rows; i++) {
             for (int j = 0; j < secondMatrix.columns; j++) {
-                resultMatrix.matrix[i][j]=0.0;
+                resultMatrix.matrix[i][j] = 0.0;
                 for (int k = 0; k < secondMatrix.rows; k++) {
 
-                    resultMatrix.matrix[i][j]+=firstMatrix.matrix[i][k] * secondMatrix.matrix[k][j];
+                    resultMatrix.matrix[i][j] += firstMatrix.matrix[i][k] * secondMatrix.matrix[k][j];
                 }
             }
         }
@@ -163,20 +109,6 @@ public class Matrix {
 
     public Matrix countMatrix(Matrix b) {
         return null;
-    }
 
-    private void loadData(BufferedReader br) throws IOException {
-        String strLine;
-        rows = Integer.valueOf(br.readLine());
-        columns = Integer.parseInt(br.readLine());
-
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-
-                strLine = br.readLine();
-                matrix[i][j] = Double.valueOf(strLine);
-
-            }
-        }
     }
 }

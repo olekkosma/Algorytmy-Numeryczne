@@ -1,6 +1,6 @@
 //Aleksander Kosma / Tomasz Adamczyk
 //Nr. indexu: 238193 / 243217
-//17.12.2017
+//07.01.2018
 //Algorytmy Numeryczne
 //--------------------
 public class GaussSeidlNew extends Matrix {
@@ -13,13 +13,9 @@ public class GaussSeidlNew extends Matrix {
     public Matrix countMatrix(Matrix b) {
         Matrix X = new Matrix(this.rows, 1);
         double sum = 0.0;
-        int iterations = 0;
-        int z=0;
         boolean stillCount = true;
-        double tmp = 0, tmp2 = 0;
-        int counter = 0, iterator = 0;
-boolean oko=true;
-       // for(int w=0;w<47;w++){
+        double norm2 = b.countNorm();
+
         while (stillCount) {
             for (int i = 0; i < this.rows; i++) {
                 for (int j = 0; j < i; j++) {
@@ -37,25 +33,11 @@ boolean oko=true;
                 X.matrix[i][0] = (b.matrix[i][0] + sum) / this.matrix[i][i];
                 sum = 0.0;
             }
-            if (z != 0) {
-                for (int g = 0; g < X.matrix.length; g++) {
-                    tmp2 += Math.abs(X.matrix[g][0]);
-                }
-                tmp2 = tmp2 / X.matrix.length;
-                if (Math.abs(tmp - tmp2) > Main.epsylon) {
-                    iterator = 0;
-                } else {
-                    if (iterator == 15) {
-                        stillCount = false;
-                    }
-                    iterator++;
-                }
-                tmp = tmp2;
+            double norm1 = substract(b, multiply(this, X)).countNorm();
+            if ((norm1 / norm2) < Main.epsylon) {
+                break;
             }
-            z = 1;
-            iterations++;
         }
-       // System.out.println("needed iterations: "+iterations);
         return X;
     }
 }

@@ -1,6 +1,6 @@
 //Aleksander Kosma / Tomasz Adamczyk
 //Nr. indexu: 238193 / 243217
-//13.12.2017
+//07.01.2018
 //Algorytmy Numeryczne
 //--------------------
 
@@ -41,7 +41,6 @@ public class EquationsGeneratorIterate {
         int higherBound;
         while (isStillUncountedEquation()) {
             higherBound = allStates.size();
-            System.out.println("higher: "+ higherBound);
             for (int i = lowerBound; i < higherBound; i++) {
 
                 State tmpState = allStates.get(i);

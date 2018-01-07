@@ -1,3 +1,9 @@
+//Aleksander Kosma / Tomasz Adamczyk
+//Nr. indexu: 238193 / 243217
+//07.01.2018
+//Algorytmy Numeryczne
+//--------------------
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;

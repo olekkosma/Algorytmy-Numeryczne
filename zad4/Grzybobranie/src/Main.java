@@ -1,6 +1,6 @@
 //Aleksander Kosma / Tomasz Adamczyk
 //Nr. indexu: 238193 / 243217
-//17.12.2017
+//07.01.2018
 //Algorytmy Numeryczne
 //--------------------
 
@@ -11,15 +11,8 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 public class Main {
-    public static int iterations = 750;
+
     public static double epsylon = 0.0000000001;
-
-    public static void printEquations(ArrayList<State> allStates) {
-
-        for (int i = 0; i < allStates.size(); i++) {
-            System.out.println(allStates.get(i).printEquation());
-        }
-    }
 
     public static int countStates(ArrayList<State> equations, State state, Data data) {
         int counter = 0;
@@ -65,19 +58,18 @@ public class Main {
         int dense = 0;
         int[] colsDens = new int[size];
         Matrix vector1 = new Matrix(size, 1);
-        FileOutputStream fstream = new FileOutputStream("..\\output\\" +"sparseMatrix.txt");
+        FileOutputStream fstream = new FileOutputStream("..\\output\\" + "sparseMatrix.txt");
         BufferedWriter br = new BufferedWriter(new OutputStreamWriter(fstream, "utf-8"));
-
-        FileOutputStream fstream2 = new FileOutputStream("..\\output\\" +"sparseVector.txt");
+        FileOutputStream fstream2 = new FileOutputStream("..\\output\\" + "sparseVector.txt");
         BufferedWriter br2 = new BufferedWriter(new OutputStreamWriter(fstream2, "utf-8"));
 
         for (State state : allStates) {
-            dense+=state.equation.size();
+            dense += state.equation.size();
         }
-        double x,y,value;
+        double x, y, value;
         int xx;
         int yy;
-        String tmpString="";
+        String tmpString = "";
 
         br.write(String.valueOf(size));
         br.newLine();
@@ -86,9 +78,9 @@ public class Main {
                 for (State stateTmp : state.getEquation()) {
                     colsDens[stateTmp.index]++;
                     xx = state.getIndex();
-                    yy=stateTmp.getIndex();
-                    value=countStates(state.getEquation(), stateTmp, data) / (double) data.sumOfProbabilty;
-                    tmpString=String.valueOf(xx)+" "+ String.valueOf(yy)+ " " + String.valueOf(value);
+                    yy = stateTmp.getIndex();
+                    value = countStates(state.getEquation(), stateTmp, data) / (double) data.sumOfProbabilty;
+                    tmpString = String.valueOf(xx) + " " + String.valueOf(yy) + " " + String.valueOf(value);
                     br.write(tmpString);
                     br.newLine();
 
@@ -106,17 +98,17 @@ public class Main {
             dense++;
             if (state.getStatus() == 0) {
                 xx = state.getIndex();
-                yy=state.getIndex();
-                value=-1.0;
-                tmpString=String.valueOf(xx)+" "+ String.valueOf(yy)+ " " + String.valueOf(value);
+                yy = state.getIndex();
+                value = -1.0;
+                tmpString = String.valueOf(xx) + " " + String.valueOf(yy) + " " + String.valueOf(value);
                 br.write(tmpString);
                 br.newLine();
             } else if (state.getStatus() == 1) {
                 xx = state.getIndex();
-                yy=state.getIndex();
-                value=1.0;
-                tmpString=String.valueOf(xx)+" "+ String.valueOf(yy)+ " " + String.valueOf(value);
-               br.write(tmpString);
+                yy = state.getIndex();
+                value = 1.0;
+                tmpString = String.valueOf(xx) + " " + String.valueOf(yy) + " " + String.valueOf(value);
+                br.write(tmpString);
                 br.newLine();
 
             }
@@ -124,19 +116,14 @@ public class Main {
         }
         br2.close();
         fstream2.close();
-
         br.close();
         fstream.close();
-
-        FileOutputStream fstream3 = new FileOutputStream("..\\output\\" +"sparseDenseMatrix.txt");
+        FileOutputStream fstream3 = new FileOutputStream("..\\output\\" + "sparseDenseMatrix.txt");
         BufferedWriter br3 = new BufferedWriter(new OutputStreamWriter(fstream3, "utf-8"));
-
 
         int sum = 0;
         for (int i = 0; i < size; i++) {
-            sum+=colsDens[i];
-
-
+            sum += colsDens[i];
         }
         br3.write(String.valueOf(sum));
         br3.newLine();
@@ -149,7 +136,6 @@ public class Main {
         }
         br3.close();
         fstream3.close();
-
     }
 
     public static void main(String[] args) throws IOException {
@@ -168,8 +154,8 @@ public class Main {
         ArrayList<Double> times = new ArrayList<>();
         ArrayList<State> allStates = new ArrayList<>();
         start = System.currentTimeMillis();
-            EquationsGeneratorIterate eGenerator = new EquationsGeneratorIterate(allStates);
-            eGenerator.generateMatrix(data);
+        EquationsGeneratorIterate eGenerator = new EquationsGeneratorIterate(allStates);
+        eGenerator.generateMatrix(data);
         elapsedTimeMillis = System.currentTimeMillis() - start;
 
         timeTmp = elapsedTimeMillis / 1000.0;
@@ -179,13 +165,17 @@ public class Main {
         System.out.println("size:" + size);
         System.out.println("Time: " + timeTmp);
         System.out.println("Done");
-/*
+        //----------------------Saveing data as Sparse Matrix---------------------
+        System.out.println("sprase data saving...");
+        countMatrixSparse(allStates, data);
+        System.out.println("sprase saved!");
+
         //----------------------Counting player one percentage win--------------------
         //------------------------------------------------------GAUSS
         System.out.println("Counting Gauss...");
         start = System.currentTimeMillis();
         for (int i = 0; i < rep; i++) {
-            Gauss  matrix= new Gauss(size);
+            Gauss matrix = new Gauss(size);
             Matrix vector = countMatrix(matrix, allStates, data);
             Matrix result = matrix.countMatrix(vector);
         }
@@ -195,33 +185,15 @@ public class Main {
         timeTmp = elapsedTimeMillis / 1000.0;
         times.add(timeTmp);
         System.out.println("Time: " + timeTmp);
-        Gauss  matrixT= new Gauss(size);
-        Matrix vectorT = countMatrix(matrixT, allStates, data);
-*/
 
-
-        //Writer.writeToFileSparse(matrixT, "matrix");
-       // Writer.writeToFile(vectorT, "vector");
-        //Matrix result = matrixT.countMatrix(vectorT);
-        //matrixT.printMatrix();
-
-        System.out.println("sprase data saving...");
-        countMatrixSparse(allStates,data);
-        System.out.println("sprase saved!");
-
-/*
         //------------------------------------------------------GAUSS SPARSE
         System.out.println("Counting GaussParse...");
         start = System.currentTimeMillis();
-        boolean tmp =true;
         for (int i = 0; i < rep; i++) {
             GaussParse matrix2 = new GaussParse(size);
             Matrix vector2 = countMatrix(matrix2, allStates, data);
             Matrix result2 = matrix2.countMatrix(vector2);
-            if(tmp) {
-                 System.out.println(result2.matrix[0][0]);
-            }
-            tmp=false;
+            System.out.println(result2.matrix[0][0]);
         }
         elapsedTimeMillis = System.currentTimeMillis() - start;
         elapsedTimeMillis = elapsedTimeMillis / rep;
@@ -233,7 +205,6 @@ public class Main {
         System.out.println("Counting GaussSeidlNew...");
 
         start = System.currentTimeMillis();
-
         for (int i = 0; i < rep; i++) {
             GaussSeidlNew matrix6 = new GaussSeidlNew(size);
             Matrix vector6 = countMatrix(matrix6, allStates, data);
@@ -245,7 +216,6 @@ public class Main {
         timeTmp = elapsedTimeMillis / 1000.0;
         times.add(timeTmp);
         System.out.println("Time: " + timeTmp);
-*/
         Writer.writeToFileResults(times, "Result");
     }
 }

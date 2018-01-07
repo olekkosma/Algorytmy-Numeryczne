@@ -31,11 +31,8 @@ MatrixXd loadMatrix(string fileName) {
 SparseMatrix<double> loadMatrixSparse(string fileName, VectorXi vector) {
 	fstream myfile("../../../../output/" + fileName, ios_base::in);
 	int rows;
-	//int values;
 	int columns;
-	//myfile >> values;
 	myfile >> rows;
-	//myfile >> columns;
 	double tmp, x, y;
 	SparseMatrix<double> matrix(rows, rows);
 	matrix.reserve(vector);
@@ -84,7 +81,6 @@ void writeMatrixToFile(double time1, double time2, string fileName) {
 
 }
 
-
 int findBiggestRowInColumn(SparseMatrix<double> matrix, int column) {
 	double max = 0.0;
 	int row = 0;
@@ -99,19 +95,6 @@ int findBiggestRowInColumn(SparseMatrix<double> matrix, int column) {
 	return row;
 }
 
-int findBiggestRowInColumn2(MatrixXd matrix, int column) {
-	double max = 0.0;
-	int row = 0;
-
-	for (int i = 0; i < matrix.rows(); i++) {
-		if (max < matrix(i, column)) {
-			max = matrix(i, column);
-			row = i;
-		}
-
-	}
-	return row;
-}
 
 void swapRows(SparseMatrix<double> matrix, int row1, int row2) {
 	for (int i = 0; i < matrix.cols(); i++) {
@@ -121,13 +104,6 @@ void swapRows(SparseMatrix<double> matrix, int row1, int row2) {
 	}
 }
 
-void swapRows2(MatrixXd matrix, int row1, int row2) {
-	for (int i = 0; i < matrix.cols(); i++) {
-		double tmp = matrix(row1, i);
-		matrix(row1, i) = matrix(row2, i);
-		matrix(row2, i) = tmp;
-	}
-}
 double countNorm(VectorXd matrix) {
 	double normValue = 0.0;
 	for (int i = 0; i < matrix.rows(); i++) {
@@ -145,7 +121,7 @@ void swapRowsVector(VectorXd matrix, int row1, int row2) {
 int main() {
 	clock_t begin,end;
 	double elapsed_secs1, elapsed_secs2, sum2 = 0, tmp = 0, tmp2 = 0, epsylon = 0.0000000001,avgTime = 0;
-	int precision = std::numeric_limits<double>::max_digits10,z=0,counter=0,iterator=0,iter=0,iterations=2;
+	int precision = std::numeric_limits<double>::max_digits10,z=0,counter=0,iterator=0,iter=0,iterations=5;
 	bool stillCount = true;
 	cout.precision(precision);
 	printf("Gauss Seidel Sprase counting...\n");
@@ -158,6 +134,7 @@ int main() {
 	
 	bool tmp3 = true;
 	double norm2 = countNorm(vectorParseSeidl);
+
 	begin = clock();
 	for (int i = 0; i < iterations; i++) {
 		VectorXd X(matrixSparseSeidl.rows(), 1);
@@ -171,13 +148,13 @@ int main() {
 					}
 					else {
 						if (it.value() == 0.0) {
-							int row = findBiggestRowInColumn(matrixSparseSeidl, it.row());
-							swapRows(matrixSparseSeidl, it.row(), row);
-							swapRowsVector(vectorParseSeidl, it.row(), row);
+							//int row = findBiggestRowInColumn(matrixSparseSeidl, it.row());
+							//swapRows(matrixSparseSeidl, it.row(), row);
+							//swapRowsVector(vectorParseSeidl, it.row(), row);
 						}
 					}
 				}
-				X(iter) = (vectorParseSeidl(iter) + sum2) / matrixSparseSeidl.coeff(iter, iter);
+				X(k) = (vectorParseSeidl(k) + sum2) / matrixSparseSeidl.coeff(k, k);
 				sum2 = 0.0;
 				iter++;
 			}
@@ -192,16 +169,15 @@ int main() {
 		tmp3 = false;
 	}
 	end = clock();
+
 	elapsed_secs2 = double(end - begin) / CLOCKS_PER_SEC;
 	elapsed_secs2 = elapsed_secs2 / iterations;
 	cout << "time= ";
 	cout << elapsed_secs2 << endl;
 	cout << "Result= ";
-	//cout << X(0) << endl;
 	cout << "=================== " << endl;
-
+	//-----------------------------------  Gauss Sparse-----------------
 	printf("Gauss Sparse counting...\n");
-
 	VectorXi vector2 = loadMatrixColsDens("sparseDensematrix.txt");
 	SparseMatrix<double> matrixSparse = loadMatrixSparse("sparseMatrix.txt", vector2);
 	SparseLU<Eigen::SparseMatrix<double> > solverA;
@@ -209,7 +185,6 @@ int main() {
 	solverA.analyzePattern(matrixSparse);
 	solverA.factorize(matrixSparse);
 	printf("Matrix sparse loaded : \n");
-
 	VectorXd vectorParse = loadMatrix("SparseVector.txt");
 	printf("\nVector sparse loaded : \n");
 
@@ -218,6 +193,7 @@ int main() {
 		VectorXd solnew = solverA.solve(vectorParse);
 	}
 	end = clock();
+
 	elapsed_secs1 = double(end - begin) / CLOCKS_PER_SEC;
 	elapsed_secs1 = elapsed_secs1 / iterations;
 	VectorXd solnew2 = solverA.solve(vectorParse);
@@ -225,9 +201,7 @@ int main() {
 	cout << elapsed_secs1 << endl;
 	cout << "Result= ";
 	cout << solnew2(0) << endl;
-
 	writeMatrixToFile(elapsed_secs1, elapsed_secs2, "Result.txt");
-	
 	cin.get();
 	return 0;
 }
